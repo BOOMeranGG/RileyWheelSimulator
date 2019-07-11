@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <Button
+        android:text="RileyWheel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnRileyWheel"
+        android:textSize="11sp"
+        android:layout_weight="1"/>
+
+    <Button
+        android:text="Treasure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnTreasure"
+        android:textSize="11sp"
+        android:layout_weight="1"/>
+
+    <Button
+        android:text="Inventory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnInventory"
+        android:textSize="11sp"
+        android:layout_weight="1"/>
+
+    <Button
+        android:text="Account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnAccount"
+        android:textSize="11sp"
+        android:layout_weight="1"/>
+
+</LinearLayout>
