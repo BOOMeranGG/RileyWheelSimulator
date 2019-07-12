@@ -3,11 +3,19 @@ package com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.fra
 import android.annotation.SuppressLint
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.orange_infinity.rileywheelsimulator.R
 import com.orange_infinity.rileywheelsimulator.entities_layer.ItemBox
+import com.orange_infinity.rileywheelsimulator.entities_layer.items.Item
+import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.ItemPickerFragment
+import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
+import com.orange_infinity.rileywheelsimulator.util.logInf
+
+private const val ITEM_PICKER = "itemPicker"
 
 class InventoryFragment : InventoryTreasureFragment() {
 
@@ -24,17 +32,30 @@ class InventoryFragment : InventoryTreasureFragment() {
     }
 
     private inner class ItemHolder(inflater: LayoutInflater, container: ViewGroup) :
-        RecyclerView.ViewHolder(inflater.inflate(R.layout.list_item_inventory, container, false)) {
+        RecyclerView.ViewHolder(inflater.inflate(R.layout.list_item_inventory, container, false)),
+        View.OnClickListener {
 
         private val tvItemName: TextView = itemView.findViewById(R.id.tvItemName)
         private val tvCount: TextView = itemView.findViewById(R.id.tvCount)
         private val imgItem: ImageView = itemView.findViewById(R.id.imgItem)
+        private val itemLayout: LinearLayout = itemView.findViewById(R.id.itemLayout)
+        private lateinit var item: Item
+        var itemCount: Int = 1
 
         @SuppressLint("SetTextI18n")
         fun bindItem(itemBox: ItemBox) {
+            item = itemBox.item
+            itemCount = itemBox.count
             tvItemName.text = "${itemBox.item.getItemName()}\n${itemBox.item.getCost()}\$"
             tvCount.text = "X${itemBox.count}"
             imgItem.setImageResource(R.drawable.dota2_logo)
+            itemLayout.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            logInf(MAIN_LOGGER_TAG, "Item \"${item.getItemName()}\" was clicked")
+            val dialog = ItemPickerFragment.newInstance(item, itemCount)
+            dialog.show(fragmentManager, ITEM_PICKER)
         }
     }
 

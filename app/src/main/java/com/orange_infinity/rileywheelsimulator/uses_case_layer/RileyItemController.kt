@@ -8,7 +8,7 @@ import com.orange_infinity.rileywheelsimulator.uses_case_layer.boundaries.output
 import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logInf
 
-class RileyController(private val inventoryRepository: InventoryRepository) {
+class RileyItemController(private val inventoryRepository: InventoryRepository) {
 
     private val arcanaChance = 0.25
     private val courierChance = 0.5

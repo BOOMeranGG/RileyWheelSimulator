@@ -27,10 +27,15 @@ class InitializeNicknameFragment : Fragment(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //TODO("Если имя пользователя уже задано, то открываем другое окно, а это закрываем")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        //TODO("REMOVE IT")
+        if (UserInfoSaver(activity, UserPreferencesImpl()).getNickname() != "") {
+            goOnNextActivity()
+            activity?.finish()
+            logInf(MAIN_LOGGER_TAG, "Nickname isn't null, go on next activity")
+        }
         val v = inflater.inflate(R.layout.initialize_nickname_fragment, container, false)
         editNickname = v.findViewById(R.id.editNickname)
         btnNext = v.findViewById(R.id.btnNext)
@@ -42,13 +47,12 @@ class InitializeNicknameFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View) {
         val nick = editNickname.text.toString()
 
-//        if (nick.isEmpty()) {
-//            //TODO("Сообщить пользователю об ошибке")
-//            return
-//        }
-        activity?.let {
-            UserInfoSaver(it, UserPreferencesImpl()).saveNickname(nick)
+        if (nick.isEmpty()) {
+            //TODO("Сообщить пользователю об ошибке")
+            return
         }
+        UserInfoSaver(activity, UserPreferencesImpl()).saveNickname(nick)
+
         goOnNextActivity()
     }
 

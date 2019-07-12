@@ -1,4 +1,4 @@
-package com.orange_infinity.rileywheelsimulator.data_layer.db
+package com.orange_infinity.rileywheelsimulator.entities_layer.items
 
 const val ARCANA = "arcana"
 const val COMMENTATOR = "commentator"
