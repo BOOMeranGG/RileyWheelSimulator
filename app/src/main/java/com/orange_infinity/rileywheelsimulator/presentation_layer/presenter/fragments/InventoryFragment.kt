@@ -11,7 +11,7 @@ import android.widget.TextView
 import com.orange_infinity.rileywheelsimulator.R
 import com.orange_infinity.rileywheelsimulator.entities_layer.ItemBox
 import com.orange_infinity.rileywheelsimulator.entities_layer.items.Item
-import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.ItemPickerFragment
+import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.dialog_fragments.ItemPickerFragment
 import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logInf
 
@@ -48,8 +48,14 @@ class InventoryFragment : InventoryTreasureFragment() {
             itemCount = itemBox.count
             tvItemName.text = "${itemBox.item.getItemName()}\n${itemBox.item.getCost()}\$"
             tvCount.text = "X${itemBox.count}"
-            imgItem.setImageResource(R.drawable.dota2_logo)
             itemLayout.setOnClickListener(this)
+
+            val icon = iconController.getDrawable(item)
+            if (icon != null) {
+                imgItem.setImageDrawable(icon)
+            } else {
+                imgItem.setImageResource(R.drawable.dota2_logo)
+            }
         }
 
         override fun onClick(v: View?) {

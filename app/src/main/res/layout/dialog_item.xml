@@ -1,94 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_margin="8dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_marginTop="16dp">
 
     <ImageView
         android:id="@+id/imgItem"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginStart="16dp"
-        android:layout_centerVertical="true"
         android:src="@drawable/dota2_logo"/>
 
-    <LinearLayout
-        android:id="@+id/itemInfoLayout"
+    <RelativeLayout
+        android:id="@+id/staticRelative"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/imgItem"
-        android:layout_centerVertical="true"
-        android:orientation="vertical">
+        android:layout_toEndOf="@id/imgItem">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/tvRar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:textColor="@color/colorBlack"
-                android:text="Rarity: "/>
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:textSize="18sp"
+            android:textColor="@color/colorBlack"
+            android:text="Rarity: "/>
 
-        </LinearLayout>
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/tvCos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp">
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_below="@id/tvRar"
+            android:textSize="18sp"
+            android:textColor="@color/colorBlack"
+            android:text="Cost: "/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:textColor="@color/colorBlack"
-                android:text="Cost: "/>
-
-            <TextView
-                android:id="@+id/tvCount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textSize="16sp"
-                android:layout_marginStart="16dp"
-                android:hint="cost"/>
-
-        </LinearLayout>
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/tvIt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp">
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_below="@id/tvCos"
+            android:textSize="18sp"
+            android:textColor="@color/colorBlack"
+            android:text="Item name: "/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:textColor="@color/colorBlack"
-                android:text="Count: "/>
+    </RelativeLayout>
 
-            <TextView
-                android:id="@+id/tvItemName"
-                android:textSize="16sp"
-                android:textColor="@color/colorBlack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:hint="Item name"/>
 
-        </LinearLayout>
-    </LinearLayout>
+    <TextView
+        android:id="@+id/tvRarity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_toEndOf="@id/staticRelative"
+        android:layout_marginTop="16dp"
+        android:textSize="16sp"
+        android:layout_marginStart="8dp"
+        android:hint="rarity"/>
+
+    <TextView
+        android:id="@+id/tvCost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_toEndOf="@id/staticRelative"
+        android:layout_below="@id/tvRarity"
+        android:layout_marginTop="16dp"
+        android:textSize="16sp"
+        android:layout_marginStart="8dp"
+        android:hint="cost"/>
+
+    <TextView
+        android:id="@+id/tvItemName"
+        android:textSize="16sp"
+        android:layout_marginTop="16dp"
+        android:layout_toEndOf="@id/staticRelative"
+        android:layout_below="@id/tvCost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:hint="Item name"/>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/itemInfoLayout"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp">
+        android:layout_below="@id/imgItem"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp">
 
         <Button
             android:id="@+id/btnSell"

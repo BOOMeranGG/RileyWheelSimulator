@@ -1,4 +1,4 @@
-package com.orange_infinity.rileywheelsimulator.entities_layer
+package com.orange_infinity.rileywheelsimulator.entities_layer.resource
 
 class Sound(val assetPath: String, format: String) {
 

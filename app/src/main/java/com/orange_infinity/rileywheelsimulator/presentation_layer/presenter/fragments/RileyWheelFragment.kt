@@ -28,7 +28,7 @@ class RileyWheelFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         rileyItemController = RileyItemController(InventoryRepositoryImpl.getInstance(context?.applicationContext))
-        soundPlayer = SoundPlayer(activity) //TODO("")
+        soundPlayer = SoundPlayer.getInstance(activity?.applicationContext) //TODO("")
     }
 
     override fun onCreateView(inflater: LayoutInflater1, container: ViewGroup?, savedInstanceState: Bundle?): View? {

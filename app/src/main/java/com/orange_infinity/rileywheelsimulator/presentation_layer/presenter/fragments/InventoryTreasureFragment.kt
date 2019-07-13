@@ -11,16 +11,19 @@ import com.orange_infinity.rileywheelsimulator.R
 import com.orange_infinity.rileywheelsimulator.data_layer.db.InventoryRepositoryImpl
 import com.orange_infinity.rileywheelsimulator.entities_layer.ItemBox
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.InventoryController
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.IconController
 
 abstract class InventoryTreasureFragment : Fragment() {
 
     protected lateinit var inventoryController: InventoryController
+    protected lateinit var iconController: IconController
     protected lateinit var inventoryRecyclerView: RecyclerView
     protected lateinit var items: List<ItemBox>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         inventoryController = InventoryController(InventoryRepositoryImpl.getInstance(context?.applicationContext))
+        iconController = IconController.getInstance(context?.applicationContext)
         getNeededItems()
     }
 

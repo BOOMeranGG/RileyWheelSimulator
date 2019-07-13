@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.res.AssetManager
 import android.media.AudioManager
 import android.media.SoundPool
-import com.orange_infinity.rileywheelsimulator.entities_layer.Sound
+import com.orange_infinity.rileywheelsimulator.entities_layer.resource.Sound
 import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logErr
 import com.orange_infinity.rileywheelsimulator.util.logInf
@@ -14,12 +14,22 @@ private const val SOUND_FOLDER = "sounds"
 private const val MAX_SOUNDS = 2
 const val RILEY_PLAY = "riley_click"
 
-//TODO("Make Singleton")
-class SoundPlayer(context: Context?) {
+class SoundPlayer private constructor(context: Context?) {
 
     private val assets: AssetManager = context!!.assets
     private val sounds = mutableListOf<Sound>()
     private val soundPool = SoundPool(MAX_SOUNDS, AudioManager.STREAM_MUSIC, 0)
+
+    companion object {
+        private var instance: SoundPlayer? = null
+
+        fun getInstance(context: Context?): SoundPlayer {
+            if (instance == null) {
+                return SoundPlayer(context)
+            }
+            return instance as SoundPlayer
+        }
+    }
 
     init {
         loadSounds()
