@@ -21,6 +21,8 @@ private const val TREASURE_PICKER = "treasurePicker"
 
 class TreasureFragment : InventoryTreasureFragment() {
 
+    private var adapter: TreasureAdapter? = null
+
     companion object {
         fun newInstance(): TreasureFragment = TreasureFragment()
     }
@@ -31,6 +33,14 @@ class TreasureFragment : InventoryTreasureFragment() {
 
     override fun getNeededItems() {
         items = inventoryController.getTreasuresFromInventory()
+    }
+
+    override fun updateRecycler() {
+        if (adapter == null) {
+            adapter = TreasureAdapter(items)
+        } else {
+            adapter!!.notifyDataSetChanged()
+        }
     }
 
     private inner class TreasureHolder(inflater: LayoutInflater, container: ViewGroup) :

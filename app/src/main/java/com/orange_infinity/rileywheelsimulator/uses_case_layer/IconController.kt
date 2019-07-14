@@ -36,7 +36,7 @@ class IconController private constructor(context: Context?) {
     fun getDrawable(item: Item): Drawable? = icons.find { item.getName() == it.name }?.drawable
 
     private fun loadDrawables() {
-        var drawableNames: Array<String>?
+        val drawableNames: Array<String>?
         try {
             drawableNames = assets.list(ITEM_FOLDER)
             logInf(MAIN_LOGGER_TAG, "Found ${drawableNames.size} icons")

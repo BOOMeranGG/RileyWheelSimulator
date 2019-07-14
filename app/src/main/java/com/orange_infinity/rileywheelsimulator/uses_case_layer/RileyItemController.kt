@@ -5,8 +5,6 @@ import com.orange_infinity.rileywheelsimulator.entities_layer.items.Courier
 import com.orange_infinity.rileywheelsimulator.entities_layer.items.Item
 import com.orange_infinity.rileywheelsimulator.entities_layer.items.Treasure
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.boundaries.output_db.InventoryRepository
-import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
-import com.orange_infinity.rileywheelsimulator.util.logInf
 
 class RileyItemController(private val inventoryRepository: InventoryRepository) {
 
@@ -24,12 +22,6 @@ class RileyItemController(private val inventoryRepository: InventoryRepository) 
             }
         }
         inventoryRepository.saveRileyItem(item)
-
         return item
-    }
-
-    fun sellItem(item: Item) {
-        inventoryRepository.deleteItem(item)
-        //SMTH else
     }
 }

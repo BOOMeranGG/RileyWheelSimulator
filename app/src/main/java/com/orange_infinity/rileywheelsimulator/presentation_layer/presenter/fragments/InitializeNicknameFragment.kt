@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import com.orange_infinity.rileywheelsimulator.R
-import com.orange_infinity.rileywheelsimulator.data_layer.db.UserPreferencesImpl
+import com.orange_infinity.rileywheelsimulator.data_layer.UserPreferencesImpl
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.activities.MainActivity
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.UserInfoSaver
 import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG

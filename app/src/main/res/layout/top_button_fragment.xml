@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnRileyWheel"
-        android:textSize="11sp"
+        android:textSize="12sp"
         android:layout_weight="1"/>
 
     <Button
@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnTreasure"
-        android:textSize="11sp"
+        android:textSize="12sp"
         android:layout_weight="1"/>
 
     <Button
@@ -28,15 +28,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnInventory"
-        android:textSize="11sp"
+        android:textSize="12sp"
         android:layout_weight="1"/>
 
     <Button
-        android:text="Account"
+        android:text="Casino"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/btnAccount"
-        android:textSize="11sp"
+        android:id="@+id/btnCasino"
+        android:textSize="12sp"
         android:layout_weight="1"/>
 
 </LinearLayout>

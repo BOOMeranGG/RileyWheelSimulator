@@ -1,6 +1,7 @@
 package com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.fragments
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -16,11 +17,14 @@ import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logInf
 
 private const val ITEM_PICKER = "itemPicker"
+private const val TEST_REQUEST_CODE = 1
 
 class InventoryFragment : InventoryTreasureFragment() {
 
+    private lateinit var thisFragment: InventoryFragment
+
     companion object {
-        fun newInstance(): InventoryFragment = InventoryFragment()
+        fun newInstance(): InventoryFragment = InventoryFragment().also { it.thisFragment = it }
     }
 
     override fun setAdapter() {
@@ -29,6 +33,19 @@ class InventoryFragment : InventoryTreasureFragment() {
 
     override fun getNeededItems() {
         items = inventoryController.getItemsFromInventory()
+    }
+
+    override fun updateRecycler() {
+        val adapter = inventoryRecyclerView.adapter as ItemAdapter
+        adapter.items = items
+        inventoryRecyclerView.adapter!!.notifyDataSetChanged()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == TEST_REQUEST_CODE) {
+            getNeededItems()
+            updateRecycler()
+        }
     }
 
     private inner class ItemHolder(inflater: LayoutInflater, container: ViewGroup) :
@@ -61,11 +78,12 @@ class InventoryFragment : InventoryTreasureFragment() {
         override fun onClick(v: View?) {
             logInf(MAIN_LOGGER_TAG, "Item \"${item.getItemName()}\" was clicked")
             val dialog = ItemPickerFragment.newInstance(item, itemCount)
+            dialog.setTargetFragment(thisFragment, TEST_REQUEST_CODE) // ??
             dialog.show(fragmentManager, ITEM_PICKER)
         }
     }
 
-    private inner class ItemAdapter(private val items: List<ItemBox>) : RecyclerView.Adapter<ItemHolder>() {
+    private inner class ItemAdapter(var items: List<ItemBox>) : RecyclerView.Adapter<ItemHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
             val inflater = LayoutInflater.from(activity)

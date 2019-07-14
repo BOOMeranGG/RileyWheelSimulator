@@ -4,17 +4,13 @@ import android.content.Context
 
 interface UserPreferences {
 
-    fun saveNickname(context: Context?, nickname: String)
+    fun saveTotalItemCost(context: Context?, cost: Int, add: Int)
 
-    fun saveBattlePassExp(context: Context?, exp: Int)
+    fun saveStringInPreferences(context: Context?, info: String, tag: String)
 
-    fun saveTotalItemCost(context: Context?, cost: Int)
+    fun saveIntInPreferences(context: Context?, info: Int, tag: String)
 
-    fun getNickname(context: Context?): String
+    fun getStringFromPreferences(context: Context?, tag: String): String?
 
-    fun getBattlePassExp(context: Context?): Int
-
-    fun getTotalInventoryCost(context: Context?): Int
-
-    fun getCountOfItems(context: Context?): Int
+    fun getIntFromPreferences(context: Context?, tag: String): Int?
 }

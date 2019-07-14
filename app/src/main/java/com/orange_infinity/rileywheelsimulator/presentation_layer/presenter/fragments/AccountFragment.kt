@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.orange_infinity.rileywheelsimulator.R
-import com.orange_infinity.rileywheelsimulator.data_layer.db.UserPreferencesImpl
+import com.orange_infinity.rileywheelsimulator.data_layer.UserPreferencesImpl
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.UserInfoSaver
 
 class AccountFragment : Fragment() {
@@ -27,7 +27,9 @@ class AccountFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val v = inflater.inflate(R.layout.account_fragment, container, false)
 
-        val infoSaver = UserInfoSaver(activity, UserPreferencesImpl())
+        val infoSaver = UserInfoSaver(activity,
+            UserPreferencesImpl()
+        )
         val nick = infoSaver.getNickname()
         val totalCost = infoSaver.getTotalItemCost()
         val itemCount = infoSaver.getCountOfItems()

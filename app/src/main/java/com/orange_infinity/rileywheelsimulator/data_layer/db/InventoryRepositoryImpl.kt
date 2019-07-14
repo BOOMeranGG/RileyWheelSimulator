@@ -3,6 +3,7 @@ package com.orange_infinity.rileywheelsimulator.data_layer.db
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
+import com.orange_infinity.rileywheelsimulator.data_layer.UserPreferencesImpl
 import com.orange_infinity.rileywheelsimulator.entities_layer.items.*
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.UserInfoSaver
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.boundaries.output_db.InventoryRepository
@@ -11,6 +12,8 @@ import com.orange_infinity.rileywheelsimulator.util.logInf
 import com.orange_infinity.rileywheelsimulator.util.toImmutableMap
 import java.lang.RuntimeException
 
+//TODO("Сделать сохранение инвентаря в Inventory. При необходимости - обновлять Inventory")
+//TODO("Total item cost хранить в инвентаре. Как и itemCount")
 class InventoryRepositoryImpl(context: Context?) : InventoryRepository {
 
     private var database = InventoryDataBaseOpenHelper(context).writableDatabase
@@ -85,6 +88,7 @@ class InventoryRepositoryImpl(context: Context?) : InventoryRepository {
         val tableName: String = if (item is Treasure) {
             InventoryDbSchema.TreasureTable.NAME
         } else {
+            userInfoSaver.plusTotalItemCost(item.getCost() * -1)
             InventoryDbSchema.ItemTable.NAME
         }
         val count = getCurrentCountOfItem(item, tableName)
@@ -97,7 +101,7 @@ class InventoryRepositoryImpl(context: Context?) : InventoryRepository {
             }
             (count > 1) -> {
                 val itemType = getItemType(item)
-                val contentValues = getContentValue(item, count, itemType)
+                val contentValues = getContentValue(item, count - 1, itemType)
                 database.update(tableName, contentValues, "${InventoryDbSchema.Cols.NAME} = ?", arrayOf(item.getName()))
                 logInf(DB_LOGGER_TAG, "\"$item\" was UPDATE in db, type = $itemType, count = $count")
                 true

@@ -12,6 +12,8 @@ import com.orange_infinity.rileywheelsimulator.data_layer.db.InventoryRepository
 import com.orange_infinity.rileywheelsimulator.entities_layer.ItemBox
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.InventoryController
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.IconController
+import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
+import com.orange_infinity.rileywheelsimulator.util.logInf
 
 abstract class InventoryTreasureFragment : Fragment() {
 
@@ -40,4 +42,5 @@ abstract class InventoryTreasureFragment : Fragment() {
 
     abstract fun getNeededItems()
 
+    abstract fun updateRecycler()
 }
