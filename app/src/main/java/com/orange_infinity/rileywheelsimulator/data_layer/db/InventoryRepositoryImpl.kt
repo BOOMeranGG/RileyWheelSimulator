@@ -12,8 +12,6 @@ import com.orange_infinity.rileywheelsimulator.util.logInf
 import com.orange_infinity.rileywheelsimulator.util.toImmutableMap
 import java.lang.RuntimeException
 
-//TODO("Сделать сохранение инвентаря в Inventory. При необходимости - обновлять Inventory")
-//TODO("Total item cost хранить в инвентаре. Как и itemCount")
 class InventoryRepositoryImpl(context: Context?) : InventoryRepository {
 
     private var database = InventoryDataBaseOpenHelper(context).writableDatabase

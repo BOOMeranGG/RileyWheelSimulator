@@ -33,7 +33,7 @@ class IconController private constructor(context: Context?) {
         loadDrawables()
     }
 
-    fun getDrawable(item: Item): Drawable? = icons.find { item.getName() == it.name }?.drawable
+    fun getItemIconDrawable(item: Item): Drawable? = icons.find { item.getName() == it.name }?.drawable
 
     private fun loadDrawables() {
         val drawableNames: Array<String>?

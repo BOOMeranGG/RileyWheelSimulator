@@ -17,10 +17,7 @@ class TopButtonFragment : Fragment() {
     private lateinit var btnCasino: Button
 
     companion object {
-        private lateinit var hostActivity: MainActivity
-
-        fun newInstance(activity: MainActivity): TopButtonFragment {
-            hostActivity = activity
+        fun newInstance(): TopButtonFragment {
             return TopButtonFragment()
         }
     }
@@ -37,19 +34,19 @@ class TopButtonFragment : Fragment() {
         btnCasino = v.findViewById(R.id.btnCasino)
 
         btnRileyWheel.setOnClickListener(View.OnClickListener {
-            hostActivity.changeFragment(RileyWheelFragment.newInstance())
+            (activity as MainActivity).changeFragment(RileyWheelFragment.newInstance())
         })
 
         btnTreasure.setOnClickListener(View.OnClickListener {
-            hostActivity.changeFragment(TreasureFragment.newInstance())
+            (activity as MainActivity).changeFragment(TreasureFragment.newInstance())
         })
 
         btnInventory.setOnClickListener(View.OnClickListener {
-            hostActivity.changeFragment(InventoryFragment.newInstance())
+            (activity as MainActivity).changeFragment(InventoryFragment.newInstance())
         })
 
         btnCasino.setOnClickListener(View.OnClickListener {
-            hostActivity.changeFragment(AccountFragment.newInstance())
+            (activity as MainActivity).changeFragment(CasinoFragment.newInstance())
         })
 
         return v
