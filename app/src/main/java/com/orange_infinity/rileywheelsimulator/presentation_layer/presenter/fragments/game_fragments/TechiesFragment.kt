@@ -7,15 +7,15 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
 import com.orange_infinity.rileywheelsimulator.R
 import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logInf
 import android.util.DisplayMetrics
-import android.widget.Button
-import android.widget.Toast
-import com.orange_infinity.rileywheelsimulator.uses_case_layer.game_core.TechiesEngine
+import android.widget.*
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.MINES_BOOM
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.SHORT_FIREWORK
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.SoundPlayer
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.game_core.techies.TechiesEngine
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.game_core.TechiesGame
 import com.orange_infinity.rileywheelsimulator.util.CASINO_LOGGER_TAG
 
@@ -28,7 +28,9 @@ class TechiesFragment : Fragment(), TechiesGame {
     private lateinit var recyclerView: RecyclerView
     private lateinit var btnClear: Button
 
-    private val techiesEngine = TechiesEngine(this, COLUMN)
+    private val techiesEngine =
+        TechiesEngine(this, COLUMN)
+    private lateinit var soundPlayer: SoundPlayer
     private var winWidth: Int = 0
     private var winHeight: Int = 0
 
@@ -41,6 +43,7 @@ class TechiesFragment : Fragment(), TechiesGame {
         val display = activity!!.windowManager.defaultDisplay
         val metricsDisplay = DisplayMetrics()
         display.getMetrics(metricsDisplay)
+        soundPlayer = SoundPlayer.getInstance(context)
 
         winWidth = (metricsDisplay.widthPixels / 1.25).toInt() / 7
         winHeight = (metricsDisplay.heightPixels / 1.25).toInt() / 6
@@ -72,11 +75,19 @@ class TechiesFragment : Fragment(), TechiesGame {
     override fun winGame() {
         Toast.makeText(context, "You are WINNER! +${techiesEngine.getPrize()}$", Toast.LENGTH_LONG).show()
         openCells()
+        soundPlayer.play(SHORT_FIREWORK)
         techiesEngine.prepareNewGame()
     }
-
+        //TODO("Довольно костыльная реализация. Исправить(открытие после проигрыша)")
     override fun lose(position: Int) {
         openCells()
+        soundPlayer.play(MINES_BOOM)
+        techiesEngine.gameStage++
+        while (techiesEngine.gameStage <= COLUMN) {
+            techiesEngine.mineIndex = techiesEngine.getMinePosition()
+            openCells()
+            techiesEngine.gameStage++
+        }
         techiesEngine.prepareNewGame()
         Toast.makeText(context, "You DEFEAT", Toast.LENGTH_SHORT).show()
     }
@@ -119,14 +130,14 @@ class TechiesFragment : Fragment(), TechiesGame {
         View.OnClickListener {
 
         private val imgField: ImageView = itemView.findViewById(R.id.imgField2)
-        private val layoutParam = LinearLayout.LayoutParams(
+        private val imgLayoutParam = LinearLayout.LayoutParams(
             ViewGroup.LayoutParams.WRAP_CONTENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
-        ).also { it.width = winWidth; it.height = winHeight;  }
+        ).also { it.width = winWidth; it.height = winHeight; }
 
         fun bindItem(fieldId: Int) {
             imgField.setImageResource(fieldId)
-            imgField.layoutParams = layoutParam
+            imgField.layoutParams = imgLayoutParam
             imgField.scaleType = ImageView.ScaleType.FIT_XY
             imgField.setOnClickListener(this)
         }

@@ -1,5 +1,6 @@
-package com.orange_infinity.rileywheelsimulator.uses_case_layer.game_core
+package com.orange_infinity.rileywheelsimulator.uses_case_layer.game_core.techies
 
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.game_core.TechiesGame
 import com.orange_infinity.rileywheelsimulator.util.CASINO_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logInf
 
@@ -45,7 +46,7 @@ class TechiesEngine(
         currentPrizePool = 0.0f
     }
 
-    private fun getMinePosition(): Int {
+    fun getMinePosition(): Int {
         val cellNumber = (Math.random() * 5).toInt()
         var minePosition = gameStage - 1
 
@@ -56,11 +57,5 @@ class TechiesEngine(
 
     fun getPrize(): Float {
         return firstRate * stageCoef[gameStage]
-    }
-
-    private fun randomIsPlayerWinner(): Boolean {
-        val randNum = 1 + (Math.random() * 5).toInt()
-        logInf(CASINO_LOGGER_TAG, "Is player winner: ${randNum != 1}")
-        return randNum != 1
     }
 }

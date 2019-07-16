@@ -15,6 +15,7 @@ import android.widget.TextView
 import com.orange_infinity.rileywheelsimulator.R
 import com.orange_infinity.rileywheelsimulator.data_layer.db.InventoryRepositoryImpl
 import com.orange_infinity.rileywheelsimulator.entities_layer.items.Item
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.IconController
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.InventoryController
 import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logInf
@@ -54,7 +55,7 @@ class ItemPickerFragment : DialogFragment(), View.OnClickListener {
         btnSell.setOnClickListener(this)
         btnOk.setOnClickListener(this)
 
-        imgItem.setImageResource(R.drawable.dota2_logo)
+        imgItem.setImageDrawable(IconController.getInstance(context).getItemIconDrawable(item))
         tvCost.text = "${item.getCost()}$"
         tvItemName.text = item.getItemName()
 
