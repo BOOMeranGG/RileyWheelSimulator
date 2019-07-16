@@ -67,7 +67,7 @@ class InventoryFragment : InventoryTreasureFragment() {
             tvCount.text = "X${itemBox.count}"
             itemLayout.setOnClickListener(this)
 
-            val icon = iconController.getDrawable(item)
+            val icon = iconController.getItemIconDrawable(item)
             if (icon != null) {
                 imgItem.setImageDrawable(icon)
             } else {

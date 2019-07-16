@@ -12,8 +12,6 @@ import com.orange_infinity.rileywheelsimulator.data_layer.db.InventoryRepository
 import com.orange_infinity.rileywheelsimulator.entities_layer.ItemBox
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.InventoryController
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.IconController
-import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
-import com.orange_infinity.rileywheelsimulator.util.logInf
 
 abstract class InventoryTreasureFragment : Fragment() {
 
@@ -32,7 +30,7 @@ abstract class InventoryTreasureFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val v = inflater.inflate(R.layout.inventory_fragment, container, false)
 
-        inventoryRecyclerView = v.findViewById(R.id.inventoryRecyclerView)
+        inventoryRecyclerView = v.findViewById(R.id.fieldRecyclerView)
         inventoryRecyclerView.layoutManager = GridLayoutManager(activity, 3)
         setAdapter()
         return v

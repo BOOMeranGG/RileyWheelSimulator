@@ -33,14 +33,14 @@ class MainActivity : AppCompatActivity() {
         }
         createRileyWheelFragment()
     }
-
+    //TODO("Возможно вылетает из-за этого")
     fun changeFragment(newFragment: Fragment) {
         fm.beginTransaction()
             .replace(R.id.fragmentMainContainer, newFragment)
             .commit()
         logInf(MAIN_LOGGER_TAG, "Replace fragment to $newFragment")
     }
-
+    //TODO("Или из-за этого")
     private fun createRileyWheelFragment() {
         var fragment = fm.findFragmentById(R.id.fragmentMainContainer)
 
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getTopButtonFragment(): Fragment =
-        TopButtonFragment.newInstance(this)
+        TopButtonFragment.newInstance()
 
     private fun getRileyWheelFragment(): Fragment =
         RileyWheelFragment.newInstance()

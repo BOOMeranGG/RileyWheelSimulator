@@ -11,8 +11,10 @@ import com.orange_infinity.rileywheelsimulator.util.logInf
 import java.io.IOException
 
 private const val SOUND_FOLDER = "sounds"
-private const val MAX_SOUNDS = 2
+private const val MAX_SOUNDS = 1
 const val RILEY_PLAY = "riley_click"
+const val MINES_BOOM = "land_mines_boom"
+const val SHORT_FIREWORK = "short_firework"
 
 class SoundPlayer private constructor(context: Context?) {
 

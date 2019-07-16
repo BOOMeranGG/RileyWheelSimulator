@@ -22,9 +22,14 @@ class InventoryController(private val inventoryRepository: InventoryRepository) 
         return sortItems(itemsBox)
     }
 
+    fun addItem(item: Item) {
+        inventoryRepository.saveRileyItem(item)
+        logInf(MAIN_LOGGER_TAG, "Item \"${item.getItemName()}\" added")
+    }
+
     fun deleteItem(item: Item) {
         inventoryRepository.deleteItem(item)
-        logInf(MAIN_LOGGER_TAG, "Item \"${item.getItemName()}\" was deleted. ItemCount--")
+        logInf(MAIN_LOGGER_TAG, "Item \"${item.getItemName()}\" was deleted")
     }
 
     private fun sortItems(itemsBox: List<ItemBox>): List<ItemBox> {

@@ -5,5 +5,4 @@ import android.graphics.drawable.Drawable
 class Icon(val drawable: Drawable, iconName: String) {
 
     val name: String = iconName
-
 }

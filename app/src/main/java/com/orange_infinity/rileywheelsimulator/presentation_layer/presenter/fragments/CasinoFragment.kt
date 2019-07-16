@@ -6,17 +6,23 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import com.orange_infinity.rileywheelsimulator.R
 import com.orange_infinity.rileywheelsimulator.data_layer.UserPreferencesImpl
+import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.activities.MainActivity
+import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.fragments.game_fragments.TechiesFragment
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.UserInfoSaver
+import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
+import com.orange_infinity.rileywheelsimulator.util.logInf
 
-class AccountFragment : Fragment() {
+class CasinoFragment : Fragment(), View.OnClickListener {
 
     private lateinit var tvNickname: TextView
+    private lateinit var imgTechiesGame: ImageView
 
     companion object {
-        fun newInstance(): AccountFragment = AccountFragment()
+        fun newInstance(): CasinoFragment = CasinoFragment()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +31,7 @@ class AccountFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val v = inflater.inflate(R.layout.account_fragment, container, false)
+        val v = inflater.inflate(R.layout.casino_fragment, container, false)
 
         val infoSaver = UserInfoSaver(activity,
             UserPreferencesImpl()
@@ -35,8 +41,18 @@ class AccountFragment : Fragment() {
         val itemCount = infoSaver.getCountOfItems()
 
         tvNickname = v.findViewById(R.id.tvNickname)
-        tvNickname.text = "$nick\nTotal item cost = $totalCost$\nItem count = $itemCount"
+        tvNickname.text = "$nick, total item cost = $totalCost$, item count = $itemCount"
+
+        imgTechiesGame = v.findViewById(R.id.imgTechiesGame)
+        imgTechiesGame.setOnClickListener(this)
 
         return v
+    }
+
+    override fun onClick(v: View) {
+        if (v.id == R.id.imgTechiesGame) {
+            (activity as MainActivity).changeFragment(TechiesFragment.newInstance())
+            logInf(MAIN_LOGGER_TAG, "GO to Techies Game")
+        }
     }
 }

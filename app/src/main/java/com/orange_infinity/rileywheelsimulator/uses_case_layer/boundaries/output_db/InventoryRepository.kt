@@ -6,9 +6,9 @@ interface InventoryRepository {
 
     fun saveRileyItem(item: Item)
 
+    fun deleteItem(item: Item): Boolean
+
     fun getItemsFromInventory(): Map<Item, Int>
 
     fun getTreasuresFromInventory(): Map<Item, Int>
-
-    fun deleteItem(item: Item): Boolean
 }
