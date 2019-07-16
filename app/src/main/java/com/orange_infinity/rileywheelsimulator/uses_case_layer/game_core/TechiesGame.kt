@@ -2,9 +2,9 @@ package com.orange_infinity.rileywheelsimulator.uses_case_layer.game_core
 
 interface TechiesGame {
 
-    fun winTurn()
+    fun winTurn(position: Int)
 
     fun winGame()
 
-    fun lose()
+    fun lose(position: Int)
 }
