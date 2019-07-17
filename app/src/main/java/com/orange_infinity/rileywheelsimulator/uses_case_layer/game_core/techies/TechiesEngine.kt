@@ -1,6 +1,5 @@
 package com.orange_infinity.rileywheelsimulator.uses_case_layer.game_core.techies
 
-import com.orange_infinity.rileywheelsimulator.uses_case_layer.game_core.TechiesGame
 import com.orange_infinity.rileywheelsimulator.util.CASINO_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logInf
 
@@ -36,7 +35,7 @@ class TechiesEngine(
                 game.winTurn(position)
             }
         } else {
-            game.lose(position)
+            game.loseGame(position)
         }
         logInf(CASINO_LOGGER_TAG, "ClickOnCell ended. Current prize pool = $currentPrizePool")
     }

@@ -16,20 +16,20 @@ import com.orange_infinity.rileywheelsimulator.uses_case_layer.MINES_BOOM
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.SHORT_FIREWORK
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.SoundPlayer
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.game_core.techies.TechiesEngine
-import com.orange_infinity.rileywheelsimulator.uses_case_layer.game_core.TechiesGame
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.game_core.techies.TechiesGame
 import com.orange_infinity.rileywheelsimulator.util.CASINO_LOGGER_TAG
 
 private const val ROW = 5
 private const val COLUMN = 7
 
-class TechiesFragment : Fragment(), TechiesGame {
+class TechiesFragment : Fragment(),
+    TechiesGame {
 
     private lateinit var gameFieldImageIddList: Array<Int>
     private lateinit var recyclerView: RecyclerView
     private lateinit var btnClear: Button
 
-    private val techiesEngine =
-        TechiesEngine(this, COLUMN)
+    private val techiesEngine = TechiesEngine(this, COLUMN)
     private lateinit var soundPlayer: SoundPlayer
     private var winWidth: Int = 0
     private var winHeight: Int = 0
@@ -78,8 +78,9 @@ class TechiesFragment : Fragment(), TechiesGame {
         soundPlayer.play(SHORT_FIREWORK)
         techiesEngine.prepareNewGame()
     }
-        //TODO("Довольно костыльная реализация. Исправить(открытие после проигрыша)")
-    override fun lose(position: Int) {
+
+    //TODO("Довольно костыльная реализация. Исправить(открытие после проигрыша)")
+    override fun loseGame(position: Int) {
         openCells()
         soundPlayer.play(MINES_BOOM)
         techiesEngine.gameStage++

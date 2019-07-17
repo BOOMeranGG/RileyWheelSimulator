@@ -47,7 +47,6 @@ class InventoryRepositoryImpl(context: Context?) : InventoryRepository {
         }
     }
 
-    //TODO("Стоит сразу завернуть в объект ItemBox")
     override fun getItemsFromInventory(): Map<Item, Int> {
         val items = mutableMapOf<Item, Int>()
         val cursor = queryItem(InventoryDbSchema.ItemTable.NAME, null, null)

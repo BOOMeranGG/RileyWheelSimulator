@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.orange_infinity.rileywheelsimulator.R
 import com.orange_infinity.rileywheelsimulator.entities_layer.items.Treasure
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.IconController
 import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logInf
 
@@ -19,6 +20,7 @@ class TreasurePickerFragment : DialogFragment(), View.OnClickListener {
     private lateinit var imgItem: ImageView
     private lateinit var tvCost: TextView
     private lateinit var tvItemName: TextView
+    private lateinit var tvRarity: TextView
     private lateinit var btnSell: Button
     private lateinit var btnOk: Button
 
@@ -40,6 +42,7 @@ class TreasurePickerFragment : DialogFragment(), View.OnClickListener {
         imgItem = v.findViewById(R.id.imgItem)
         tvCost = v.findViewById(R.id.tvCost)
         tvItemName = v.findViewById(R.id.tvItemName)
+        tvRarity = v.findViewById(R.id.tvRarity)
         btnSell = v.findViewById(R.id.btnSell)
         btnOk = v.findViewById(R.id.btnOk)
 
@@ -47,9 +50,10 @@ class TreasurePickerFragment : DialogFragment(), View.OnClickListener {
         btnSell.text = "Open"
         btnOk.setOnClickListener(this)
 
-        imgItem.setImageResource(R.drawable.treasure_logo)
+        imgItem.setImageDrawable(IconController.getInstance(context).getItemIconDrawable(treasure))
         tvCost.text = "${treasure.getCost()}$"
         tvItemName.text = treasure.getItemName()
+        tvRarity.text = treasure.getRarity()
 
         return AlertDialog.Builder(activity)
             .setView(v)

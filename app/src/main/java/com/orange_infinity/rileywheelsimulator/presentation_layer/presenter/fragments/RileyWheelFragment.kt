@@ -43,5 +43,4 @@ class RileyWheelFragment : Fragment() {
         })
         return v
     }
-
 }

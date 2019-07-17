@@ -10,5 +10,4 @@ class Sound(val assetPath: String, format: String) {
         val fileName = components.last()
         name = fileName.replace(".$format", "")
     }
-
 }

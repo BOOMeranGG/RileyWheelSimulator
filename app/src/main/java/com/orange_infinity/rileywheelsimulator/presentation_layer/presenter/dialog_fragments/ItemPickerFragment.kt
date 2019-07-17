@@ -25,6 +25,7 @@ class ItemPickerFragment : DialogFragment(), View.OnClickListener {
     private lateinit var imgItem: ImageView
     private lateinit var tvCost: TextView
     private lateinit var tvItemName: TextView
+    private lateinit var tvRarity: TextView
     private lateinit var btnSell: Button
     private lateinit var btnOk: Button
     private lateinit var inventoryController: InventoryController
@@ -49,6 +50,7 @@ class ItemPickerFragment : DialogFragment(), View.OnClickListener {
         imgItem = v.findViewById(R.id.imgItem)
         tvCost = v.findViewById(R.id.tvCost)
         tvItemName = v.findViewById(R.id.tvItemName)
+        tvRarity = v.findViewById(R.id.tvRarity)
         btnSell = v.findViewById(R.id.btnSell)
         btnOk = v.findViewById(R.id.btnOk)
 
@@ -58,6 +60,7 @@ class ItemPickerFragment : DialogFragment(), View.OnClickListener {
         imgItem.setImageDrawable(IconController.getInstance(context).getItemIconDrawable(item))
         tvCost.text = "${item.getCost()}$"
         tvItemName.text = item.getItemName()
+        tvRarity.text = item.getRarity()
 
         return AlertDialog.Builder(activity)
             .setView(v)

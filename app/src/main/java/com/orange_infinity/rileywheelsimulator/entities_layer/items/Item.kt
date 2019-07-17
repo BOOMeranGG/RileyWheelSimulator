@@ -9,4 +9,6 @@ interface Item {
     fun getItemName(): String
 
     fun getCost(): Int
+
+    fun getRarity(): String
 }
