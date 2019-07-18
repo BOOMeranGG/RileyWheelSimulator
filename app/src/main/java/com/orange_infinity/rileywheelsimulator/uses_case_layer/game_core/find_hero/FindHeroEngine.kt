@@ -16,7 +16,7 @@ class FindHeroEngine(private val game: FindHeroGame) {
         createField()
         turn = 0
     }
-    
+
     fun pick(position: Int) {
         if (turn == 0) {
             turn++

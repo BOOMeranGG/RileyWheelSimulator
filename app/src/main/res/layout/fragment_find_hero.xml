@@ -12,18 +12,17 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center">
 
-        <ImageView
+        <ImageSwitcher
             android:id="@+id/img1"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            app:srcCompat="@drawable/dota2_logo"
             app:layout_column="0"
             app:layout_row="0"
             app:layout_rowWeight="1"
             app:layout_columnWeight="1"
             android:scaleType="centerCrop"/>
 
-        <ImageView
+        <ImageSwitcher
             android:id="@+id/img2"
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -34,7 +33,7 @@
             app:layout_columnWeight="1"
             android:scaleType="centerCrop"/>
 
-        <ImageView
+        <ImageSwitcher
             android:id="@+id/img3"
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -45,7 +44,7 @@
             app:layout_columnWeight="1"
             android:scaleType="centerCrop"/>
 
-        <ImageView
+        <ImageSwitcher
             android:id="@+id/img4"
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -56,7 +55,7 @@
             app:layout_columnWeight="1"
             android:scaleType="centerCrop"/>
 
-        <ImageView
+        <ImageSwitcher
             android:id="@+id/img5"
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -67,7 +66,7 @@
             app:layout_columnWeight="1"
             android:scaleType="centerCrop"/>
 
-        <ImageView
+        <ImageSwitcher
             android:id="@+id/img6"
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -78,7 +77,7 @@
             app:layout_columnWeight="1"
             android:scaleType="centerCrop"/>
 
-        <ImageView
+        <ImageSwitcher
             android:id="@+id/img7"
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -89,7 +88,7 @@
             app:layout_columnWeight="1"
             android:scaleType="centerCrop"/>
 
-        <ImageView
+        <ImageSwitcher
             android:id="@+id/img8"
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -100,7 +99,7 @@
             app:layout_columnWeight="1"
             android:scaleType="centerCrop"/>
 
-        <ImageView
+        <ImageSwitcher
             android:id="@+id/img9"
             android:layout_width="100dp"
             android:layout_height="100dp"
