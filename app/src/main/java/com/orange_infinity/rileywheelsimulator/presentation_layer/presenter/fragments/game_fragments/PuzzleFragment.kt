@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import com.orange_infinity.rileywheelsimulator.R
 import android.view.MotionEvent
+import android.widget.Button
 import com.facebook.rebound.*
 import com.orange_infinity.rileywheelsimulator.entities_layer.items.Item
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.IconController
@@ -32,6 +33,8 @@ class PuzzleFragment : Fragment(), View.OnTouchListener, SpringListener, FindHer
     private lateinit var img7: ImageView
     private lateinit var img8: ImageView
     private lateinit var img9: ImageView
+    private lateinit var btnClear: Button
+    private lateinit var soundPlayer: SoundPlayer
     private lateinit var springSystem: SpringSystem
     private lateinit var spring: Spring
 
@@ -51,9 +54,14 @@ class PuzzleFragment : Fragment(), View.OnTouchListener, SpringListener, FindHer
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val v = inflater.inflate(R.layout.fragment_puzzle, container, false)
+        btnClear = v.findViewById(R.id.btnClear)
+        btnClear.setOnClickListener {
+            resetImages()
+            findHeroEngine.newGame()
+        }
 
         setImg(v)
-
+        soundPlayer = SoundPlayer.getInstance(context)
         currentScaleX = img1.scaleX
         currentScaleY = img1.scaleY
 
@@ -74,13 +82,13 @@ class PuzzleFragment : Fragment(), View.OnTouchListener, SpringListener, FindHer
 
     override fun winGame() {
         openAllCells(findHeroEngine.gameField)
-        SoundPlayer.getInstance(context).play(SHORT_FIREWORK)
+        soundPlayer.play(SHORT_FIREWORK)
         //findHeroEngine.newGame()
     }
 
     override fun loseGame() {
         openAllCells(findHeroEngine.gameField)
-        SoundPlayer.getInstance(context).play(MINES_BOOM)
+        soundPlayer.play(MINES_BOOM)
         //findHeroEngine.newGame()
     }
 
@@ -120,6 +128,18 @@ class PuzzleFragment : Fragment(), View.OnTouchListener, SpringListener, FindHer
     override fun onSpringActivate(spring: Spring?) {
     }
 
+    private fun resetImages() {
+        img1.setImageResource(R.drawable.dota2_logo)
+        img2.setImageResource(R.drawable.dota2_logo)
+        img3.setImageResource(R.drawable.dota2_logo)
+        img4.setImageResource(R.drawable.dota2_logo)
+        img5.setImageResource(R.drawable.dota2_logo)
+        img6.setImageResource(R.drawable.dota2_logo)
+        img7.setImageResource(R.drawable.dota2_logo)
+        img8.setImageResource(R.drawable.dota2_logo)
+        img9.setImageResource(R.drawable.dota2_logo)
+    }
+
     private fun openAllCells(field: Array<Item?>) {
         changeIcon(img1, field[0]!!)
         changeIcon(img2, field[1]!!)
@@ -133,8 +153,10 @@ class PuzzleFragment : Fragment(), View.OnTouchListener, SpringListener, FindHer
     }
 
     private fun changeIcon(img: ImageView, item: Item) {
-        img.setImageDrawable(IconController.getInstance(context?.applicationContext)
-            .getItemIconDrawable(item))
+        img.setImageDrawable(
+            IconController.getInstance(context?.applicationContext)
+                .getItemIconDrawable(item)
+        )
     }
 
     private fun getImgPosition(img: ImageView): Int {
