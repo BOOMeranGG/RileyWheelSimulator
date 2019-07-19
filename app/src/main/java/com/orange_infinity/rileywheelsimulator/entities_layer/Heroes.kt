@@ -17,5 +17,5 @@ enum class Heroes {
     Grimstroke, Invoker, Jakiro, KeeperOfTheLight, Leshrac, Lich, Lina, Lion,
     NaturesProphet, Necrophos, OgreMagi, Oracle, OutworldDevourer, Puck, Pugna,
     QueenOfPain, Rubick, ShadowDemon, ShadowShaman, Silencer, SkywrathMage, StormSpirit,
-    Techies, Tinker, Visage, Warlock, Windranger, WinterWyvern, WitchDoctor, Zeus
+    Techies, Tinker, Visage, Warlock, Windranger, WinterWyvern, WitchDoctor, Zeus, Any
 }

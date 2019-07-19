@@ -14,16 +14,22 @@ class InventoryDataBaseOpenHelper(context: Context?) : SQLiteOpenHelper(context,
     }
 
     override fun onCreate(db: SQLiteDatabase) {
-        db.execSQL(getSqlToCreateTable(InventoryDbSchema.ItemTable.NAME))
-        db.execSQL(getSqlToCreateTable(InventoryDbSchema.TreasureTable.NAME))
+        db.execSQL(getSqlToCreateInventoryTable(InventoryDbSchema.ItemTable.NAME))
+        db.execSQL(getSqlToCreateInventoryTable(InventoryDbSchema.TreasureTable.NAME))
+        db.execSQL(getSqlToCreateInnerTreasureTable(ItemsInTreasureDbSchema.ItemsInTreasureTable.NAME))
         logInf(DB_LOGGER_TAG, "DataBases was created")
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    private fun getSqlToCreateTable(tableName: String): String =
+    private fun getSqlToCreateInventoryTable(tableName: String): String =
         "create table $tableName ( _id integer primary key autoincrement, " +
                 "${InventoryDbSchema.Cols.NAME}, ${InventoryDbSchema.Cols.COUNT}, ${InventoryDbSchema.Cols.ITEM_TYPE})"
+
+    private fun getSqlToCreateInnerTreasureTable(tableName: String): String =
+            "create table $tableName (_id integer primary key autoincrement, " +
+                    "${ItemsInTreasureDbSchema.Cols.TREASURE_NAME}, ${ItemsInTreasureDbSchema.Cols.ITEM_NAME}, " +
+                    "${ItemsInTreasureDbSchema.Cols.RARITY}, ${ItemsInTreasureDbSchema.Cols.HERO}, " +
+                    "${ItemsInTreasureDbSchema.Cols.PRIORITY}, ${ItemsInTreasureDbSchema.Cols.COST})"
 }

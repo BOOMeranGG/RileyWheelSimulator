@@ -205,9 +205,9 @@ class PuzzleFragment : Fragment(), View.OnTouchListener, SpringListener, ViewSwi
         img9.setFactory(this)
         resetImages()
         val inAnimation = AlphaAnimation(0f, 1f)
-        inAnimation.duration = 1250
+        inAnimation.duration = 1000
         val outAnimation = AlphaAnimation(1f, 0f)
-        outAnimation.duration = 1250
+        outAnimation.duration = 1000
 
         img1.inAnimation = inAnimation
         img1.outAnimation = outAnimation

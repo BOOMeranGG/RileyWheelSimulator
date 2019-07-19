@@ -14,6 +14,7 @@ private const val ARCANA_FOLDER = "/arcana"
 private const val COURIER_FOLDER = "/courier"
 private const val COMMENTATOR_FOLDER = "/commentator"
 private const val TREASURE_FOLDER = "/treasure"
+private const val INNER_ITEMS = "/inner_items"
 
 class IconController private constructor(context: Context?) {
 
@@ -37,6 +38,7 @@ class IconController private constructor(context: Context?) {
             is Courier -> COURIER_FOLDER
             is Commentator -> COMMENTATOR_FOLDER
             is Treasure -> TREASURE_FOLDER
+            is InnerItem -> INNER_ITEMS
             else -> return null
         }
         return getDrawableFromAsset(prefix, item.getName())

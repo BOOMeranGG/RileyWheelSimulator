@@ -107,6 +107,8 @@ class InventoryRepositoryImpl(context: Context?) : InventoryRepository {
         }
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
     private fun getContentValue(item: Item, count: Int, itemType: String): ContentValues {
         val values = ContentValues()
         values.put(InventoryDbSchema.Cols.NAME, item.getName())

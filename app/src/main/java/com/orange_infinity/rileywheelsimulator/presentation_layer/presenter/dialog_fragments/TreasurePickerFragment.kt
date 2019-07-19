@@ -2,6 +2,7 @@ package com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.dia
 
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.view.LayoutInflater
@@ -10,8 +11,14 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.orange_infinity.rileywheelsimulator.R
+import com.orange_infinity.rileywheelsimulator.data_layer.db.ItemsInTreasureRepositoryImpl
+import com.orange_infinity.rileywheelsimulator.entities_layer.items.InnerItem
 import com.orange_infinity.rileywheelsimulator.entities_layer.items.Treasure
+import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.activities.TREASURE_COUNT
+import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.activities.TREASURE_OPENER
+import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.activities.TreasureOpenerActivity
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.IconController
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.TreasureOpener
 import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logInf
 
@@ -62,11 +69,19 @@ class TreasurePickerFragment : DialogFragment(), View.OnClickListener {
             .create()
     }
 
+    override fun onPause() {
+        super.onPause()
+        dismiss()
+    }
+
     override fun onClick(v: View) {
         when (v.id) {
             R.id.btnSell -> {
                 logInf(MAIN_LOGGER_TAG, "\"Open\" button was clicked")
-                //TODO("Удаление предмета. Деньги с продажи должны переходить в опыт компендиума")
+                val intent = Intent(activity, TreasureOpenerActivity::class.java)
+                intent.putExtra(TREASURE_OPENER, treasure.name)
+                intent.putExtra(TREASURE_COUNT, itemCount)
+                startActivity(intent)
             }
             R.id.btnOk -> {
                 logInf(MAIN_LOGGER_TAG, "\"OK\" button was clicked")
