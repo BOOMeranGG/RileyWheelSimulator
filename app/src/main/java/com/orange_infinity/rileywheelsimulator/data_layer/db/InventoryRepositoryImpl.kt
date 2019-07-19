@@ -15,6 +15,7 @@ import java.lang.RuntimeException
 class InventoryRepositoryImpl(context: Context?) : InventoryRepository {
 
     private var database = InventoryDataBaseOpenHelper(context).writableDatabase
+    private var innerItemsRepository = ItemsInTreasureRepositoryImpl.getInstance(context)
     private var userInfoSaver = UserInfoSaver(context, UserPreferencesImpl())
 
     companion object {
@@ -53,10 +54,11 @@ class InventoryRepositoryImpl(context: Context?) : InventoryRepository {
         cursor.use {
             cursor.moveToFirst()
             while (!cursor.isAfterLast) {
-                val count = cursor.getString(cursor.getColumnIndex(InventoryDbSchema.Cols.COUNT)).toInt()
+                val count = cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.Cols.COUNT))
                 items[getItemFromString(
                     cursor.getString(cursor.getColumnIndex(InventoryDbSchema.Cols.NAME)),
-                    cursor.getString(cursor.getColumnIndex(InventoryDbSchema.Cols.ITEM_TYPE))
+                    cursor.getString(cursor.getColumnIndex(InventoryDbSchema.Cols.ITEM_TYPE)),
+                    cursor
                 )] = count
                 cursor.moveToNext()
             }
@@ -70,10 +72,11 @@ class InventoryRepositoryImpl(context: Context?) : InventoryRepository {
         cursor.use {
             cursor.moveToFirst()
             while (!cursor.isAfterLast) {
-                val count = cursor.getString(cursor.getColumnIndex(InventoryDbSchema.Cols.COUNT)).toInt()
+                val count = cursor.getInt(cursor.getColumnIndex(InventoryDbSchema.Cols.COUNT))
                 items[getItemFromString(
                     cursor.getString(cursor.getColumnIndex(InventoryDbSchema.Cols.NAME)),
-                    cursor.getString(cursor.getColumnIndex(InventoryDbSchema.Cols.ITEM_TYPE))
+                    cursor.getString(cursor.getColumnIndex(InventoryDbSchema.Cols.ITEM_TYPE)),
+                    cursor
                 )] = count
                 cursor.moveToNext()
             }
@@ -136,6 +139,7 @@ class InventoryRepositoryImpl(context: Context?) : InventoryRepository {
             is Courier -> return COURIER
             is SetItem -> return SET_ITEM
             is Treasure -> return TREASURE
+            is InnerItem -> return INNER_ITEM
         }
         throw RuntimeException()
     }
@@ -152,13 +156,14 @@ class InventoryRepositoryImpl(context: Context?) : InventoryRepository {
         )
     }
 
-    private fun getItemFromString(itemName: String, itemType: String): Item {
+    private fun getItemFromString(itemName: String, itemType: String, cursor: Cursor): Item {
         return when (itemType) {
             ARCANA -> Arcana.valueOf(itemName)
             COMMENTATOR -> Commentator.valueOf(itemName)
             COURIER -> Courier.valueOf(itemName)
             SET_ITEM -> SetItem.valueOf(itemName)
             TREASURE -> Treasure.valueOf(itemName)
+            INNER_ITEM -> innerItemsRepository.getInnerItem(itemName)
             else -> throw RuntimeException()
         }
     }

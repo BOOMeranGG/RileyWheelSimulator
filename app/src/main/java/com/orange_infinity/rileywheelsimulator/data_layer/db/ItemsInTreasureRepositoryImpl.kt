@@ -42,6 +42,17 @@ class ItemsInTreasureRepositoryImpl private constructor(context: Context?) : Ite
         return itemsInTreasure.toTypedArray()
     }
 
+    fun getInnerItem(itemName: String): InnerItem {
+        if (!isTableInitialize()) {
+            initTable()
+        }
+        val cursor = queryItem(ItemsInTreasureDbSchema.Cols.ITEM_NAME + " = ?", arrayOf(itemName))
+        cursor.use {
+            cursor.moveToFirst()
+            return createInnerItem(cursor)
+        }
+    }
+
     private fun isTableInitialize(): Boolean {
         val cursor = queryItem(null, null)
         cursor.use {

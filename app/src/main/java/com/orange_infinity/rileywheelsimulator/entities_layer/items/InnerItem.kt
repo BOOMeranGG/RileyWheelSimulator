@@ -10,7 +10,15 @@ class InnerItem(
     val hero: Heroes,
     val priority: Int,
     val cost: Float
-) : Item {
+) : Item, Comparable<InnerItem> {
+
+    override fun compareTo(other: InnerItem): Int {
+        val pr = this.priority - other.priority
+        if (pr != 0) {
+            return pr
+        }
+        return (this.cost - other.cost).toInt()
+    }
 
     override fun getRandomItem(): Item {
         return this
@@ -23,4 +31,6 @@ class InnerItem(
     override fun getCost(): Int = cost.toInt()
 
     override fun getRarity(): String = rarity.toString()
+
+
 }

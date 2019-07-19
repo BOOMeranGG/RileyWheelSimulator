@@ -85,13 +85,13 @@ class PuzzleFragment : Fragment(), View.OnTouchListener, SpringListener, ViewSwi
 
     override fun winGame() {
         openAllCells(findHeroEngine.gameField)
-        soundPlayer.play(SHORT_FIREWORK)
+        soundPlayer.standardPlay(SHORT_FIREWORK)
         //findHeroEngine.newGame()
     }
 
     override fun loseGame() {
         openAllCells(findHeroEngine.gameField)
-        soundPlayer.play(MINES_BOOM)
+        soundPlayer.standardPlay(MINES_BOOM)
         //findHeroEngine.newGame()
     }
 

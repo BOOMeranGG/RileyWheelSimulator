@@ -75,14 +75,14 @@ class TechiesFragment : Fragment(),
     override fun winGame() {
         Toast.makeText(context, "You are WINNER! +${techiesEngine.getPrize()}$", Toast.LENGTH_LONG).show()
         openCells()
-        soundPlayer.play(SHORT_FIREWORK)
+        soundPlayer.standardPlay(SHORT_FIREWORK)
         techiesEngine.prepareNewGame()
     }
 
     //TODO("Довольно костыльная реализация. Исправить(открытие после проигрыша)")
     override fun loseGame(position: Int) {
         openCells()
-        soundPlayer.play(MINES_BOOM)
+        soundPlayer.standardPlay(MINES_BOOM)
         techiesEngine.gameStage++
         while (techiesEngine.gameStage <= COLUMN) {
             techiesEngine.mineIndex = techiesEngine.getMinePosition()
