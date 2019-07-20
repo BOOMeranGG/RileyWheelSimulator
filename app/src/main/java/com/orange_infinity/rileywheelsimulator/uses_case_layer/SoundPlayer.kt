@@ -37,9 +37,14 @@ class SoundPlayer private constructor(context: Context?) {
         loadSounds()
     }
 
-    fun play(fileName: String) {
+    fun standardPlay(fileName: String) {
         val sound: Sound = sounds.find { fileName == it.name } ?: return
         soundPool.play(sound.soundId ?: return, 1.0f, 1.0f, 1, 0, 1.0f)
+    }
+
+    fun playWithLoop(fileName: String, loop: Int) {
+        val sound: Sound = sounds.find { fileName == it.name } ?: return
+        soundPool.play(sound.soundId ?: return, 1.0f, 1.0f, 1, loop, 1.0f)
     }
 
     private fun loadSounds() {

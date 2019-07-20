@@ -25,6 +25,7 @@ class ItemPickerFragment : DialogFragment(), View.OnClickListener {
     private lateinit var imgItem: ImageView
     private lateinit var tvCost: TextView
     private lateinit var tvItemName: TextView
+    private lateinit var tvRarity: TextView
     private lateinit var btnSell: Button
     private lateinit var btnOk: Button
     private lateinit var inventoryController: InventoryController
@@ -49,6 +50,7 @@ class ItemPickerFragment : DialogFragment(), View.OnClickListener {
         imgItem = v.findViewById(R.id.imgItem)
         tvCost = v.findViewById(R.id.tvCost)
         tvItemName = v.findViewById(R.id.tvItemName)
+        tvRarity = v.findViewById(R.id.tvRarity)
         btnSell = v.findViewById(R.id.btnSell)
         btnOk = v.findViewById(R.id.btnOk)
 
@@ -58,6 +60,7 @@ class ItemPickerFragment : DialogFragment(), View.OnClickListener {
         imgItem.setImageDrawable(IconController.getInstance(context).getItemIconDrawable(item))
         tvCost.text = "${item.getCost()}$"
         tvItemName.text = item.getItemName()
+        tvRarity.text = item.getRarity()
 
         return AlertDialog.Builder(activity)
             .setView(v)
@@ -72,8 +75,11 @@ class ItemPickerFragment : DialogFragment(), View.OnClickListener {
                 logInf(MAIN_LOGGER_TAG, "\"Sell\" button was clicked")
                 //TODO("Деньги с продажи должны переходить в опыт компендиума")
                 inventoryController.deleteItem(item)
-                dismiss()
-                sendResult()
+                itemCount--
+                if (itemCount == 0) {
+                    dismiss()
+                    sendResult()
+                }
             }
             R.id.btnOk -> {
                 logInf(MAIN_LOGGER_TAG, "\"OK\" button was clicked")
@@ -81,6 +87,12 @@ class ItemPickerFragment : DialogFragment(), View.OnClickListener {
             }
         }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        sendResult()
+    }
+
     //TODO("В Title задавать название героя, если оно есть, иначе ---> что за предмет")
     private fun setTitleName(item: Item): String {
         return "Item info"

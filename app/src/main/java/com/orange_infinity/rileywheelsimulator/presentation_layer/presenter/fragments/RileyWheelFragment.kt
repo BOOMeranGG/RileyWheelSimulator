@@ -39,9 +39,8 @@ class RileyWheelFragment : Fragment() {
         btnAddItem.setOnClickListener(View.OnClickListener {
             newItem = rileyItemController.addRandomItem()
             logInf(MAIN_LOGGER_TAG, "Add new item: " + newItem.toString())
-            soundPlayer.play(RILEY_PLAY)
+            soundPlayer.standardPlay(RILEY_PLAY)
         })
         return v
     }
-
 }

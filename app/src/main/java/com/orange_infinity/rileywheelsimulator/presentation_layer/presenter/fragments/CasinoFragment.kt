@@ -11,6 +11,7 @@ import android.widget.TextView
 import com.orange_infinity.rileywheelsimulator.R
 import com.orange_infinity.rileywheelsimulator.data_layer.UserPreferencesImpl
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.activities.MainActivity
+import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.fragments.game_fragments.PuzzleFragment
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.fragments.game_fragments.TechiesFragment
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.UserInfoSaver
 import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
@@ -20,6 +21,7 @@ class CasinoFragment : Fragment(), View.OnClickListener {
 
     private lateinit var tvNickname: TextView
     private lateinit var imgTechiesGame: ImageView
+    private lateinit var imgPuzzle: ImageView
 
     companion object {
         fun newInstance(): CasinoFragment = CasinoFragment()
@@ -44,7 +46,9 @@ class CasinoFragment : Fragment(), View.OnClickListener {
         tvNickname.text = "$nick, total item cost = $totalCost$, item count = $itemCount"
 
         imgTechiesGame = v.findViewById(R.id.imgTechiesGame)
+        imgPuzzle = v.findViewById(R.id.imgPuzzle)
         imgTechiesGame.setOnClickListener(this)
+        imgPuzzle.setOnClickListener(this)
 
         return v
     }
@@ -53,6 +57,9 @@ class CasinoFragment : Fragment(), View.OnClickListener {
         if (v.id == R.id.imgTechiesGame) {
             (activity as MainActivity).changeFragment(TechiesFragment.newInstance())
             logInf(MAIN_LOGGER_TAG, "GO to Techies Game")
+        } else if (v.id == R.id.imgPuzzle) {
+            (activity as MainActivity).changeFragment(PuzzleFragment.newInstance())
+            logInf(MAIN_LOGGER_TAG, "GO to 3on3 game(puzzle fragment)")
         }
     }
 }

@@ -5,15 +5,15 @@ import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logInf
 import java.util.*
 
-enum class Arcana(private val itemName: String, private val cost: Int, val hero: Heroes) : Item {
-    BladesOfVothDomosh("Blades of Voth Domosh", cost = 10, hero = Heroes.LegionCommander),
-    DemonEater("Demon Eater", cost = 7, hero = Heroes.ShadowFiend),
-    FierySoulOfTheSlayer("Fiery Soul of the Slayer", cost = 14, hero = Heroes.Lina),
-    FractalHornsOfInnerAbysm("Fractal Horns of Inner Abysm", cost = 6, hero = Heroes.Terrorblade),
-    FrostAvalanche("Frost Avalanche", cost = 24, hero = Heroes.CrystalMaiden),
-    ManifoldParadox("Manifold Paradox", cost = 7, hero = Heroes.PhantomAssassin),
-    SwineOfYheSunkenGalley("Swine of the Sunken Galley", cost = 8, hero = Heroes.Techies),
-    TempestHelmOfTheThundergod("Tempest Helm of the Thundergod", cost = 10, hero = Heroes.Zeus);
+enum class Arcana(private val itemName: String, private val cost: Int, val hero: Heroes, val rarity: Rarity) : Item {
+    BladesOfVothDomosh("Blades of Voth Domosh", cost = 10, hero = Heroes.LegionCommander, rarity = Rarity.ARCANA),
+    DemonEater("Demon Eater", cost = 7, hero = Heroes.ShadowFiend, rarity = Rarity.ARCANA),
+    FierySoulOfTheSlayer("Fiery Soul of the Slayer", cost = 14, hero = Heroes.Lina, rarity = Rarity.ARCANA),
+    FractalHornsOfInnerAbysm("Fractal Horns of Inner Abysm", cost = 6, hero = Heroes.Terrorblade, rarity = Rarity.ARCANA),
+    FrostAvalanche("Frost Avalanche", cost = 24, hero = Heroes.CrystalMaiden, rarity = Rarity.ARCANA),
+    ManifoldParadox("Manifold Paradox", cost = 7, hero = Heroes.PhantomAssassin, rarity = Rarity.ARCANA),
+    SwineOfYheSunkenGalley("Swine of the Sunken Galley", cost = 8, hero = Heroes.Techies, rarity = Rarity.ARCANA),
+    TempestHelmOfTheThundergod("Tempest Helm of the Thundergod", cost = 10, hero = Heroes.Zeus, rarity = Rarity.ARCANA);
 
 //    private val arcanaValues: Array<Arcana> = values()
     private val random = Random()
@@ -30,4 +30,6 @@ enum class Arcana(private val itemName: String, private val cost: Int, val hero:
     override fun getItemName(): String = itemName
 
     override fun getCost(): Int = cost
+
+    override fun getRarity(): String = rarity.toString()
 }

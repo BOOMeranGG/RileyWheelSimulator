@@ -3,18 +3,18 @@ package com.orange_infinity.rileywheelsimulator.uses_case_layer
 import android.content.Context
 import android.content.res.AssetManager
 import android.graphics.drawable.Drawable
-import com.orange_infinity.rileywheelsimulator.R
-import com.orange_infinity.rileywheelsimulator.entities_layer.items.Arcana
-import com.orange_infinity.rileywheelsimulator.entities_layer.items.Courier
-import com.orange_infinity.rileywheelsimulator.entities_layer.items.Item
-import com.orange_infinity.rileywheelsimulator.entities_layer.resource.Icon
+import com.orange_infinity.rileywheelsimulator.entities_layer.items.*
 import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logErr
-import com.orange_infinity.rileywheelsimulator.util.logInf
 import java.io.IOException
 import java.io.InputStream
 
 private const val ITEM_FOLDER = "items"
+private const val ARCANA_FOLDER = "/arcana"
+private const val COURIER_FOLDER = "/courier"
+private const val COMMENTATOR_FOLDER = "/commentator"
+private const val TREASURE_FOLDER = "/treasure"
+private const val INNER_ITEMS = "/inner_items"
 
 class IconController private constructor(context: Context?) {
 
@@ -33,11 +33,15 @@ class IconController private constructor(context: Context?) {
     }
 
     fun getItemIconDrawable(item: Item): Drawable? {
-        if (item is Arcana)
-            return getDrawableFromAsset("/arcana", item.getName())
-        if (item is Courier)
-            return getDrawableFromAsset("/courier", item.getName())
-        return null
+        val prefix = when (item) {
+            is Arcana -> ARCANA_FOLDER
+            is Courier -> COURIER_FOLDER
+            is Commentator -> COMMENTATOR_FOLDER
+            is Treasure -> TREASURE_FOLDER
+            is InnerItem -> "$INNER_ITEMS/${item.treasureName}"
+            else -> return null
+        }
+        return getDrawableFromAsset(prefix, item.getName())
     }
 
     private fun getDrawableFromAsset(partFolder: String, fileName: String): Drawable? {
