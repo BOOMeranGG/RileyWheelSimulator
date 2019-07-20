@@ -28,7 +28,7 @@ abstract class InventoryTreasureFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val v = inflater.inflate(R.layout.inventory_fragment, container, false)
+        val v = inflater.inflate(R.layout.fragment_inventory, container, false)
 
         inventoryRecyclerView = v.findViewById(R.id.fieldRecyclerView)
         inventoryRecyclerView.layoutManager = GridLayoutManager(activity, 3)

@@ -27,7 +27,7 @@ class TopButtonFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val v = inflater.inflate(R.layout.top_button_fragment, container, false)
+        val v = inflater.inflate(R.layout.fragment_top_button, container, false)
         btnRileyWheel = v.findViewById(R.id.btnRileyWheel)
         btnTreasure = v.findViewById(R.id.btnTreasure)
         btnInventory = v.findViewById(R.id.btnInventory)

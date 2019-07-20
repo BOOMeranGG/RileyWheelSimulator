@@ -33,7 +33,7 @@ class CasinoFragment : Fragment(), View.OnClickListener {
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val v = inflater.inflate(R.layout.casino_fragment, container, false)
+        val v = inflater.inflate(R.layout.fragment_casino, container, false)
 
         val infoSaver = UserInfoSaver(activity,
             UserPreferencesImpl()

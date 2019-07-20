@@ -36,7 +36,7 @@ class InitializeNicknameFragment : Fragment(), View.OnClickListener {
             activity?.finish()
             logInf(MAIN_LOGGER_TAG, "Nickname isn't null, go on next activity")
         }
-        val v = inflater.inflate(R.layout.initialize_nickname_fragment, container, false)
+        val v = inflater.inflate(R.layout.fragment_initialize_nickname, container, false)
         editNickname = v.findViewById(R.id.editNickname)
         btnNext = v.findViewById(R.id.btnNext)
         btnNext.setOnClickListener(this)

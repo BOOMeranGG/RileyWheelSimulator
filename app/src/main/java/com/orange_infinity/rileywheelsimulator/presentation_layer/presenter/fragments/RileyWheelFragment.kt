@@ -32,7 +32,7 @@ class RileyWheelFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater1, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val v = inflater.inflate(R.layout.riley_wheel_fragment, container, false)
+        val v = inflater.inflate(R.layout.fragment_riley_wheel, container, false)
         btnAddItem = v.findViewById(R.id.btnAddItem)
 
         var newItem: Item?
