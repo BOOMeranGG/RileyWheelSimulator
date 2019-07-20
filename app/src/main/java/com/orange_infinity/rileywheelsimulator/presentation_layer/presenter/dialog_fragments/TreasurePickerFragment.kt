@@ -11,14 +11,11 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.orange_infinity.rileywheelsimulator.R
-import com.orange_infinity.rileywheelsimulator.data_layer.db.ItemsInTreasureRepositoryImpl
-import com.orange_infinity.rileywheelsimulator.entities_layer.items.InnerItem
 import com.orange_infinity.rileywheelsimulator.entities_layer.items.Treasure
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.activities.TREASURE_COUNT
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.activities.TREASURE_OPENER
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.activities.TreasureOpenerActivity
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.IconController
-import com.orange_infinity.rileywheelsimulator.uses_case_layer.TreasureOpener
 import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logInf
 

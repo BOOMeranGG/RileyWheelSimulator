@@ -38,7 +38,7 @@ class IconController private constructor(context: Context?) {
             is Courier -> COURIER_FOLDER
             is Commentator -> COMMENTATOR_FOLDER
             is Treasure -> TREASURE_FOLDER
-            is InnerItem -> INNER_ITEMS
+            is InnerItem -> "$INNER_ITEMS/${item.treasureName}"
             else -> return null
         }
         return getDrawableFromAsset(prefix, item.getName())

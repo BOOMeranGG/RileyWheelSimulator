@@ -15,7 +15,7 @@ import java.lang.RuntimeException
 class InventoryRepositoryImpl(context: Context?) : InventoryRepository {
 
     private var database = InventoryDataBaseOpenHelper(context).writableDatabase
-    private var innerItemsRepository = ItemsInTreasureRepositoryImpl.getInstance(context)
+    private var innerItemsRepository = InnerItemsRepositoryImpl.getInstance(context)
     private var userInfoSaver = UserInfoSaver(context, UserPreferencesImpl())
 
     companion object {

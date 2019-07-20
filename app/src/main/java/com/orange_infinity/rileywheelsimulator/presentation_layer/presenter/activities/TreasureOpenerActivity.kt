@@ -9,13 +9,10 @@ import android.view.animation.AlphaAnimation
 import android.widget.*
 import com.orange_infinity.rileywheelsimulator.R
 import com.orange_infinity.rileywheelsimulator.data_layer.db.InventoryRepositoryImpl
-import com.orange_infinity.rileywheelsimulator.data_layer.db.ItemsInTreasureRepositoryImpl
+import com.orange_infinity.rileywheelsimulator.data_layer.db.InnerItemsRepositoryImpl
 import com.orange_infinity.rileywheelsimulator.entities_layer.items.InnerItem
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.dialog_fragments.ItemPickerFragment
-import com.orange_infinity.rileywheelsimulator.uses_case_layer.IconController
-import com.orange_infinity.rileywheelsimulator.uses_case_layer.InventoryController
-import com.orange_infinity.rileywheelsimulator.uses_case_layer.SoundPlayer
-import com.orange_infinity.rileywheelsimulator.uses_case_layer.TreasureOpener
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.*
 import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logInf
 import java.util.*
@@ -58,7 +55,7 @@ class TreasureOpenerActivity : AppCompatActivity(), ViewSwitcher.ViewFactory {
             linearInnerItems.isEnabled = false
         }
 
-        treasureOpener = TreasureOpener(ItemsInTreasureRepositoryImpl.getInstance(applicationContext))
+        treasureOpener = TreasureOpener(InnerItemsRepositoryImpl.getInstance(applicationContext))
         iconController = IconController.getInstance(applicationContext)
         inventoryController = InventoryController(InventoryRepositoryImpl.getInstance(applicationContext))
         treasureName = intent.getSerializableExtra(TREASURE_OPENER) as String
@@ -140,6 +137,7 @@ class TreasureOpenerActivity : AppCompatActivity(), ViewSwitcher.ViewFactory {
                     val winnerItem = treasureOpener.getWinnerItem()
 
                     inventoryController.addItem(winnerItem)
+                    soundPlayer.standardPlay(SHORT_FIREWORK)
                     val dialog = ItemPickerFragment.newInstance(winnerItem, 1)
                     dialog.show(supportFragmentManager, ITEM_PICKER)
                     return@runOnUiThread

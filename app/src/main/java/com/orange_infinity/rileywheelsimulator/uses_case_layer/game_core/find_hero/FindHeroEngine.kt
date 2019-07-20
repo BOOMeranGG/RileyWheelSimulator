@@ -53,7 +53,7 @@ class FindHeroEngine(private val game: FindHeroGame) {
         setRandomItemPosition(treasure)
     }
 
-    //TODO("Переделать генерацию(сделать без цикла, с рандомой на 9 чисел)")
+    //TODO("Переделать генерацию(сделать без цикла, с рандомом на 9 чисел)")
     private fun setRandomItemPosition(item: Item) {
         var count = 3
 

@@ -75,8 +75,11 @@ class ItemPickerFragment : DialogFragment(), View.OnClickListener {
                 logInf(MAIN_LOGGER_TAG, "\"Sell\" button was clicked")
                 //TODO("Деньги с продажи должны переходить в опыт компендиума")
                 inventoryController.deleteItem(item)
-                dismiss()
-                sendResult()
+                itemCount--
+                if (itemCount == 0) {
+                    dismiss()
+                    sendResult()
+                }
             }
             R.id.btnOk -> {
                 logInf(MAIN_LOGGER_TAG, "\"OK\" button was clicked")
@@ -84,6 +87,12 @@ class ItemPickerFragment : DialogFragment(), View.OnClickListener {
             }
         }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        sendResult()
+    }
+
     //TODO("В Title задавать название героя, если оно есть, иначе ---> что за предмет")
     private fun setTitleName(item: Item): String {
         return "Item info"

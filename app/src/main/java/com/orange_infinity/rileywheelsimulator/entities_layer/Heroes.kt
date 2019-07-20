@@ -3,7 +3,7 @@ package com.orange_infinity.rileywheelsimulator.entities_layer
 enum class Heroes {
     Abaddon, Alchemist, Axe, Beastmaster, Brewmaster, Bristleback,
     CentaurWarruner, ChaosKnight, Clockwerk, Doom, DragonKnight,
-    EarthSpirit, Eartshaker, ElderTitan, Huskar, Io, Kunkka, LegionCommander,
+    EarthSpirit, Earthshaker, ElderTitan, Huskar, Io, Kunkka, LegionCommander,
     Lifestealer, Lycan, Magnus, Mars, NightStalker, Omniknight, Phoenix,
     Pudge, SandKing, Slardar, SpiritBreaker, Sven, Tidehunter, Timbersaw,
     Tiny, TreantProttector, Tusk, Underlord, Undying, WraithKing, AntiMage,
