@@ -25,7 +25,8 @@ private const val COLUMN = 7
 class TechiesFragment : Fragment(),
     TechiesGame {
 
-    private lateinit var gameFieldImageIddList: Array<Int>
+    private lateinit var gameFieldBackgroundIddList: Array<Int>
+    private lateinit var gameFieldMineIdArray: Array<Int?>
     private lateinit var recyclerView: RecyclerView
     private lateinit var btnClear: Button
 
@@ -55,7 +56,7 @@ class TechiesFragment : Fragment(),
 
         recyclerView = v.findViewById(R.id.fieldRecyclerView)
         recyclerView.layoutManager = GridLayoutManager(activity, 7)
-        recyclerView.adapter = FieldAdapter(gameFieldImageIddList)
+        recyclerView.adapter = FieldAdapter(gameFieldBackgroundIddList, gameFieldMineIdArray)
 
         btnClear = v.findViewById(R.id.btnClear)
         btnClear.setOnClickListener {
@@ -69,24 +70,24 @@ class TechiesFragment : Fragment(),
 
     override fun winTurn(position: Int) {
         logInf(CASINO_LOGGER_TAG, "winTurn() is called")
-        openCells()
+        openCells(false)
     }
 
     override fun winGame() {
         Toast.makeText(context, "You are WINNER! +${techiesEngine.getPrize()}$", Toast.LENGTH_LONG).show()
-        openCells()
+        openCells(false)
         soundPlayer.standardPlay(SHORT_FIREWORK)
         techiesEngine.prepareNewGame()
     }
 
     //TODO("Довольно костыльная реализация. Исправить(открытие после проигрыша)")
     override fun loseGame(position: Int) {
-        openCells()
+        openCells(true)
         soundPlayer.standardPlay(MINES_BOOM)
         techiesEngine.gameStage++
         while (techiesEngine.gameStage <= COLUMN) {
             techiesEngine.mineIndex = techiesEngine.getMinePosition()
-            openCells()
+            openCells(false)
             techiesEngine.gameStage++
         }
         techiesEngine.prepareNewGame()
@@ -95,33 +96,37 @@ class TechiesFragment : Fragment(),
 
     private fun updateRecycler() {
         val adapter = recyclerView.adapter as FieldAdapter
-        adapter.fields = gameFieldImageIddList
+        adapter.fields = gameFieldBackgroundIddList
+        adapter.gameFieldMine = gameFieldMineIdArray
         recyclerView.adapter!!.notifyDataSetChanged()
     }
 
-    private fun openCells() {
+    private fun openCells(isDeadInThisTurn: Boolean) {
         val mineIndex = techiesEngine.mineIndex
         val stage = techiesEngine.gameStage
-        var index = stage - 1
-        for (i in 0 until ROW) {
-            gameFieldImageIddList[index] = R.drawable.test_logo
-            index += COLUMN
+        if (isDeadInThisTurn) {
+            gameFieldMineIdArray[mineIndex] = R.drawable.mine_boom
+        } else {
+            gameFieldMineIdArray[mineIndex] = R.drawable.mine
         }
-        gameFieldImageIddList[mineIndex] = R.drawable.treasure_logo
         updateRecycler()
     }
 
     private fun initGameField() {
-        gameFieldImageIddList = arrayOf(
-            R.drawable.dota2_logo, R.drawable.dota2_logo, R.drawable.dota2_logo, R.drawable.dota2_logo,
-            R.drawable.dota2_logo, R.drawable.dota2_logo, R.drawable.dota2_logo, R.drawable.dota2_logo,
-            R.drawable.dota2_logo, R.drawable.dota2_logo, R.drawable.dota2_logo, R.drawable.dota2_logo,
-            R.drawable.dota2_logo, R.drawable.dota2_logo, R.drawable.dota2_logo, R.drawable.dota2_logo,
-            R.drawable.dota2_logo, R.drawable.dota2_logo, R.drawable.dota2_logo, R.drawable.dota2_logo,
-            R.drawable.dota2_logo, R.drawable.dota2_logo, R.drawable.dota2_logo, R.drawable.dota2_logo,
-            R.drawable.dota2_logo, R.drawable.dota2_logo, R.drawable.dota2_logo, R.drawable.dota2_logo,
-            R.drawable.dota2_logo, R.drawable.dota2_logo, R.drawable.dota2_logo, R.drawable.dota2_logo,
-            R.drawable.dota2_logo, R.drawable.dota2_logo, R.drawable.dota2_logo
+        gameFieldBackgroundIddList = arrayOf(
+            R.drawable.mine_01, R.drawable.mine_02, R.drawable.mine_03, R.drawable.mine_04,
+            R.drawable.mine_05, R.drawable.mine_06, R.drawable.mine_07, R.drawable.mine_08,
+            R.drawable.mine_09, R.drawable.mine_10, R.drawable.mine_11, R.drawable.mine_12,
+            R.drawable.mine_13, R.drawable.mine_14, R.drawable.mine_15, R.drawable.mine_16,
+            R.drawable.mine_17, R.drawable.mine_18, R.drawable.mine_19, R.drawable.mine_20,
+            R.drawable.mine_21, R.drawable.mine_22, R.drawable.mine_23, R.drawable.mine_24,
+            R.drawable.mine_25, R.drawable.mine_26, R.drawable.mine_27, R.drawable.mine_28,
+            R.drawable.mine_29, R.drawable.mine_30, R.drawable.mine_31, R.drawable.mine_32,
+            R.drawable.mine_33, R.drawable.mine_34, R.drawable.mine_35
+        )
+        gameFieldMineIdArray = arrayOf(
+            null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null
         )
     }
 
@@ -131,15 +136,24 @@ class TechiesFragment : Fragment(),
         View.OnClickListener {
 
         private val imgField: ImageView = itemView.findViewById(R.id.imgField2)
-        private val imgLayoutParam = LinearLayout.LayoutParams(
+        private val imgMine: ImageView = itemView.findViewById(R.id.imgField3)
+        private val imgLayoutParam = RelativeLayout.LayoutParams(
             ViewGroup.LayoutParams.WRAP_CONTENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         ).also { it.width = winWidth; it.height = winHeight; }
 
-        fun bindItem(fieldId: Int) {
+        fun bindItem(fieldId: Int, mineId: Int?) {
             imgField.setImageResource(fieldId)
+            if (mineId != null) {
+                imgMine.setImageResource(mineId)
+            } else {
+                imgMine.setImageDrawable(null)
+            }
+            imgField.setPadding(2, 2, 2, 2)
             imgField.layoutParams = imgLayoutParam
+            imgMine.layoutParams = imgLayoutParam
             imgField.scaleType = ImageView.ScaleType.FIT_XY
+            imgMine.scaleType = ImageView.ScaleType.FIT_XY
             imgField.setOnClickListener(this)
         }
 
@@ -149,7 +163,8 @@ class TechiesFragment : Fragment(),
         }
     }
 
-    private inner class FieldAdapter(var fields: Array<Int>) : RecyclerView.Adapter<FieldHolder>() {
+    private inner class FieldAdapter(var fields: Array<Int>, var gameFieldMine: Array<Int?>) :
+        RecyclerView.Adapter<FieldHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FieldHolder {
             val inflater = LayoutInflater.from(activity)
@@ -157,7 +172,7 @@ class TechiesFragment : Fragment(),
         }
 
         override fun onBindViewHolder(fieldHolder: FieldHolder, position: Int) {
-            fieldHolder.bindItem(fields[position])
+            fieldHolder.bindItem(fields[position], gameFieldMine[position])
         }
 
         override fun getItemCount(): Int {
