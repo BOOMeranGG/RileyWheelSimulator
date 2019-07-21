@@ -20,13 +20,12 @@ class IconController private constructor(context: Context?) {
 
     private val assets: AssetManager = context!!.assets
 
-    //TODO("Грузит каждый раз заново. ИСПРАВИТЬ!")
     companion object {
         private var instance: IconController? = null
 
         fun getInstance(context: Context?): IconController {
             if (instance == null) {
-                return IconController(context)
+                return IconController(context).also { instance = it }
             }
             return instance as IconController
         }

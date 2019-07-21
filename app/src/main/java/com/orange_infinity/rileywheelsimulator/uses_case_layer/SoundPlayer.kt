@@ -12,9 +12,10 @@ import java.io.IOException
 
 private const val SOUND_FOLDER = "sounds"
 private const val MAX_SOUNDS = 1
-const val RILEY_PLAY = "riley_click"
-const val MINES_BOOM = "land_mines_boom"
-const val SHORT_FIREWORK = "short_firework"
+
+const val SOUND_RILEY_PLAY = "riley_click"
+const val SOUND_MINES_BOOM = "land_mines_boom"
+const val SOUND_SHORT_FIREWORK = "short_firework"
 
 class SoundPlayer private constructor(context: Context?) {
 
@@ -27,7 +28,7 @@ class SoundPlayer private constructor(context: Context?) {
 
         fun getInstance(context: Context?): SoundPlayer {
             if (instance == null) {
-                return SoundPlayer(context)
+                return SoundPlayer(context).also { instance = it }
             }
             return instance as SoundPlayer
         }

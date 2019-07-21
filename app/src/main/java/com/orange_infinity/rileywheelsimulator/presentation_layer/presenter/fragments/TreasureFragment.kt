@@ -61,7 +61,11 @@ class TreasureFragment : InventoryTreasureFragment() {
             tvCount.text = "X${itemBox.count}"
             itemLayout.setOnClickListener(this)
 
-            imgItem.setImageDrawable(IconController.getInstance(context).getItemIconDrawable(treasure))
+            imgItem.setImageDrawable(
+                IconController.getInstance(context?.applicationContext).getItemIconDrawable(
+                    treasure
+                )
+            )
         }
 
         override fun onClick(v: View?) {

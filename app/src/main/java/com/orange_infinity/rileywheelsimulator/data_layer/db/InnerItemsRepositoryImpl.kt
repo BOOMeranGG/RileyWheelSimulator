@@ -17,7 +17,7 @@ class InnerItemsRepositoryImpl private constructor(context: Context?) : ItemsInT
 
         fun getInstance(context: Context?): InnerItemsRepositoryImpl {
             if (instance == null) {
-                return InnerItemsRepositoryImpl(context)
+                return InnerItemsRepositoryImpl(context).also { instance = it }
             }
             return instance as InnerItemsRepositoryImpl
         }

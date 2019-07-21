@@ -159,7 +159,7 @@ class TreasureOpenerActivity : AppCompatActivity(), ViewSwitcher.ViewFactory {
         deletedItems.add(winnerItem)
 
         inventoryController.addItem(winnerItem)
-        soundPlayer.standardPlay(SHORT_FIREWORK)
+        soundPlayer.standardPlay(SOUND_SHORT_FIREWORK)
         createTopInnerItems()
         val dialog = ItemPickerFragment.newInstance(winnerItem, 1)
         dialog.show(supportFragmentManager, ITEM_PICKER)

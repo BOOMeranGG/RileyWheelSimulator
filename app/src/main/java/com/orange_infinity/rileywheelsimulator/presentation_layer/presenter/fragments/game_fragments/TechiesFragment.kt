@@ -12,8 +12,8 @@ import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logInf
 import android.util.DisplayMetrics
 import android.widget.*
-import com.orange_infinity.rileywheelsimulator.uses_case_layer.MINES_BOOM
-import com.orange_infinity.rileywheelsimulator.uses_case_layer.SHORT_FIREWORK
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.SOUND_MINES_BOOM
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.SOUND_SHORT_FIREWORK
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.SoundPlayer
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.game_core.techies.TechiesEngine
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.game_core.techies.TechiesGame
@@ -44,7 +44,7 @@ class TechiesFragment : Fragment(),
         val display = activity!!.windowManager.defaultDisplay
         val metricsDisplay = DisplayMetrics()
         display.getMetrics(metricsDisplay)
-        soundPlayer = SoundPlayer.getInstance(context)
+        soundPlayer = SoundPlayer.getInstance(context?.applicationContext)
 
         winWidth = (metricsDisplay.widthPixels / 1.25).toInt() / 7
         winHeight = (metricsDisplay.heightPixels / 1.25).toInt() / 6
@@ -76,14 +76,14 @@ class TechiesFragment : Fragment(),
     override fun winGame() {
         Toast.makeText(context, "You are WINNER! +${techiesEngine.getPrize()}$", Toast.LENGTH_LONG).show()
         openCells(false)
-        soundPlayer.standardPlay(SHORT_FIREWORK)
+        soundPlayer.standardPlay(SOUND_SHORT_FIREWORK)
         techiesEngine.prepareNewGame()
     }
 
     //TODO("Довольно костыльная реализация. Исправить(открытие после проигрыша)")
     override fun loseGame(position: Int) {
         openCells(true)
-        soundPlayer.standardPlay(MINES_BOOM)
+        soundPlayer.standardPlay(SOUND_MINES_BOOM)
         techiesEngine.gameStage++
         while (techiesEngine.gameStage <= COLUMN) {
             techiesEngine.mineIndex = techiesEngine.getMinePosition()

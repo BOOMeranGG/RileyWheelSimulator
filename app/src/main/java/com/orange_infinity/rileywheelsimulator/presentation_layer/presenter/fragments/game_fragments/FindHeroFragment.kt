@@ -15,8 +15,8 @@ import android.widget.ViewSwitcher
 import com.facebook.rebound.*
 import com.orange_infinity.rileywheelsimulator.entities_layer.items.Item
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.IconController
-import com.orange_infinity.rileywheelsimulator.uses_case_layer.MINES_BOOM
-import com.orange_infinity.rileywheelsimulator.uses_case_layer.SHORT_FIREWORK
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.SOUND_MINES_BOOM
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.SOUND_SHORT_FIREWORK
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.SoundPlayer
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.game_core.find_hero.FindHeroEngine
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.game_core.find_hero.FindHeroGame
@@ -64,7 +64,7 @@ class PuzzleFragment : Fragment(), View.OnTouchListener, SpringListener, ViewSwi
         }
 
         setImg(v)
-        soundPlayer = SoundPlayer.getInstance(context)
+        soundPlayer = SoundPlayer.getInstance(context?.applicationContext)
         currentScaleX = img1.scaleX
         currentScaleY = img1.scaleY
 
@@ -85,13 +85,13 @@ class PuzzleFragment : Fragment(), View.OnTouchListener, SpringListener, ViewSwi
 
     override fun winGame() {
         openAllCells(findHeroEngine.gameField)
-        soundPlayer.standardPlay(SHORT_FIREWORK)
+        soundPlayer.standardPlay(SOUND_SHORT_FIREWORK)
         //findHeroEngine.newGame()
     }
 
     override fun loseGame() {
         openAllCells(findHeroEngine.gameField)
-        soundPlayer.standardPlay(MINES_BOOM)
+        soundPlayer.standardPlay(SOUND_MINES_BOOM)
         //findHeroEngine.newGame()
     }
 

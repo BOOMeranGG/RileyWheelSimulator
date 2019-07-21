@@ -57,7 +57,7 @@ class ItemPickerFragment : DialogFragment(), View.OnClickListener {
         btnSell.setOnClickListener(this)
         btnOk.setOnClickListener(this)
 
-        imgItem.setImageDrawable(IconController.getInstance(context).getItemIconDrawable(item))
+        imgItem.setImageDrawable(IconController.getInstance(context?.applicationContext).getItemIconDrawable(item))
         tvCost.text = "${item.getCost()}$"
         tvItemName.text = item.getItemName()
         tvRarity.text = item.getRarity()

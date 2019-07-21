@@ -54,7 +54,7 @@ class TreasurePickerFragment : DialogFragment(), View.OnClickListener {
         btnSell.text = "Open"
         btnOk.setOnClickListener(this)
 
-        imgItem.setImageDrawable(IconController.getInstance(context).getItemIconDrawable(treasure))
+        imgItem.setImageDrawable(IconController.getInstance(context?.applicationContext).getItemIconDrawable(treasure))
         tvCost.text = "${treasure.getCost()}$"
         tvItemName.text = treasure.getItemName()
         tvRarity.text = treasure.getRarity()

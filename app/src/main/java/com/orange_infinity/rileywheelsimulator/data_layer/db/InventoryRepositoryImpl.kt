@@ -23,7 +23,7 @@ class InventoryRepositoryImpl(context: Context?) : InventoryRepository {
 
         fun getInstance(context: Context?): InventoryRepositoryImpl {
             if (instance == null)
-                return InventoryRepositoryImpl(context)
+                return InventoryRepositoryImpl(context).also { instance = it }
             return instance as InventoryRepositoryImpl
         }
     }

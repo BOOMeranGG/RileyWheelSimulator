@@ -1,9 +1,6 @@
 package com.orange_infinity.rileywheelsimulator.uses_case_layer
 
 import android.os.AsyncTask
-import android.view.animation.AlphaAnimation
-import android.widget.ImageSwitcher
-import com.orange_infinity.rileywheelsimulator.R
 import com.orange_infinity.rileywheelsimulator.data_layer.db.InnerItemsRepositoryImpl
 import com.orange_infinity.rileywheelsimulator.data_layer.db.InventoryRepositoryImpl
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.activities.TreasureOpenerActivity
@@ -38,7 +35,7 @@ class AsyncOpeningTreasure(context: TreasureOpenerActivity) : AsyncTask<Long, Un
                 logInf(MAIN_LOGGER_TAG, "Winner is ${openerController.getWinnerItem().getItemName()}")
                 val winnerItem = openerController.getWinnerItem()
 
-                soundPlayer.standardPlay(SHORT_FIREWORK)
+                soundPlayer.standardPlay(SOUND_SHORT_FIREWORK)
                 return
             }
                 //activity.getNextItem()
