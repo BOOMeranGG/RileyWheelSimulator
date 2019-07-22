@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".ChooseItemCoinPickActivity"
+            android:name=".presentation_layer.presenter.activities.ChooseItemCoinPickActivity"
             android:screenOrientation="landscape">
         </activity>
         <activity

@@ -4,6 +4,8 @@ import com.orange_infinity.rileywheelsimulator.entities_layer.Heroes
 import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logInf
 import java.util.*
+import android.os.Parcel
+import android.os.Parcelable
 
 enum class Arcana(private val itemName: String, private val cost: Int, val hero: Heroes, val rarity: Rarity) : Item {
     BladesOfVothDomosh("Blades of Voth Domosh", cost = 10, hero = Heroes.LegionCommander, rarity = Rarity.ARCANA),

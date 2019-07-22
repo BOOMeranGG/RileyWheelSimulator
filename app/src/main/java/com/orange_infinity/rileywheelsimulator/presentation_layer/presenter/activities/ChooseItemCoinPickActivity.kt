@@ -1,6 +1,7 @@
-package com.orange_infinity.rileywheelsimulator
+package com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.activities
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.GridLayout
@@ -10,23 +11,32 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.orange_infinity.rileywheelsimulator.R
 import com.orange_infinity.rileywheelsimulator.data_layer.db.InventoryRepositoryImpl
 import com.orange_infinity.rileywheelsimulator.entities_layer.ItemBox
 import com.orange_infinity.rileywheelsimulator.entities_layer.items.Item
+import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.dialog_fragments.PICKED_LIST_NAMING
+import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.dialog_fragments.TOTAL_COST_KEY
+import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.dialog_fragments.TeamPickerFragment
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.IconController
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.InventoryController
 import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logInf
 
-class ChooseItemCoinPickActivity : AppCompatActivity() {
+private const val TEAM_PICKER = "TeamPicker"
+
+class ChooseItemCoinPickActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var pickItemListLayout: GridLayout
     private lateinit var inventoryRecycler: RecyclerView
     private lateinit var inventoryController: InventoryController
     private lateinit var iconController: IconController
+    private lateinit var btnCancel: Button
+    private lateinit var btnReady: Button
     private var items = mutableListOf<ItemBox>()
     private var pickItemList = mutableListOf<Item>()
     private var countOfPickedItems = 0
@@ -43,6 +53,28 @@ class ChooseItemCoinPickActivity : AppCompatActivity() {
         inventoryRecycler.adapter = ItemAdapter(items)
     }
 
+    override fun onClick(v: View) {
+        if (v.id == R.id.btnReady) {
+            logInf(MAIN_LOGGER_TAG, "\"Ready\" was pressed")
+            var totalCost = 0f
+            val pickItemListNaming = arrayListOf<String>()
+            pickItemList.forEach {
+                pickItemListNaming.add(it.getName())
+                totalCost += it.getCost()
+            }
+            val args = Bundle()
+            args.putFloat(TOTAL_COST_KEY, totalCost)
+            args.putStringArrayList(PICKED_LIST_NAMING, pickItemListNaming)
+
+            val dialog = TeamPickerFragment.newInstance()
+            dialog.arguments = args
+            dialog.show(supportFragmentManager, TEAM_PICKER)
+        } else if (v.id == R.id.btnCancel) {
+            logInf(MAIN_LOGGER_TAG, "\"Cancel\" was pressed")
+            finish()
+        }
+    }
+
     private fun updateRecycler() {
         val adapter = inventoryRecycler.adapter as ItemAdapter
         adapter.items = items
@@ -57,6 +89,11 @@ class ChooseItemCoinPickActivity : AppCompatActivity() {
         inventoryController = InventoryController(InventoryRepositoryImpl.getInstance(applicationContext))
         iconController = IconController.getInstance(applicationContext)
         items = inventoryController.getItemsFromInventory().toMutableList()
+
+        btnCancel = findViewById(R.id.btnCancel)
+        btnReady = findViewById(R.id.btnReady)
+        btnCancel.setOnClickListener(this)
+        btnReady.setOnClickListener(this)
     }
 
     //TODO("Сделать width и height в зависимости от экрана")

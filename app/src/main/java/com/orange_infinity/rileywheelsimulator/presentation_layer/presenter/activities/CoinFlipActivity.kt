@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentManager
 import android.view.View
 import android.view.WindowManager
 import android.widget.Button
-import com.orange_infinity.rileywheelsimulator.ChooseItemCoinPickActivity
 import com.orange_infinity.rileywheelsimulator.R
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.fragments.CoinFlipUsersFragment
 import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG

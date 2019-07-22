@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    tools:context=".ChooseItemCoinPickActivity">
+    tools:context=".presentation_layer.presenter.activities.ChooseItemCoinPickActivity">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/inventoryRecycler"
@@ -17,7 +17,7 @@
 
     </android.support.v7.widget.RecyclerView>
 
-    <LinearLayout
+    <android.support.percent.PercentRelativeLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:background="@color/colorPrimary"
@@ -33,6 +33,23 @@
 
         </android.support.v7.widget.GridLayout>
 
-    </LinearLayout>
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_height="wrap_content"
+            app:layout_widthPercent="40%"
+            android:layout_alignParentBottom="true"
+            app:layout_marginLeftPercent="5%"
+            android:text="CANCEL"/>
+
+        <Button
+            android:id="@+id/btnReady"
+            app:layout_widthPercent="40%"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            app:layout_marginRightPercent="5%"
+            android:text="READY"/>
+
+    </android.support.percent.PercentRelativeLayout>
 
 </LinearLayout>
