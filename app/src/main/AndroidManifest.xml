@@ -11,8 +11,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".presentation_layer.presenter.activities.TreasureOpenerActivity"
-                  android:screenOrientation="landscape">
+        <activity
+            android:name=".ChooseItemCoinPickActivity"
+            android:screenOrientation="landscape">
+        </activity>
+        <activity
+            android:name=".presentation_layer.presenter.activities.CoinFlipActivity"
+            android:screenOrientation="landscape">
+        </activity>
+        <activity
+            android:name=".presentation_layer.presenter.activities.TreasureOpenerActivity"
+            android:screenOrientation="landscape">
         </activity>
         <activity
             android:name=".presentation_layer.presenter.activities.InitializeNicknameActivity"

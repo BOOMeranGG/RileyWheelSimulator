@@ -22,8 +22,7 @@ import com.orange_infinity.rileywheelsimulator.util.CASINO_LOGGER_TAG
 private const val ROW = 5
 private const val COLUMN = 7
 
-class TechiesFragment : Fragment(),
-    TechiesGame {
+class TechiesFragment : Fragment(), TechiesGame {
 
     private lateinit var gameFieldBackgroundIddList: Array<Int>
     private lateinit var gameFieldMineIdArray: Array<Int?>
@@ -37,7 +36,7 @@ class TechiesFragment : Fragment(),
 
     companion object {
         fun newInstance(): TechiesFragment = TechiesFragment()
-    }
+    }   
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

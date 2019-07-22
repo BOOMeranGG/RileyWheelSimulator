@@ -42,6 +42,7 @@
             app:layout_columnWeight="1"/>
 
         <ImageView
+            android:id="@+id/imgChart"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:srcCompat="@drawable/dota2_logo"
