@@ -19,6 +19,8 @@ class AsyncFlip(context: CoinFlipRoomActivity) : AsyncTask<Unit, Unit, Unit>() {
 
     override fun doInBackground(vararg params: Unit?) {
         while (true) {
+            if (isCancelled)
+                return
             TimeUnit.MILLISECONDS.sleep(10)
             publishProgress()
         }

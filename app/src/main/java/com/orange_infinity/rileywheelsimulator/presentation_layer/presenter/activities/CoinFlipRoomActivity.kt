@@ -2,19 +2,14 @@ package com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.act
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View.INVISIBLE
 import android.view.WindowManager
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.ProgressBar
+import android.widget.*
 import com.orange_infinity.rileywheelsimulator.R
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.dialog_fragments.PICKED_LIST_NAMING
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.dialog_fragments.TOTAL_COST_KEY
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.game_core.coin_flip.AsyncFlip
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.game_core.coin_flip.CoinFlipRoomCreator
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.game_core.coin_flip.getTeamNameFromIndex
-import java.lang.RuntimeException
 import kotlin.collections.ArrayList
 
 const val TEAM_NAME_KEY = "teamName"
@@ -78,5 +73,10 @@ class CoinFlipRoomActivity : AppCompatActivity() {
 
     private fun showBot() {
         roomCreator.playerCreateGame(totalCost)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        asyncFlip.cancel(true)
     }
 }

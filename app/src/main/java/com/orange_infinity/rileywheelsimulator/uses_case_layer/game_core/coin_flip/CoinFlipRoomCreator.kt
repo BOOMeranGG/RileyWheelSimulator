@@ -2,10 +2,7 @@ package com.orange_infinity.rileywheelsimulator.uses_case_layer.game_core.coin_f
 
 import android.annotation.SuppressLint
 import android.os.AsyncTask
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import com.orange_infinity.rileywheelsimulator.R
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.activities.CoinFlipRoomActivity
 import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
@@ -15,7 +12,6 @@ import java.util.concurrent.TimeUnit
 
 class CoinFlipRoomCreator(val context: CoinFlipRoomActivity, playerTeam: String) {
 
-    private val activityReference = WeakReference<CoinFlipRoomActivity>(context)
     private lateinit var botWaitingController: BotWaitingController
     private val botAccount = BotAccount(playerTeamName = playerTeam)
     private var chance = 50.0f
