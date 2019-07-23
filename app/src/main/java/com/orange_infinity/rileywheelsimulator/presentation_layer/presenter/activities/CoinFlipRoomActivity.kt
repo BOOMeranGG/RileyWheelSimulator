@@ -49,7 +49,7 @@ class CoinFlipRoomActivity : AppCompatActivity(), View.OnClickListener {
         imgFirstPlayer.setImageResource(imgId)
 
         asyncFlip = AsyncFlip(this)
-        roomCreator = CoinFlipRoomCreator(this, teamName)
+        roomCreator = CoinFlipRoomCreator(this, teamName, totalCost)
         createBot()
     }
 

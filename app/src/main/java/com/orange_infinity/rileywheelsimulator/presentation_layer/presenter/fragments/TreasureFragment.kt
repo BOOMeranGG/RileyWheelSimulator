@@ -12,7 +12,7 @@ import com.orange_infinity.rileywheelsimulator.R
 import com.orange_infinity.rileywheelsimulator.entities_layer.ItemBox
 import com.orange_infinity.rileywheelsimulator.entities_layer.items.Treasure
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.dialog_fragments.TreasurePickerFragment
-import com.orange_infinity.rileywheelsimulator.uses_case_layer.IconController
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.IconController
 import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logInf
 

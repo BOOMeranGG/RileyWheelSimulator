@@ -1,7 +1,6 @@
 package com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.activities
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.GridLayout
@@ -22,7 +21,7 @@ import com.orange_infinity.rileywheelsimulator.entities_layer.items.Item
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.dialog_fragments.PICKED_LIST_NAMING
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.dialog_fragments.TOTAL_COST_KEY
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.dialog_fragments.TeamPickerFragment
-import com.orange_infinity.rileywheelsimulator.uses_case_layer.IconController
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.IconController
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.InventoryController
 import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logInf
@@ -73,6 +72,14 @@ class ChooseItemCoinPickActivity : AppCompatActivity(), View.OnClickListener {
             logInf(MAIN_LOGGER_TAG, "\"Cancel\" was pressed")
             finish()
         }
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        pickItemListLayout.removeAllViews()
+        pickItemList = mutableListOf()
+        init()
+        updateRecycler()
     }
 
     private fun updateRecycler() {

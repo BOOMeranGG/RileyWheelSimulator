@@ -14,10 +14,10 @@ import android.widget.ImageSwitcher
 import android.widget.ViewSwitcher
 import com.facebook.rebound.*
 import com.orange_infinity.rileywheelsimulator.entities_layer.items.Item
-import com.orange_infinity.rileywheelsimulator.uses_case_layer.IconController
-import com.orange_infinity.rileywheelsimulator.uses_case_layer.SOUND_MINES_BOOM
-import com.orange_infinity.rileywheelsimulator.uses_case_layer.SOUND_SHORT_FIREWORK
-import com.orange_infinity.rileywheelsimulator.uses_case_layer.SoundPlayer
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.IconController
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.SOUND_MINES_BOOM
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.SOUND_SHORT_FIREWORK
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.SoundPlayer
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.game_core.find_hero.FindHeroEngine
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.game_core.find_hero.FindHeroGame
 import java.lang.RuntimeException

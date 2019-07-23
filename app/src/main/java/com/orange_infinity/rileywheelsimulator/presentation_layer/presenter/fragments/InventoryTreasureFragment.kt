@@ -11,7 +11,7 @@ import com.orange_infinity.rileywheelsimulator.R
 import com.orange_infinity.rileywheelsimulator.data_layer.db.InventoryRepositoryImpl
 import com.orange_infinity.rileywheelsimulator.entities_layer.ItemBox
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.InventoryController
-import com.orange_infinity.rileywheelsimulator.uses_case_layer.IconController
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.IconController
 
 abstract class InventoryTreasureFragment : Fragment() {
 

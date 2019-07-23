@@ -4,6 +4,8 @@ import android.os.AsyncTask
 import com.orange_infinity.rileywheelsimulator.data_layer.db.InnerItemsRepositoryImpl
 import com.orange_infinity.rileywheelsimulator.data_layer.db.InventoryRepositoryImpl
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.activities.TreasureOpenerActivity
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.SOUND_SHORT_FIREWORK
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.SoundPlayer
 import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logInf
 import java.lang.ref.WeakReference

@@ -5,9 +5,9 @@ import android.widget.ImageView
 import android.widget.Toast
 import com.orange_infinity.rileywheelsimulator.R
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.activities.CoinFlipRoomActivity
-import com.orange_infinity.rileywheelsimulator.uses_case_layer.SOUND_MINES_BOOM
-import com.orange_infinity.rileywheelsimulator.uses_case_layer.SOUND_SHORT_FIREWORK
-import com.orange_infinity.rileywheelsimulator.uses_case_layer.SoundPlayer
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.SOUND_MINES_BOOM
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.SOUND_SHORT_FIREWORK
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.SoundPlayer
 import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logInf
 import java.lang.ref.WeakReference

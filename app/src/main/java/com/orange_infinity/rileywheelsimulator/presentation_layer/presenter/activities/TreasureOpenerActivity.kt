@@ -13,6 +13,9 @@ import com.orange_infinity.rileywheelsimulator.data_layer.db.InnerItemsRepositor
 import com.orange_infinity.rileywheelsimulator.entities_layer.items.InnerItem
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.dialog_fragments.ItemPickerFragment
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.*
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.IconController
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.SOUND_SHORT_FIREWORK
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.SoundPlayer
 import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logInf
 import java.util.*

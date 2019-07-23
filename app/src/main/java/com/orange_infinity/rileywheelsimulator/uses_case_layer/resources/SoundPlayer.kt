@@ -1,4 +1,4 @@
-package com.orange_infinity.rileywheelsimulator.uses_case_layer
+package com.orange_infinity.rileywheelsimulator.uses_case_layer.resources
 
 import android.content.Context
 import android.content.res.AssetManager
@@ -28,7 +28,8 @@ class SoundPlayer private constructor(context: Context?) {
 
         fun getInstance(context: Context?): SoundPlayer {
             if (instance == null) {
-                return SoundPlayer(context).also { instance = it }
+                return SoundPlayer(context)
+                    .also { instance = it }
             }
             return instance as SoundPlayer
         }

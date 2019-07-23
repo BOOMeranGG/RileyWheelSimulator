@@ -1,11 +1,14 @@
 package com.orange_infinity.rileywheelsimulator.uses_case_layer.game_core.coin_flip
 
+import android.content.Context
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.NicknameCreator
 import java.util.*
 
-class BotCreator(val playerCost: Float) {
+class BotCreator(context: Context) {
+
+    private val nicknameCreator = NicknameCreator(context)
 
     companion object {
-
         private val random = Random()
         private val teamList = listOf(
             "Alliance", "Chaos Esports", "Evil Geniuses", "Fnatic", "Forward Gaming", "Infamous", "Keen Gaming",
@@ -15,15 +18,21 @@ class BotCreator(val playerCost: Float) {
     }
 
     fun createNickname(): String {
-        return "Test nick"
+        return nicknameCreator.createSingleNickname()
     }
 
     fun createCountOfItem(): Int {
-        return 2
+        return 1 + (Math.random() * 5).toInt()
     }
 
-    fun createMoney(): Float {
-        return 22.0f
+    fun createChance(playerMoney: Float, botMoney: Float): Float {
+        return botMoney / (playerMoney + botMoney) * 100
+    }
+
+    fun createMoney(playerMoney: Float): Float {
+        val intPart = playerMoney - (Math.random() * (playerMoney / 4).toInt()).toInt()
+        val realPart = Math.random()
+        return (intPart + realPart).toFloat()
     }
 
     fun createImgTeamId(playerTeamName: String?): Int {

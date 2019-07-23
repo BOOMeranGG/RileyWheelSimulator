@@ -1,8 +1,10 @@
 package com.orange_infinity.rileywheelsimulator.uses_case_layer.game_core.coin_flip
 
-class BotAccount(playerCost: Float = 0.0f, playerTeamName: String?) {
+import android.content.Context
 
-    private val botCreator = BotCreator(playerCost)
+class BotAccount(playerMoney: Float = 0.0f, playerTeamName: String?, context: Context) {
+
+    private val botCreator = BotCreator(context)
     var chance = 50.0f
     val nickname: String
     val countOfItems: Int
@@ -12,7 +14,8 @@ class BotAccount(playerCost: Float = 0.0f, playerTeamName: String?) {
     init {
         nickname = botCreator.createNickname()
         countOfItems = botCreator.createCountOfItem()
-        money = botCreator.createMoney()
+        money = botCreator.createMoney(playerMoney)
         imgTeamId = botCreator.createImgTeamId(playerTeamName)
+        chance = botCreator.createChance(playerMoney, money)
     }
 }

@@ -15,7 +15,7 @@ import com.orange_infinity.rileywheelsimulator.entities_layer.items.Treasure
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.activities.TREASURE_COUNT
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.activities.TREASURE_OPENER
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.activities.TreasureOpenerActivity
-import com.orange_infinity.rileywheelsimulator.uses_case_layer.IconController
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.IconController
 import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logInf
 

@@ -12,9 +12,9 @@ import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logInf
 import android.util.DisplayMetrics
 import android.widget.*
-import com.orange_infinity.rileywheelsimulator.uses_case_layer.SOUND_MINES_BOOM
-import com.orange_infinity.rileywheelsimulator.uses_case_layer.SOUND_SHORT_FIREWORK
-import com.orange_infinity.rileywheelsimulator.uses_case_layer.SoundPlayer
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.SOUND_MINES_BOOM
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.SOUND_SHORT_FIREWORK
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.SoundPlayer
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.game_core.techies.TechiesEngine
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.game_core.techies.TechiesGame
 import com.orange_infinity.rileywheelsimulator.util.CASINO_LOGGER_TAG
