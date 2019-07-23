@@ -16,18 +16,19 @@ class CoinFlipRoomCreator(val context: CoinFlipRoomActivity, playerTeam: String)
     private val botAccount = BotAccount(playerTeamName = playerTeam)
     private var chance = 50.0f
 
-    fun playerCreateGame(playerMoney: Float) {
+    fun joinBotInRoom(playerMoney: Float): BotAccount {
         val second = 2 + (Math.random() * 3).toLong()
         val millisecond = (Math.random() * 999).toLong()
         val waitingMilli = second * 1000 + millisecond
         logInf(MAIN_LOGGER_TAG, "Time set to wait: $waitingMilli ms")
 
-        chance = calculateChance(playerMoney, botAccount.money)
+        //chance = calculateChance(playerMoney, botAccount.money)
 
         botWaitingController = BotWaitingController(context, waitingMilli, botAccount)
         botWaitingController.execute()
+        
+        return botAccount
     }
-
 
     private fun calculateChance(playerMoney: Float, botMoney: Float): Float {
         return 50.0f
@@ -57,6 +58,7 @@ class CoinFlipRoomCreator(val context: CoinFlipRoomActivity, playerTeam: String)
             val imgSecondPlayer = activity.findViewById<ImageView>(R.id.imgSecondPlayer)
             val imgCoin = activity.findViewById<ImageView>(R.id.imgCoin)
             val btnStart = activity.findViewById<Button>(R.id.btnStart)
+            activity.findViewById<TextView>(R.id.tvInfoProgress).visibility = TextView.INVISIBLE
 
             progressWaiting.visibility = ProgressBar.INVISIBLE
             imgSecondPlayer.visibility = ImageView.VISIBLE
@@ -70,10 +72,20 @@ class CoinFlipRoomCreator(val context: CoinFlipRoomActivity, playerTeam: String)
 
         @SuppressLint("SetTextI18n")
         private fun createTextBotInfo(activity: CoinFlipRoomActivity) {
-            activity.findViewById<TextView>(R.id.tvName2).text = botAccount.nickname
-            activity.findViewById<TextView>(R.id.tvCountOfItems2).text = "${botAccount.countOfItems} ITEMS"
-            activity.findViewById<TextView>(R.id.tvValue2).text = "${botAccount.money}$"
-            activity.findViewById<TextView>(R.id.tvChance2).text = "${botAccount.chance}%"
+            val nick = activity.findViewById<TextView>(R.id.tvName2)
+            val countOfItems = activity.findViewById<TextView>(R.id.tvCountOfItems2)
+            val accMoney = activity.findViewById<TextView>(R.id.tvValue2)
+            val chance = activity.findViewById<TextView>(R.id.tvChance2)
+
+            nick.visibility = TextView.VISIBLE
+            countOfItems.visibility = TextView.VISIBLE
+            accMoney.visibility = TextView.VISIBLE
+            chance.visibility = TextView.VISIBLE
+
+            nick.text = botAccount.nickname
+            countOfItems.text = "${botAccount.countOfItems} ITEMS"
+            accMoney.text = "${botAccount.money}$"
+            chance.text = "${botAccount.chance}%"
         }
     }
 }
