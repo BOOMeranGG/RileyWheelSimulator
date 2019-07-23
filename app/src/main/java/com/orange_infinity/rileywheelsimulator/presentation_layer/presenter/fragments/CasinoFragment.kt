@@ -46,7 +46,7 @@ class CasinoFragment : Fragment(), View.OnClickListener {
         val itemCount = infoSaver.getCountOfItems()
 
         tvNickname = v.findViewById(R.id.tvNickname)
-        tvNickname.text = "$nick, total item cost = $totalCost$, item count = $itemCount"
+        tvNickname.text = "$nick, total item money = $totalCost$, item count = $itemCount"
 
         imgTechiesGame = v.findViewById(R.id.imgTechiesGame)
         imgPuzzle = v.findViewById(R.id.imgPuzzle)

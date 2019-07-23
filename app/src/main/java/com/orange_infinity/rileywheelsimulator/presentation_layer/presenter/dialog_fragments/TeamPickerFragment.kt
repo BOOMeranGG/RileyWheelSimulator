@@ -2,6 +2,7 @@ package com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.dia
 
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.view.LayoutInflater
@@ -9,6 +10,9 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import com.orange_infinity.rileywheelsimulator.R
+import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.activities.CoinFlipRoomActivity
+import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.activities.IMAGE_ID_KEY
+import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.activities.TEAM_NAME_KEY
 import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logInf
 import java.lang.RuntimeException
@@ -51,8 +55,17 @@ class TeamPickerFragment : DialogFragment(), View.OnClickListener {
         if (v.id == R.id.imgTeam) {
             setNextTeamIcon()
         } else if (v.id == R.id.btnSelect){
-            val temaName = getTeamNameFromIndex(currentTeamImgIndex)
+            val teamName = getTeamNameFromIndex(currentTeamImgIndex)
             val imgId = teamListId[currentTeamImgIndex]
+            val intent = Intent(activity, CoinFlipRoomActivity::class.java)
+            intent.putExtra(TEAM_NAME_KEY, teamName)
+            intent.putExtra(IMAGE_ID_KEY, imgId)
+            intent.putExtra(TOTAL_COST_KEY, totalCost)
+            intent.putStringArrayListExtra(PICKED_LIST_NAMING, pickNamingList)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+
+            startActivity(intent)
+            dismiss()
         }
     }
 
@@ -72,20 +85,18 @@ class TeamPickerFragment : DialogFragment(), View.OnClickListener {
             dismiss()
         }
         btnSelect = v.findViewById(R.id.btnSelect)
-        btnSelect.setOnClickListener {
-            logInf(MAIN_LOGGER_TAG, "Select team")
-        }
+        btnSelect.setOnClickListener(this)
 
         imgTeam = v.findViewById(R.id.imgTeam)
         imgTeam.setOnClickListener(this)
 
         teamListId = listOf(
-            R.drawable.alliance, R.drawable.chaos_esports, R.drawable.evil_geniuses,
-            R.drawable.fnatic, R.drawable.forward_gaming, R.drawable.infamous,
+            R.drawable.navi, R.drawable.team_secret, R.drawable.evil_geniuses,
+            R.drawable.virtus_pro, R.drawable.team_liquid, R.drawable.infamous,
             R.drawable.keen_gaming, R.drawable.lgd_gaming, R.drawable.mineski,
-            R.drawable.navi, R.drawable.ninjas_in_pyjams, R.drawable.og,
-            R.drawable.royal_ngu, R.drawable.team_liquid, R.drawable.team_secret,
-            R.drawable.tnc, R.drawable.vici_gaming, R.drawable.virtus_pro
+            R.drawable.alliance, R.drawable.ninjas_in_pyjams, R.drawable.og,
+            R.drawable.royal_ngu, R.drawable.forward_gaming, R.drawable.chaos_esports,
+            R.drawable.tnc, R.drawable.vici_gaming, R.drawable.fnatic
         )
 
         imgTeam.setImageResource(teamListId.first())
@@ -103,7 +114,7 @@ class TeamPickerFragment : DialogFragment(), View.OnClickListener {
             R.drawable.keen_gaming -> return "Keen Gaming"
             R.drawable.lgd_gaming -> return "LGD Gaming"
             R.drawable.mineski -> return "Mineski"
-            R.drawable.navi -> return "NA'VI"
+            R.drawable.navi -> return "NAVI"
             R.drawable.ninjas_in_pyjams -> return "Ninjas in Pyjams"
             R.drawable.og -> return "OG"
             R.drawable.royal_ngu -> return "Royal Never Give Up"

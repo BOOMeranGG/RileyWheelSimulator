@@ -8,7 +8,7 @@ class ItemsInTreasureDbSchema {
         const val RARITY = "rarity"
         const val HERO = "hero"
         const val PRIORITY = "priority"
-        const val COST = "cost"
+        const val COST = "money"
     }
 
     object ItemsInTreasureTable {
