@@ -5,7 +5,7 @@ import android.content.Context
 import android.database.Cursor
 import com.orange_infinity.rileywheelsimulator.data_layer.UserPreferencesImpl
 import com.orange_infinity.rileywheelsimulator.entities_layer.items.*
-import com.orange_infinity.rileywheelsimulator.uses_case_layer.UserInfoSaver
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.UserInfoController
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.boundaries.output_db.InventoryRepository
 import com.orange_infinity.rileywheelsimulator.util.DB_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logInf
@@ -16,7 +16,6 @@ class InventoryRepositoryImpl(context: Context?) : InventoryRepository {
 
     private var database = InventoryDataBaseOpenHelper(context).writableDatabase
     private var innerItemsRepository = InnerItemsRepositoryImpl.getInstance(context)
-    private var userInfoSaver = UserInfoSaver(context, UserPreferencesImpl())
 
     companion object {
         private var instance: InventoryRepositoryImpl? = null
@@ -32,7 +31,6 @@ class InventoryRepositoryImpl(context: Context?) : InventoryRepository {
         val tableName: String = if (item is Treasure) {
             InventoryDbSchema.TreasureTable.NAME
         } else {
-            userInfoSaver.plusTotalItemCost(item.getCost())
             InventoryDbSchema.ItemTable.NAME
         }
         val itemType = getItemType(item)
@@ -88,7 +86,6 @@ class InventoryRepositoryImpl(context: Context?) : InventoryRepository {
         val tableName: String = if (item is Treasure) {
             InventoryDbSchema.TreasureTable.NAME
         } else {
-            userInfoSaver.plusTotalItemCost(item.getCost() * -1)
             InventoryDbSchema.ItemTable.NAME
         }
         val count = getCurrentCountOfItem(item, tableName)

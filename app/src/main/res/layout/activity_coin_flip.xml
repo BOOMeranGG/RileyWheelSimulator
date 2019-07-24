@@ -49,6 +49,42 @@
         android:background="@color/colorPrimary"
         android:orientation="horizontal">
 
+        <LinearLayout
+            android:id="@+id/leftAccountLayout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <include layout="@layout/include_bot"
+                     android:id="@+id/includeLeftFirst"/>
+
+            <include layout="@layout/include_bot"
+                     android:id="@+id/includeLeftSecond"/>
+
+            <include layout="@layout/include_bot"
+                     android:id="@+id/includeLeftThird"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/rightAccountLayout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <include layout="@layout/include_bot"
+                     android:id="@+id/includeRightFirst"/>
+
+            <include layout="@layout/include_bot"
+                     android:id="@+id/includeRightSecond"/>
+
+            <include layout="@layout/include_bot"
+                     android:id="@+id/includeRightThird"/>
+
+        </LinearLayout>
+
     </LinearLayout>
 
     <View

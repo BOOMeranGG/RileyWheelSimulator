@@ -12,10 +12,11 @@ import android.widget.TextView
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.activities.CoinFlipActivity
 import com.orange_infinity.rileywheelsimulator.R
 import com.orange_infinity.rileywheelsimulator.data_layer.UserPreferencesImpl
+import com.orange_infinity.rileywheelsimulator.data_layer.db.InventoryRepositoryImpl
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.activities.MainActivity
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.fragments.game_fragments.PuzzleFragment
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.fragments.game_fragments.TechiesFragment
-import com.orange_infinity.rileywheelsimulator.uses_case_layer.UserInfoSaver
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.UserInfoController
 import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logInf
 
@@ -38,8 +39,9 @@ class CasinoFragment : Fragment(), View.OnClickListener {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val v = inflater.inflate(R.layout.fragment_casino, container, false)
 
-        val infoSaver = UserInfoSaver(activity,
-            UserPreferencesImpl()
+        val infoSaver = UserInfoController(activity,
+            UserPreferencesImpl(),
+            InventoryRepositoryImpl.getInstance(context?.applicationContext)
         )
         val nick = infoSaver.getNickname()
         val totalCost = infoSaver.getTotalItemCost()

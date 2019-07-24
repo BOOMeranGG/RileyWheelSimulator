@@ -56,7 +56,7 @@ class CoinFlipRoomCreator(val context: CoinFlipRoomActivity, playerTeam: String,
             val imgSecondPlayer = activity.findViewById<ImageView>(R.id.imgSecondPlayer)
             val imgCoin = activity.findViewById<ImageView>(R.id.imgCoin)
             val btnStart = activity.findViewById<Button>(R.id.btnStart)
-            
+
             val tvChance = activity.findViewById<TextView>(R.id.tvChance)
             tvChance.text = "${100 - botAccount.chance}%"
 
