@@ -52,10 +52,4 @@ class UserInfoController(
     fun getBattlePassExp(): Int {
         return 0
     }
-
-    //fun getBattlePassExp(): Int = preferences.getIntFromPreferences(context, PREFERENCES_EXPERIANCE_KEY) ?: 0
-
-    //fun getTotalItemCost(): Int = preferences.getIntFromPreferences(context, PREFERENCES_ITEM_COST_KEY) ?: 0
-
-    //fun getCountOfItems(): Int = preferences.getIntFromPreferences(context, PREFERENCES_COUNT_OF_ITEM_KEY) ?: 0
 }

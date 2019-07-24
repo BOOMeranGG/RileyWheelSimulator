@@ -15,8 +15,8 @@ class TreasureOpenerController(private val treasureItemsRepository: ItemsInTreas
         return itemList
     }
 
-        //TODO("ИСПРАВИТЬ!")
-    fun createItemSetExceptList(treasureName: String, exceptList: List<InnerItem>): List<InnerItem> {
+    //TODO("ИСПРАВИТЬ!")
+    fun createItemSetWithoutExceptList(treasureName: String, exceptList: List<InnerItem>): List<InnerItem> {
         itemList = treasureItemsRepository.getItemsFromTreasure(treasureName).toMutableList()
         for (i in 0 until exceptList.size) {
             for (j in 0 until itemList.size) {

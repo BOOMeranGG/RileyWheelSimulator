@@ -31,6 +31,4 @@ class InnerItem(
     override fun getCost(): Int = cost.toInt()
 
     override fun getRarity(): String = rarity.toString()
-
-
 }

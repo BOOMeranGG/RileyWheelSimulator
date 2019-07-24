@@ -1,5 +1,6 @@
 package com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.activities
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -36,6 +37,7 @@ class TreasureOpenerActivity : AppCompatActivity(), ViewSwitcher.ViewFactory {
     private lateinit var imgFirstItem: ImageSwitcher
     private lateinit var imgSecondItem: ImageSwitcher
     private lateinit var linearInnerItems: LinearLayout
+    private lateinit var linearMainItems: LinearLayout
     private lateinit var soundPlayer: SoundPlayer
     private lateinit var firstItem: InnerItem
     private lateinit var secondItem: InnerItem
@@ -57,8 +59,16 @@ class TreasureOpenerActivity : AppCompatActivity(), ViewSwitcher.ViewFactory {
 
         linearInnerItems = findViewById(R.id.linearInnerItems)
         linearInnerItems.setOnClickListener {
+            //ViewPager
+            val intent = Intent(this, InnerItemViewPager::class.java)
+            intent.putExtra(TREASURE_NAME_INTENT_KEY, treasureName)
+            startActivity(intent)
+        }
+
+        linearMainItems = findViewById(R.id.linearMainItems)
+        linearMainItems.setOnClickListener {
             startOpening()
-            linearInnerItems.isEnabled = false
+            linearMainItems.isEnabled = false
         }
 
         openerController = TreasureOpenerController(InnerItemsRepositoryImpl.getInstance(applicationContext))
@@ -170,12 +180,12 @@ class TreasureOpenerActivity : AppCompatActivity(), ViewSwitcher.ViewFactory {
 
     private fun prepareNextOpening() {
         timer = Timer()
-        linearInnerItems.isEnabled = true
+        linearMainItems.isEnabled = true
         timerTask = OpeningTimerTask()
-        val remainingItems = openerController.createItemSetExceptList(treasureName, deletedItems)
+        val remainingItems = openerController.createItemSetWithoutExceptList(treasureName, deletedItems)
 
         if (deletedItems.size == MAX_TREASURE_OPENING || remainingItems.size == 2) {
-            linearInnerItems.isEnabled = false
+            linearMainItems.isEnabled = false
             logInf(MAIN_LOGGER_TAG, "Max treasures was opened")
         }
     }
