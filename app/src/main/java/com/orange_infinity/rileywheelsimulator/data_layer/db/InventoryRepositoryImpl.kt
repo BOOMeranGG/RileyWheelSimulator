@@ -3,9 +3,7 @@ package com.orange_infinity.rileywheelsimulator.data_layer.db
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
-import com.orange_infinity.rileywheelsimulator.data_layer.UserPreferencesImpl
 import com.orange_infinity.rileywheelsimulator.entities_layer.items.*
-import com.orange_infinity.rileywheelsimulator.uses_case_layer.UserInfoController
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.boundaries.output_db.InventoryRepository
 import com.orange_infinity.rileywheelsimulator.util.DB_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logInf

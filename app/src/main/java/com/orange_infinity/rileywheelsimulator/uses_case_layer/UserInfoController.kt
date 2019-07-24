@@ -1,9 +1,7 @@
 package com.orange_infinity.rileywheelsimulator.uses_case_layer
 
 import android.content.Context
-import com.orange_infinity.rileywheelsimulator.data_layer.PREFERENCES_COUNT_OF_ITEM_KEY
-import com.orange_infinity.rileywheelsimulator.data_layer.PREFERENCES_EXPERIANCE_KEY
-import com.orange_infinity.rileywheelsimulator.data_layer.PREFERENCES_ITEM_COST_KEY
+import com.orange_infinity.rileywheelsimulator.data_layer.PREFERENCES_PLAYER_MONEY
 import com.orange_infinity.rileywheelsimulator.data_layer.PREFERENCES_USERNAME_KEY
 import com.orange_infinity.rileywheelsimulator.entities_layer.User
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.boundaries.output_db.InventoryRepository
@@ -25,6 +23,16 @@ class UserInfoController(
             User.nickname = preferences.getStringFromPreferences(context, PREFERENCES_USERNAME_KEY)
         }
         return User.nickname + ""
+    }
+
+    fun changeUserMoney(itemCost: Float) {
+        val currentMoney = getUserMoney()
+        val newMoney = currentMoney + itemCost
+        preferences.saveFloatInPreferences(context, newMoney, PREFERENCES_PLAYER_MONEY)
+    }
+
+    fun getUserMoney(): Float {
+        return preferences.getFloatFromPreferences(context, PREFERENCES_PLAYER_MONEY) ?: 0f
     }
 
     fun getTotalItemCost(): Float {

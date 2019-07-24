@@ -13,4 +13,8 @@ interface UserPreferences {
     fun getStringFromPreferences(context: Context?, tag: String): String?
 
     fun getIntFromPreferences(context: Context?, tag: String): Int?
+
+    fun saveFloatInPreferences(context: Context?, info: Float, tag: String)
+
+    fun getFloatFromPreferences(context: Context?, tag: String): Float?
 }
