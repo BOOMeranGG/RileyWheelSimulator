@@ -8,7 +8,7 @@ interface Item {
 
     fun getItemName(): String
 
-    fun getCost(): Int
+    fun getCost(): Float
 
     fun getRarity(): String
 }

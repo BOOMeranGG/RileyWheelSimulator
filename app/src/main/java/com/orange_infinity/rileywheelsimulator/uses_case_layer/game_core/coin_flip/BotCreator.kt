@@ -25,13 +25,8 @@ class BotCreator(context: Context) {
         return 1 + (Math.random() * 5).toInt()
     }
 
-    //TODO("Сейчас шанс у бота всегда меньше, чем у игрока. Исправить это!")
+
     fun createChance(playerMoney: Float, botMoney: Float): Float {
-//        val mult = if (Math.random() < 0.5) {
-//            1
-//        } else {
-//            -1
-//        }
         return botMoney / (playerMoney + (botMoney)) * 100
     }
 

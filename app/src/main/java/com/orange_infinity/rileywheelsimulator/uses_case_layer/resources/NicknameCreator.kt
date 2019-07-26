@@ -2,15 +2,11 @@ package com.orange_infinity.rileywheelsimulator.uses_case_layer.resources
 
 import android.content.Context
 import android.content.res.AssetManager
-import android.provider.Telephony.Mms.Part.FILENAME
 import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logErr
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
-import com.github.mikephil.charting.charts.Chart.LOG_TAG
-import com.orange_infinity.rileywheelsimulator.util.logInf
-import java.lang.StringBuilder
 import java.util.*
 
 

@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.activities.ChartActivity
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.activities.CoinFlipActivity
 import com.orange_infinity.rileywheelsimulator.R
 import com.orange_infinity.rileywheelsimulator.data_layer.UserPreferencesImpl
@@ -25,6 +26,7 @@ class CasinoFragment : Fragment(), View.OnClickListener {
     private lateinit var tvNickname: TextView
     private lateinit var imgTechiesGame: ImageView
     private lateinit var imgPuzzle: ImageView
+    private lateinit var imgCoinFlip: ImageView
     private lateinit var imgChart: ImageView
 
     companion object {
@@ -49,13 +51,15 @@ class CasinoFragment : Fragment(), View.OnClickListener {
         val userMoney = infoSaver.getUserMoney()
 
         tvNickname = v.findViewById(R.id.tvNickname)
-        tvNickname.text = "$nick, total item money = $totalCost$, item count = $itemCount, user money = $userMoney$"
+        tvNickname.text = "$nick, total item cost = $totalCost$, item count = $itemCount, user money = $userMoney$"
 
         imgTechiesGame = v.findViewById(R.id.imgTechiesGame)
         imgPuzzle = v.findViewById(R.id.imgPuzzle)
-        imgChart = v.findViewById(R.id.imgChart)
+        imgCoinFlip = v.findViewById(R.id.imgCoinFlip)
+        imgChart = v.findViewById(R.id.imgCrash)
         imgTechiesGame.setOnClickListener(this)
         imgPuzzle.setOnClickListener(this)
+        imgCoinFlip.setOnClickListener(this)
         imgChart.setOnClickListener(this)
 
         return v
@@ -71,10 +75,15 @@ class CasinoFragment : Fragment(), View.OnClickListener {
                 (activity as MainActivity).changeFragment(PuzzleFragment.newInstance())
                 logInf(MAIN_LOGGER_TAG, "GO to 3on3 game(puzzle fragment)")
             }
-            v.id == R.id.imgChart -> {
+            v.id == R.id.imgCoinFlip -> {
                 val intent = Intent(activity, CoinFlipActivity::class.java)
                 startActivity(intent)
                 logInf(MAIN_LOGGER_TAG, "Go to CoinFlipActivity")
+            }
+            v.id == R.id.imgCrash -> {
+                val intent = Intent(activity, ChartActivity::class.java)
+                startActivity(intent)
+                logInf(MAIN_LOGGER_TAG, "Go to ChartActivity")
             }
         }
     }

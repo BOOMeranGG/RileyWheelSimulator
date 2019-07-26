@@ -9,7 +9,7 @@ class InnerItem(
     val rarity: Rarity,
     val hero: Heroes,
     val priority: Int,
-    val cost: Float
+    private val cost: Float
 ) : Item, Comparable<InnerItem> {
 
     override fun compareTo(other: InnerItem): Int {
@@ -28,7 +28,7 @@ class InnerItem(
 
     override fun getItemName(): String = convertFromCamelCase(this.name)
 
-    override fun getCost(): Int = cost.toInt()
+    override fun getCost(): Float = cost
 
     override fun getRarity(): String = rarity.toString()
 }

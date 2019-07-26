@@ -6,7 +6,7 @@ import java.util.*
 
 enum class Commentator(
     private val itemName: String,
-    private val cost: Int = 0,
+    private val cost: Float = 0f,
     private val rarity: Rarity = Rarity.MYTHICAL
 ) : Item {
     AnnouncerDrKleiner("Announcer: Dr. Kleiner"),
@@ -56,7 +56,7 @@ enum class Commentator(
 
     override fun getItemName(): String = itemName
 
-    override fun getCost(): Int = cost
+    override fun getCost(): Float = cost
 
     override fun getRarity(): String = rarity.toString()
 }

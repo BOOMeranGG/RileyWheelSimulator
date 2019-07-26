@@ -11,8 +11,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".presentation_layer.presenter.activities.InnerItemViewPager"
+        <activity android:name=".presentation_layer.presenter.activities.ChartActivity"
                   android:screenOrientation="landscape">
+        </activity>
+        <activity
+            android:name=".presentation_layer.presenter.activities.InnerItemViewPager"
+            android:screenOrientation="landscape">
         </activity>
         <activity
             android:name=".presentation_layer.presenter.activities.CoinFlipRoomActivity"
