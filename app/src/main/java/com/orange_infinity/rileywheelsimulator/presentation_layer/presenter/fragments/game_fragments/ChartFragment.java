@@ -14,6 +14,7 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import com.orange_infinity.rileywheelsimulator.R;
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.activities.ChartActivity;
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.game_core.crash.ChartGameController;
+import com.orange_infinity.rileywheelsimulator.util.AndroidLoggerKt;
 
 public class ChartFragment extends Fragment {
 
@@ -59,6 +60,7 @@ public class ChartFragment extends Fragment {
         tvMultiplier = rootView.findViewById(R.id.tvMultiplier);
         chartGameController = new ChartGameController();
         winnerMultiplier = chartGameController.getMultiplier();
+        AndroidLoggerKt.logInf(AndroidLoggerKt.MAIN_LOGGER_TAG, "winnerMultiplier = " + winnerMultiplier);
         return rootView;
     }
 
