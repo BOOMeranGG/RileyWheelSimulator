@@ -84,6 +84,7 @@ class TechiesFragment : Fragment(), TechiesGame, View.OnClickListener {
                 userInfoController.changeUserMoney(techiesEngine.getPrize())
                 Toast.makeText(context, "You are WINNER! +${techiesEngine.getPrize()}$", Toast.LENGTH_LONG).show()
                 techiesEngine.prepareNewGame()
+                isAddMoneyBtnEnabled(true)
             }
             currentBet = 0f
             tvMoneyBet.text = "$currentBet$"
@@ -98,6 +99,7 @@ class TechiesFragment : Fragment(), TechiesGame, View.OnClickListener {
 
     @SuppressLint("SetTextI18n")
     override fun winTurn(position: Int) {
+        isAddMoneyBtnEnabled(false)
         logInf(CASINO_LOGGER_TAG, "winTurn() is called")
         deleteMoneyIfItIsFirstTurn()
         currentBet = techiesEngine.getPrize()
@@ -115,6 +117,7 @@ class TechiesFragment : Fragment(), TechiesGame, View.OnClickListener {
 
     //TODO("Довольно костыльная реализация. Исправить(открытие после проигрыша)")
     override fun loseGame(position: Int) {
+        isAddMoneyBtnEnabled(false)
         openCells(true)
         deleteMoneyIfItIsFirstTurn()
         soundPlayer.standardPlay(SOUND_MINES_BOOM)
@@ -149,6 +152,12 @@ class TechiesFragment : Fragment(), TechiesGame, View.OnClickListener {
             }
         }
         tvMoneyBet.text = "$currentBet$"
+    }
+
+    private fun isAddMoneyBtnEnabled(isEnable: Boolean) {
+        btnAddTen.isEnabled = isEnable
+        btnAddFifty.isEnabled = isEnable
+        btnAddHundred.isEnabled = isEnable
     }
 
     private fun deleteMoneyIfItIsFirstTurn() {

@@ -5,9 +5,13 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.WindowManager
 import android.widget.FrameLayout
+import android.widget.Toast
 import com.orange_infinity.rileywheelsimulator.R
+import com.orange_infinity.rileywheelsimulator.data_layer.UserPreferencesImpl
+import com.orange_infinity.rileywheelsimulator.data_layer.db.InventoryRepositoryImpl
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.fragments.game_fragments.ChartControllerFragment
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.fragments.game_fragments.ChartFragment
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.UserInfoController
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.SOUND_MINES_BOOM
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.SOUND_SHORT_FIREWORK
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.SoundPlayer
@@ -16,9 +20,11 @@ import com.orange_infinity.rileywheelsimulator.util.logInf
 
 class ChartActivity : AppCompatActivity(), ChartControllerFragment.OnControllerButtonClicked, ChartFragment.OnLoseGame {
 
+    private lateinit var userInfoController: UserInfoController
     private lateinit var layoutChart: FrameLayout
     private lateinit var layoutInfo: FrameLayout
     private lateinit var soundPlayer: SoundPlayer
+    private var currentBet: Float = 0f
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +37,9 @@ class ChartActivity : AppCompatActivity(), ChartControllerFragment.OnControllerB
         layoutChart = findViewById(R.id.layoutChart)
         layoutInfo = findViewById(R.id.layoutInfo)
         soundPlayer = SoundPlayer.getInstance(this)
+        userInfoController = UserInfoController(
+            this, UserPreferencesImpl(), InventoryRepositoryImpl.getInstance(applicationContext)
+        )
 
         createChartFragment()
         createChartControllerFragment()
@@ -67,17 +76,23 @@ class ChartActivity : AppCompatActivity(), ChartControllerFragment.OnControllerB
             .commit()
     }
 
-    override fun onPlaceBet() {
+    override fun onPlaceBet(betMoney: Float) {
         val chartFragment = supportFragmentManager.findFragmentById(R.id.layoutChart) as ChartFragment
         chartFragment.startChart()
-        logInf(MAIN_LOGGER_TAG, "Place bet")
+        currentBet = betMoney
+        userInfoController.changeUserMoney((currentBet * -1))
+        logInf(MAIN_LOGGER_TAG, "Place bet: $betMoney$")
     }
 
     override fun onStopBet() {
         val chartFragment = supportFragmentManager.findFragmentById(R.id.layoutChart) as ChartFragment
         chartFragment.setStopped(true)
+        val winningPrize = chartFragment.currentMultiplier * currentBet
+        userInfoController.changeUserMoney(winningPrize.toFloat())
+
         soundPlayer.standardPlay(SOUND_SHORT_FIREWORK)
-        logInf(MAIN_LOGGER_TAG, "Stop bet")
+        Toast.makeText(this, "You are WINNER! +$winningPrize$", Toast.LENGTH_LONG).show()
+        logInf(MAIN_LOGGER_TAG, "Stop bet, win: ${(Math.round(winningPrize * 100.0) / 100.0)}$")
     }
 
     override fun onContinue() {

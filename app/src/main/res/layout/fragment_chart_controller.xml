@@ -22,4 +22,35 @@
         android:layout_alignParentBottom="true"
         android:text="Casino"/>
 
+    <Button
+        android:id="@+id/btnAddTen"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="8dp"
+        android:layout_below="@id/btnController"
+        android:textStyle="normal"
+        android:textSize="12sp"
+        android:text="+10$"/>
+
+    <Button
+        android:id="@+id/btnAddFifty"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/btnController"
+        android:layout_toEndOf="@id/btnAddTen"
+        android:textStyle="normal"
+        android:textSize="12sp"
+        android:text="+50$"/>
+
+    <Button
+        android:id="@+id/btnAddHundred"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="8dp"
+        android:layout_below="@id/btnAddFifty"
+        android:textStyle="normal"
+        android:textSize="12sp"
+        android:text="+100$"/>
+
+
 </android.support.percent.PercentRelativeLayout>

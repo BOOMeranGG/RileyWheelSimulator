@@ -23,12 +23,11 @@ public class ChartFragment extends Fragment {
     private Runnable timerChart;
     private Runnable timerMultiplier;
     private LineGraphSeries<DataPoint> series;
-    private ChartGameController chartGameController;
     private ChartActivity gameListener;
     private double winnerMultiplier = 1.0;
     private double graphLastXValue = 0d;
-    private double currentMultiplier = 1d;
     private boolean isStopped = false;
+    private double currentMultiplier = 1d;
 
     public static ChartFragment newInstance() {
         return new ChartFragment();
@@ -58,7 +57,7 @@ public class ChartFragment extends Fragment {
         graph.addSeries(series);
 
         tvMultiplier = rootView.findViewById(R.id.tvMultiplier);
-        chartGameController = new ChartGameController();
+        ChartGameController chartGameController = new ChartGameController();
         winnerMultiplier = chartGameController.getMultiplier();
         AndroidLoggerKt.logInf(AndroidLoggerKt.MAIN_LOGGER_TAG, "winnerMultiplier = " + winnerMultiplier);
         return rootView;
@@ -109,9 +108,11 @@ public class ChartFragment extends Fragment {
         isStopped = stopped;
     }
 
+    public double getCurrentMultiplier() {
+        return currentMultiplier;
+    }
 
     public interface OnLoseGame {
-
         void loseGame();
     }
 }
