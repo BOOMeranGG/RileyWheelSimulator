@@ -2,17 +2,8 @@ package com.orange_infinity.rileywheelsimulator.uses_case_layer.game_core.coin_f
 
 import android.os.AsyncTask
 import android.widget.ImageView
-import android.widget.Toast
 import com.orange_infinity.rileywheelsimulator.R
-import com.orange_infinity.rileywheelsimulator.data_layer.UserPreferencesImpl
-import com.orange_infinity.rileywheelsimulator.data_layer.db.InventoryRepositoryImpl
-import com.orange_infinity.rileywheelsimulator.entities_layer.items.InnerItem
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.activities.CoinFlipRoomActivity
-import com.orange_infinity.rileywheelsimulator.uses_case_layer.InventoryController
-import com.orange_infinity.rileywheelsimulator.uses_case_layer.UserInfoController
-import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.SOUND_MINES_BOOM
-import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.SOUND_SHORT_FIREWORK
-import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.SoundPlayer
 import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logInf
 import java.lang.ref.WeakReference

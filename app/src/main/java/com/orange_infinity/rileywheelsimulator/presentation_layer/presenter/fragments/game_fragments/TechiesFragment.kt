@@ -1,5 +1,6 @@
 package com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.fragments.game_fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
@@ -12,6 +13,9 @@ import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logInf
 import android.util.DisplayMetrics
 import android.widget.*
+import com.orange_infinity.rileywheelsimulator.data_layer.UserPreferencesImpl
+import com.orange_infinity.rileywheelsimulator.data_layer.db.InventoryRepositoryImpl
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.UserInfoController
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.SOUND_MINES_BOOM
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.SOUND_SHORT_FIREWORK
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.SoundPlayer
@@ -22,21 +26,27 @@ import com.orange_infinity.rileywheelsimulator.util.CASINO_LOGGER_TAG
 private const val ROW = 5
 private const val COLUMN = 7
 
-class TechiesFragment : Fragment(), TechiesGame {
+class TechiesFragment : Fragment(), TechiesGame, View.OnClickListener {
 
     private lateinit var gameFieldBackgroundIddList: Array<Int>
     private lateinit var gameFieldMineIdArray: Array<Int?>
+    private lateinit var userInfoController: UserInfoController
     private lateinit var recyclerView: RecyclerView
     private lateinit var btnClear: Button
+    private lateinit var btnAddTen: Button
+    private lateinit var btnAddFifty: Button
+    private lateinit var btnAddHundred: Button
+    private lateinit var tvMoneyBet: TextView
 
     private val techiesEngine = TechiesEngine(this, COLUMN)
     private lateinit var soundPlayer: SoundPlayer
     private var winWidth: Int = 0
     private var winHeight: Int = 0
+    private var currentBet: Float = 0f
 
     companion object {
         fun newInstance(): TechiesFragment = TechiesFragment()
-    }   
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +60,7 @@ class TechiesFragment : Fragment(), TechiesGame {
         initGameField()
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val v = inflater.inflate(R.layout.fragment_techies_holder, container, false)
 
@@ -57,18 +68,40 @@ class TechiesFragment : Fragment(), TechiesGame {
         recyclerView.layoutManager = GridLayoutManager(activity, 7)
         recyclerView.adapter = FieldAdapter(gameFieldBackgroundIddList, gameFieldMineIdArray)
 
+        btnAddTen = v.findViewById(R.id.btnAddTen)
+        btnAddFifty = v.findViewById(R.id.btnAddFifty)
+        btnAddHundred = v.findViewById(R.id.btnAddHundred)
+        btnAddTen.setOnClickListener(this)
+        btnAddFifty.setOnClickListener(this)
+        btnAddHundred.setOnClickListener(this)
+
+        tvMoneyBet = v.findViewById(R.id.tvMoneyBet)
         btnClear = v.findViewById(R.id.btnClear)
         btnClear.setOnClickListener {
             initGameField()
             updateRecycler()
-            techiesEngine.prepareNewGame()
+            if (techiesEngine.gameStage != 0) {
+                userInfoController.changeUserMoney(techiesEngine.getPrize())
+                Toast.makeText(context, "You are WINNER! +${techiesEngine.getPrize()}$", Toast.LENGTH_LONG).show()
+                techiesEngine.prepareNewGame()
+            }
+            currentBet = 0f
+            tvMoneyBet.text = "$currentBet$"
         }
+
+        userInfoController = UserInfoController(
+            activity, UserPreferencesImpl(), InventoryRepositoryImpl.getInstance(activity?.applicationContext)
+        )
 
         return v
     }
 
+    @SuppressLint("SetTextI18n")
     override fun winTurn(position: Int) {
         logInf(CASINO_LOGGER_TAG, "winTurn() is called")
+        deleteMoneyIfItIsFirstTurn()
+        currentBet = techiesEngine.getPrize()
+        tvMoneyBet.text = "$currentBet$"
         openCells(false)
     }
 
@@ -76,12 +109,14 @@ class TechiesFragment : Fragment(), TechiesGame {
         Toast.makeText(context, "You are WINNER! +${techiesEngine.getPrize()}$", Toast.LENGTH_LONG).show()
         openCells(false)
         soundPlayer.standardPlay(SOUND_SHORT_FIREWORK)
+        userInfoController.changeUserMoney(techiesEngine.getPrize())
         techiesEngine.prepareNewGame()
     }
 
     //TODO("Довольно костыльная реализация. Исправить(открытие после проигрыша)")
     override fun loseGame(position: Int) {
         openCells(true)
+        deleteMoneyIfItIsFirstTurn()
         soundPlayer.standardPlay(SOUND_MINES_BOOM)
         techiesEngine.gameStage++
         while (techiesEngine.gameStage <= COLUMN) {
@@ -93,6 +128,35 @@ class TechiesFragment : Fragment(), TechiesGame {
         Toast.makeText(context, "You DEFEAT", Toast.LENGTH_SHORT).show()
     }
 
+    @SuppressLint("SetTextI18n")
+    override fun onClick(v: View) {
+        val restOfMoney = userInfoController.getUserMoney() - currentBet
+        when (v.id) {
+            btnAddTen.id -> {
+                if (restOfMoney < 10)
+                    return
+                currentBet+= 10
+            }
+            btnAddFifty.id -> {
+                if (restOfMoney < 50)
+                    return
+                currentBet += 50
+            }
+            btnAddHundred.id -> {
+                if (restOfMoney < 100)
+                    return
+                currentBet += 100
+            }
+        }
+        tvMoneyBet.text = "$currentBet$"
+    }
+
+    private fun deleteMoneyIfItIsFirstTurn() {
+        if (techiesEngine.gameStage == 1) {
+            userInfoController.changeUserMoney((currentBet * -1))
+        }
+    }
+
     private fun updateRecycler() {
         val adapter = recyclerView.adapter as FieldAdapter
         adapter.fields = gameFieldBackgroundIddList
@@ -102,7 +166,6 @@ class TechiesFragment : Fragment(), TechiesGame {
 
     private fun openCells(isDeadInThisTurn: Boolean) {
         val mineIndex = techiesEngine.mineIndex
-        val stage = techiesEngine.gameStage
         if (isDeadInThisTurn) {
             gameFieldMineIdArray[mineIndex] = R.drawable.mine_boom
         } else {
@@ -158,7 +221,7 @@ class TechiesFragment : Fragment(), TechiesGame {
 
         override fun onClick(v: View?) {
             logInf(MAIN_LOGGER_TAG, "Field was clicked $adapterPosition")
-            techiesEngine.clickOnCell(adapterPosition, 100.0f)
+            techiesEngine.clickOnCell(adapterPosition, currentBet)
         }
     }
 
