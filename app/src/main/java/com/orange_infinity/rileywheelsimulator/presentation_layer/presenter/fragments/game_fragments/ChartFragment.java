@@ -69,6 +69,7 @@ public class ChartFragment extends Fragment {
             @Override
             public void run() {
                 if (isStopped) {
+                    tvMultiplier.setTextColor(getResources().getColor(R.color.colorGreen));
                     return;
                 }
                 if (currentMultiplier > winnerMultiplier) {

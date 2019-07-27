@@ -44,7 +44,6 @@ class TreasureOpenerActivity : AppCompatActivity(), ViewSwitcher.ViewFactory {
 
     private var timer = Timer()
     private var timerTask = OpeningTimerTask()
-    private var openingTreasure = AsyncOpeningTreasure(this)
     private var itemCount: Int = 1
     private var itemList = mutableListOf<InnerItem>()
     private var deletedItems = mutableListOf<InnerItem>()

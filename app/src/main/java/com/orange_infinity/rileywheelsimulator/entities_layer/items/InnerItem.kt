@@ -4,12 +4,12 @@ import com.orange_infinity.rileywheelsimulator.entities_layer.Heroes
 import com.orange_infinity.rileywheelsimulator.util.convertFromCamelCase
 
 class InnerItem(
-    val treasureName: String,
+    val treasureName: String = "",
     private val name: String,
-    val rarity: Rarity,
-    val hero: Heroes,
-    val priority: Int,
-    private val cost: Float
+    val rarity: Rarity = Rarity.COMMON,
+    val hero: Heroes = Heroes.Any,
+    val priority: Int = 0,
+    private val cost: Float = 0.0f
 ) : Item, Comparable<InnerItem> {
 
     override fun compareTo(other: InnerItem): Int {

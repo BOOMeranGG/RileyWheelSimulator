@@ -4,7 +4,12 @@ import android.os.AsyncTask
 import android.widget.ImageView
 import android.widget.Toast
 import com.orange_infinity.rileywheelsimulator.R
+import com.orange_infinity.rileywheelsimulator.data_layer.UserPreferencesImpl
+import com.orange_infinity.rileywheelsimulator.data_layer.db.InventoryRepositoryImpl
+import com.orange_infinity.rileywheelsimulator.entities_layer.items.InnerItem
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.activities.CoinFlipRoomActivity
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.InventoryController
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.UserInfoController
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.SOUND_MINES_BOOM
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.SOUND_SHORT_FIREWORK
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.SoundPlayer
@@ -16,10 +21,13 @@ import java.util.concurrent.TimeUnit
 private const val MAX_TIME_MILLISECOND = 5000L
 private const val TIME_TO_SLEEP = 10L
 
-class AsyncFlip(context: CoinFlipRoomActivity) : AsyncTask<BotAccount, Unit, Unit>() {
+class AsyncFlip(context: CoinFlipRoomActivity) :
+    AsyncTask<BotAccount, Unit, Unit>() {
 
     private val activityReference = WeakReference<CoinFlipRoomActivity>(context)
+
     private lateinit var gameController: GameController
+    private var gameHost: GameResultListener = context
     private var mult = 1
     private var isCanSeeFirstCoin = true
     private var isFlipEnd = false
@@ -30,33 +38,12 @@ class AsyncFlip(context: CoinFlipRoomActivity) : AsyncTask<BotAccount, Unit, Uni
     }
 
     override fun doInBackground(vararg params: BotAccount?) {
-        var currentTime = 0L
         val botAccount = params.first() ?: return
         gameController = GameController(botAccount)
         isPlayerWinner = gameController.isPlayerWinner()
         logInf(MAIN_LOGGER_TAG, " Is player winner = $isPlayerWinner")
 
-        val activity = activityReference.get() ?: return
-        val imgCoin = activity.findViewById<ImageView>(R.id.imgCoin)
-        val imgWinner = if (isPlayerWinner) {
-            activity.findViewById<ImageView>(R.id.imgFirstPlayer)
-        } else {
-            activity.findViewById<ImageView>(R.id.imgSecondPlayer)
-        }
-
-        while (true) {
-            if (isCancelled)
-                return
-            TimeUnit.MILLISECONDS.sleep(TIME_TO_SLEEP)
-            publishProgress()
-            currentTime += TIME_TO_SLEEP
-            if (currentTime >= MAX_TIME_MILLISECOND && imgCoin.rotationX == 0f
-                && imgWinner.drawable == imgCoin.drawable
-            ) {
-                isFlipEnd = true
-                break
-            }
-        }
+        controlWaiting()
     }
 
     override fun onProgressUpdate(vararg values: Unit?) {
@@ -84,23 +71,41 @@ class AsyncFlip(context: CoinFlipRoomActivity) : AsyncTask<BotAccount, Unit, Uni
     override fun onPostExecute(result: Unit?) {
         super.onPostExecute(result)
         if (isPlayerWinner) {
-            playerWinner()
+            gameHost.playerWinner()
         } else {
-            botWinner()
+            gameHost.botWinner()
         }
     }
 
-    private fun playerWinner() {
+    private fun controlWaiting() {
+        var currentTime = 0L
         val activity = activityReference.get() ?: return
-        val soundPlayer = SoundPlayer.getInstance(activity.applicationContext)
-        Toast.makeText(activity, "YOU ARE WINNER!", Toast.LENGTH_LONG).show()
-        soundPlayer.standardPlay(SOUND_SHORT_FIREWORK)
+        val imgCoin = activity.findViewById<ImageView>(R.id.imgCoin)
+        val imgWinner = if (isPlayerWinner) {
+            activity.findViewById<ImageView>(R.id.imgFirstPlayer)
+        } else {
+            activity.findViewById(R.id.imgSecondPlayer)
+        }
+
+        while (true) {
+            if (isCancelled)
+                return
+            TimeUnit.MILLISECONDS.sleep(TIME_TO_SLEEP)
+            publishProgress()
+            currentTime += TIME_TO_SLEEP
+            if (currentTime >= MAX_TIME_MILLISECOND && imgCoin.rotationX == 0f
+                && imgWinner.drawable == imgCoin.drawable
+            ) {
+                isFlipEnd = true
+                break
+            }
+        }
     }
 
-    private fun botWinner() {
-        val activity = activityReference.get() ?: return
-        val soundPlayer = SoundPlayer.getInstance(activity.applicationContext)
-        Toast.makeText(activity, "YOU LOSE ;(", Toast.LENGTH_LONG).show()
-        soundPlayer.standardPlay(SOUND_MINES_BOOM)
+    interface GameResultListener {
+
+        fun playerWinner()
+
+        fun botWinner()
     }
 }

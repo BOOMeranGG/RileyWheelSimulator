@@ -14,20 +14,6 @@ const val PREFERENCES_EXPERIANCE_KEY = "experiance"
 
 class UserPreferencesImpl : UserPreferences {
 
-    override fun saveTotalItemCost(context: Context?, cost: Int, add: Int) {
-        saveIntInPreferences(context, cost, PREFERENCES_ITEM_COST_KEY)
-        val newCount = getIntFromPreferences(context,
-            PREFERENCES_COUNT_OF_ITEM_KEY
-        )!!.plus(
-            if (add > 0) {
-                1
-            } else {
-                -1
-            }
-        )
-        saveIntInPreferences(context, newCount, PREFERENCES_COUNT_OF_ITEM_KEY)
-    }
-
     override fun saveFloatInPreferences(context: Context?, info: Float, tag: String) {
         val settings = context?.getSharedPreferences(FILE_SETTINGS_NAME, Context.MODE_PRIVATE)
         val editor = settings?.edit()

@@ -22,8 +22,6 @@ class CoinFlipRoomCreator(val context: CoinFlipRoomActivity, playerTeam: String,
         val waitingMilli = second * 1000 + millisecond
         logInf(MAIN_LOGGER_TAG, "Time set to wait: $waitingMilli ms")
 
-        //chance = calculateChance(playerMoney, botAccount.money)
-
         botWaitingController = BotWaitingController(context, waitingMilli, botAccount, playerMoney)
         botWaitingController.execute()
         
