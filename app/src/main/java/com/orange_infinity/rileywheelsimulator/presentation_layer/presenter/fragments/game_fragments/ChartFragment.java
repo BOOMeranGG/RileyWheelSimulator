@@ -77,7 +77,7 @@ public class ChartFragment extends Fragment {
                     return;
                 }
                 graphLastXValue += 0.03d;
-                series.appendData(new DataPoint(graphLastXValue, graphLastXValue * graphLastXValue), false, 1000);
+                series.appendData(new DataPoint(graphLastXValue, graphLastXValue * graphLastXValue), false, 2500);
                 handler.postDelayed(this, 20);
             }
         };
