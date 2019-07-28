@@ -10,8 +10,9 @@ import android.widget.Button
 import android.widget.EditText
 import com.orange_infinity.rileywheelsimulator.R
 import com.orange_infinity.rileywheelsimulator.data_layer.UserPreferencesImpl
+import com.orange_infinity.rileywheelsimulator.data_layer.db.InventoryRepositoryImpl
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.activities.MainActivity
-import com.orange_infinity.rileywheelsimulator.uses_case_layer.UserInfoSaver
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.UserInfoController
 import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logInf
 
@@ -31,12 +32,17 @@ class InitializeNicknameFragment : Fragment(), View.OnClickListener {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         //TODO("REMOVE IT")
-        if (UserInfoSaver(activity, UserPreferencesImpl()).getNickname() != "") {
+        if (UserInfoController(
+                activity,
+                UserPreferencesImpl(),
+                InventoryRepositoryImpl.getInstance(context?.applicationContext)
+            ).getNickname() != ""
+        ) {
             goOnNextActivity()
             activity?.finish()
             logInf(MAIN_LOGGER_TAG, "Nickname isn't null, go on next activity")
         }
-        val v = inflater.inflate(R.layout.initialize_nickname_fragment, container, false)
+        val v = inflater.inflate(R.layout.fragment_initialize_nickname, container, false)
         editNickname = v.findViewById(R.id.editNickname)
         btnNext = v.findViewById(R.id.btnNext)
         btnNext.setOnClickListener(this)
@@ -51,7 +57,11 @@ class InitializeNicknameFragment : Fragment(), View.OnClickListener {
             //TODO("Сообщить пользователю об ошибке")
             return
         }
-        UserInfoSaver(activity, UserPreferencesImpl()).saveNickname(nick)
+        UserInfoController(
+            activity,
+            UserPreferencesImpl(),
+            InventoryRepositoryImpl.getInstance(context?.applicationContext)
+        ).saveNickname(nick)
 
         goOnNextActivity()
     }

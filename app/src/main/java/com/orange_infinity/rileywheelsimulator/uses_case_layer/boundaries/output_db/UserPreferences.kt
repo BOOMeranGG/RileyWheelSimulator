@@ -4,8 +4,6 @@ import android.content.Context
 
 interface UserPreferences {
 
-    fun saveTotalItemCost(context: Context?, cost: Int, add: Int)
-
     fun saveStringInPreferences(context: Context?, info: String, tag: String)
 
     fun saveIntInPreferences(context: Context?, info: Int, tag: String)
@@ -13,4 +11,8 @@ interface UserPreferences {
     fun getStringFromPreferences(context: Context?, tag: String): String?
 
     fun getIntFromPreferences(context: Context?, tag: String): Int?
+
+    fun saveFloatInPreferences(context: Context?, info: Float, tag: String)
+
+    fun getFloatFromPreferences(context: Context?, tag: String): Float?
 }

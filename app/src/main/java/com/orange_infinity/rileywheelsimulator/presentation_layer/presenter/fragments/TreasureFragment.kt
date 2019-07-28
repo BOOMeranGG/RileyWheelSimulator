@@ -12,7 +12,7 @@ import com.orange_infinity.rileywheelsimulator.R
 import com.orange_infinity.rileywheelsimulator.entities_layer.ItemBox
 import com.orange_infinity.rileywheelsimulator.entities_layer.items.Treasure
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.dialog_fragments.TreasurePickerFragment
-import com.orange_infinity.rileywheelsimulator.uses_case_layer.IconController
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.IconController
 import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logInf
 
@@ -61,7 +61,11 @@ class TreasureFragment : InventoryTreasureFragment() {
             tvCount.text = "X${itemBox.count}"
             itemLayout.setOnClickListener(this)
 
-            imgItem.setImageDrawable(IconController.getInstance(context).getItemIconDrawable(treasure))
+            imgItem.setImageDrawable(
+                IconController.getInstance(context?.applicationContext).getItemIconDrawable(
+                    treasure
+                )
+            )
         }
 
         override fun onClick(v: View?) {

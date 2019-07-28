@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation_layer.presenter.activities.CoinFlipActivity"
+    android:layout_margin="8dp"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/relativeTop"
+        android:layout_width="wrap_content"
+        app:layout_heightPercent="12%"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvCoinFlip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="@color/colorBlack"
+            android:textStyle="bold"
+            android:text="COINFLIP"
+            android:layout_centerVertical="true"/>
+
+        <Button
+            android:id="@+id/btnCreateCoinFlip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="Create Coinflip"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginBottom="4dp"
+        android:layout_above="@id/mainLayout"/>
+
+    <LinearLayout
+        android:id="@+id/mainLayout"
+        android:layout_width="match_parent"
+        app:layout_heightPercent="73%"
+        android:layout_below="@id/relativeTop"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/leftAccountLayout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <include layout="@layout/include_bot"
+                     android:id="@+id/includeLeftFirst"/>
+
+            <include layout="@layout/include_bot"
+                     android:id="@+id/includeLeftSecond"/>
+
+            <include layout="@layout/include_bot"
+                     android:id="@+id/includeLeftThird"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/rightAccountLayout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <include layout="@layout/include_bot"
+                     android:id="@+id/includeRightFirst"/>
+
+            <include layout="@layout/include_bot"
+                     android:id="@+id/includeRightSecond"/>
+
+            <include layout="@layout/include_bot"
+                     android:id="@+id/includeRightThird"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="4dp"
+        android:layout_below="@id/mainLayout"
+        android:background="@android:color/darker_gray"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        app:layout_heightPercent="12%"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/btnCasino"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Casino"/>
+
+    </RelativeLayout>
+
+</android.support.percent.PercentRelativeLayout>

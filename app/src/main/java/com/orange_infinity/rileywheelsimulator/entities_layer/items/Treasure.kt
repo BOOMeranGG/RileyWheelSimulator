@@ -63,7 +63,7 @@ enum class Treasure(
 
     override fun getItemName(): String = itemName
 
-    override fun getCost(): Int = 0
+    override fun getCost(): Float = 0f
 
     override fun getRarity(): String = rarity.toString()
 }

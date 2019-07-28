@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="8dp"
+    tools:context=".presentation_layer.presenter.activities.CoinFlipRoomActivity">
+
+    <TextView
+        android:id="@+id/tvPickTeam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="22sp"
+        android:textColor="@color/colorBlack"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:text="PICK A TEAM"/>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginBottom="2dp"
+        android:layout_below="@id/tvPickTeam"/>
+
+    <LinearLayout
+        android:id="@+id/linearUsers"
+        app:layout_widthPercent="50%"
+        app:layout_heightPercent="75%"
+        android:layout_below="@id/line"
+        android:orientation="vertical">
+
+        <android.support.percent.PercentRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorGray"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/imgFirstPlayer"
+                app:layout_widthPercent="60%"
+                android:layout_height="match_parent"
+                android:src="@drawable/navi"/>
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_margin="8dp"
+                android:layout_toEndOf="@id/imgFirstPlayer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:textStyle="normal"
+                android:textSize="16sp"
+                android:text="You"/>
+
+            <TextView
+                android:id="@+id/tvCountOfItems"
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@id/imgFirstPlayer"
+                android:layout_below="@id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:textStyle="normal"
+                android:textSize="16sp"
+                android:text="1 ITEMS"/>
+
+            <TextView
+                android:id="@+id/tvValue"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_toEndOf="@id/imgFirstPlayer"
+                android:layout_below="@id/tvCountOfItems"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:textStyle="normal"
+                android:textSize="16sp"
+                android:text="6.28$"/>
+
+            <TextView
+                android:id="@+id/tvChance"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_toEndOf="@id/imgFirstPlayer"
+                android:layout_below="@id/tvValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:textStyle="normal"
+                android:textSize="16sp"
+                android:text="∞"/>
+
+        </android.support.percent.PercentRelativeLayout>
+
+        <android.support.percent.PercentRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorAccent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/imgSecondPlayer"
+                app:layout_widthPercent="60%"
+                android:layout_height="match_parent"
+                android:src="@drawable/ninjas_in_pyjams"/>
+
+            <ProgressBar
+                android:id="@+id/prWaitBot"
+                android:layout_marginTop="8dp"
+                app:layout_widthPercent="60%"
+                app:layout_heightPercent="80%"
+                android:layout_height="match_parent"
+                android:indeterminateDrawable="@drawable/spinner_ring"
+                android:indeterminateOnly="true"/>
+
+            <TextView
+                android:id="@+id/tvInfoProgress"
+                android:layout_width="wrap_content"
+                android:layout_alignParentBottom="true"
+                app:layout_marginLeftPercent="10%"
+                android:textSize="15sp"
+                android:textColor="@color/colorBlack"
+                android:text="Searching for opponent"/>
+
+            <TextView
+                android:id="@+id/tvName2"
+                android:layout_margin="8dp"
+                android:layout_toEndOf="@id/imgSecondPlayer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:textStyle="normal"
+                android:textSize="16sp"
+                android:text="Jared"
+                android:visibility="invisible"/>
+
+            <TextView
+                android:id="@+id/tvCountOfItems2"
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@id/imgSecondPlayer"
+                android:layout_below="@id/tvName2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:textStyle="normal"
+                android:textSize="16sp"
+                android:text="1 ITEMS"
+                android:visibility="invisible"/>
+
+            <TextView
+                android:id="@+id/tvValue2"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_toEndOf="@id/imgSecondPlayer"
+                android:layout_below="@id/tvCountOfItems2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:textStyle="normal"
+                android:textSize="16sp"
+                android:text="6.28$"
+                android:visibility="invisible"/>
+
+            <TextView
+                android:id="@+id/tvChance2"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_toEndOf="@id/imgSecondPlayer"
+                android:layout_below="@id/tvValue2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:textStyle="normal"
+                android:textSize="16sp"
+                android:text="55.28%"
+                android:visibility="invisible"/>
+
+        </android.support.percent.PercentRelativeLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/linearGame"
+        android:layout_width="match_parent"
+        app:layout_heightPercent="75%"
+        app:layout_widthPercent="50%"
+        android:layout_below="@id/line"
+        android:layout_toEndOf="@id/linearUsers"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imgCoin"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ninjas_in_pyjams"/>
+
+    </LinearLayout>
+
+
+    <View
+        android:id="@+id/line2"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginTop="2dp"
+        android:layout_below="@id/linearGame"/>
+
+    <Button
+        android:id="@+id/btnLeave"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/line2"
+        android:layout_marginStart="16dp"
+        android:text="LEAVE"/>
+
+    <Button
+        android:id="@+id/btnStart"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/line2"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
+        android:text="Start"/>
+
+
+</android.support.percent.PercentRelativeLayout>

@@ -4,13 +4,28 @@ import com.orange_infinity.rileywheelsimulator.entities_layer.items.InnerItem
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.boundaries.output_db.ItemsInTreasureRepository
 import java.util.*
 
-class TreasureOpener(private val treasureItemsRepository: ItemsInTreasureRepository) {
+class TreasureOpenerController(private val treasureItemsRepository: ItemsInTreasureRepository) {
 
     private var itemList = mutableListOf<InnerItem>()
     private val random = Random()
 
-    fun getItemSet(treasureName: String): List<InnerItem> {
+    fun createItemSet(treasureName: String): List<InnerItem> {
         itemList = treasureItemsRepository.getItemsFromTreasure(treasureName).toMutableList()
+        itemList.sort()
+        return itemList
+    }
+
+    //TODO("ИСПРАВИТЬ!")
+    fun createItemSetWithoutExceptList(treasureName: String, exceptList: List<InnerItem>): List<InnerItem> {
+        itemList = treasureItemsRepository.getItemsFromTreasure(treasureName).toMutableList()
+        for (i in 0 until exceptList.size) {
+            for (j in 0 until itemList.size) {
+                if (exceptList[i].getName() == itemList[j].getName()) {
+                    itemList.removeAt(j)
+                    break
+                }
+            }
+        }
         itemList.sort()
         return itemList
     }

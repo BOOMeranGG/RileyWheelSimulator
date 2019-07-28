@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal">
+
+    <com.jjoe64.graphview.GraphView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:id="@+id/graph2" />
+
+    <TextView
+        android:id="@+id/tvMultiplier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_marginLeftPercent="18%"
+        app:layout_marginTopPercent="30%"
+        android:textColor="@color/colorBlack"
+        android:textSize="38sp"
+        android:text="1.00X"/>
+
+</android.support.percent.PercentRelativeLayout>

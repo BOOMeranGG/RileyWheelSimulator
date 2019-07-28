@@ -1,4 +1,4 @@
-package com.orange_infinity.rileywheelsimulator.uses_case_layer
+package com.orange_infinity.rileywheelsimulator.uses_case_layer.resources
 
 import android.content.Context
 import android.content.res.AssetManager
@@ -12,11 +12,12 @@ import java.io.IOException
 
 private const val SOUND_FOLDER = "sounds"
 private const val MAX_SOUNDS = 1
-const val RILEY_PLAY = "riley_click"
-const val MINES_BOOM = "land_mines_boom"
-const val SHORT_FIREWORK = "short_firework"
 
-class SoundPlayer private constructor(context: Context?) {
+const val SOUND_RILEY_PLAY = "riley_click.mp3"
+const val SOUND_MINES_BOOM = "land_mines_boom.mp3"
+const val SOUND_SHORT_FIREWORK = "short_firework.mp3"
+
+class SoundPlayer private constructor(context: Context?): SoundPool.OnLoadCompleteListener {
 
     private val assets: AssetManager = context!!.assets
     private val sounds = mutableListOf<Sound>()
@@ -28,18 +29,25 @@ class SoundPlayer private constructor(context: Context?) {
         fun getInstance(context: Context?): SoundPlayer {
             if (instance == null) {
                 return SoundPlayer(context)
+                    .also { instance = it }
             }
             return instance as SoundPlayer
         }
     }
 
     init {
-        loadSounds()
+        soundPool.setOnLoadCompleteListener(this)
     }
 
     fun standardPlay(fileName: String) {
-        val sound: Sound = sounds.find { fileName == it.name } ?: return
-        soundPool.play(sound.soundId ?: return, 1.0f, 1.0f, 1, 0, 1.0f)
+        var assetPath = ""
+        try {
+            assetPath = "$SOUND_FOLDER/$fileName"
+            val currentSound = Sound(assetPath, "mp3")
+            load(currentSound)
+        } catch (e: IOException) {
+            logErr(MAIN_LOGGER_TAG, "Can not load file: $assetPath", e)
+        }
     }
 
     fun playWithLoop(fileName: String, loop: Int) {
@@ -47,25 +55,9 @@ class SoundPlayer private constructor(context: Context?) {
         soundPool.play(sound.soundId ?: return, 1.0f, 1.0f, 1, loop, 1.0f)
     }
 
-    private fun loadSounds() {
-        val soundNames: Array<String>?
-        try {
-            soundNames = assets.list(SOUND_FOLDER)
-            logInf(MAIN_LOGGER_TAG, "Found ${soundNames.size} sounds")
-        } catch (e: IOException) {
-            logErr(MAIN_LOGGER_TAG, "Could not list assets", e)
-            return
-        }
-
-        for (fileName in soundNames) {
-            try {
-                val assetPath = "$SOUND_FOLDER/$fileName"
-                val sound = Sound(assetPath, "mp3")
-                load(sound)
-                sounds.add(sound)
-            } catch (e: IOException) {
-                logErr(MAIN_LOGGER_TAG, "Could not load sound $fileName", e)
-            }
+    override fun onLoadComplete(soundPool: SoundPool, sampleId: Int, status: Int) {
+        if (status == 0) {
+            soundPool.play(sampleId, 1.0f, 1.0f, 1, 0, 1.0f)
         }
     }
 

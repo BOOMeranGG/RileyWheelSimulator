@@ -8,9 +8,9 @@ import android.widget.Button
 import com.orange_infinity.rileywheelsimulator.R
 import com.orange_infinity.rileywheelsimulator.data_layer.db.InventoryRepositoryImpl
 import com.orange_infinity.rileywheelsimulator.entities_layer.items.Item
-import com.orange_infinity.rileywheelsimulator.uses_case_layer.RILEY_PLAY
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.SOUND_RILEY_PLAY
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.RileyItemController
-import com.orange_infinity.rileywheelsimulator.uses_case_layer.SoundPlayer
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.SoundPlayer
 import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logInf
 import android.view.LayoutInflater as LayoutInflater1
@@ -28,18 +28,18 @@ class RileyWheelFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         rileyItemController = RileyItemController(InventoryRepositoryImpl.getInstance(context?.applicationContext))
-        soundPlayer = SoundPlayer.getInstance(activity?.applicationContext) //TODO("")
+        soundPlayer = SoundPlayer.getInstance(activity?.applicationContext)
     }
 
     override fun onCreateView(inflater: LayoutInflater1, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val v = inflater.inflate(R.layout.riley_wheel_fragment, container, false)
+        val v = inflater.inflate(R.layout.fragment_riley_wheel, container, false)
         btnAddItem = v.findViewById(R.id.btnAddItem)
 
         var newItem: Item?
         btnAddItem.setOnClickListener(View.OnClickListener {
             newItem = rileyItemController.addRandomItem()
             logInf(MAIN_LOGGER_TAG, "Add new item: " + newItem.toString())
-            soundPlayer.standardPlay(RILEY_PLAY)
+            soundPlayer.standardPlay(SOUND_RILEY_PLAY)
         })
         return v
     }

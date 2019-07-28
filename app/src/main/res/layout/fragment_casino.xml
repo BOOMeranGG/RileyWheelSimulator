@@ -42,11 +42,22 @@
             app:layout_columnWeight="1"/>
 
         <ImageView
+            android:id="@+id/imgCoinFlip"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:srcCompat="@drawable/dota2_logo"
             app:layout_row="0"
             app:layout_column="2"
+            app:layout_rowWeight="1"
+            app:layout_columnWeight="1"/>
+
+        <ImageView
+            android:id="@+id/imgCrash"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@drawable/dota2_logo"
+            app:layout_row="0"
+            app:layout_column="3"
             app:layout_rowWeight="1"
             app:layout_columnWeight="1"/>
 
@@ -74,15 +85,6 @@
             app:srcCompat="@drawable/dota2_logo"
             app:layout_row="1"
             app:layout_column="2"
-            app:layout_rowWeight="1"
-            app:layout_columnWeight="1"/>
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:srcCompat="@drawable/dota2_logo"
-            app:layout_row="0"
-            app:layout_column="3"
             app:layout_rowWeight="1"
             app:layout_columnWeight="1"/>
 

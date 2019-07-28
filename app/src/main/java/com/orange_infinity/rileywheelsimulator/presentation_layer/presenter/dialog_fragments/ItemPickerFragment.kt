@@ -8,15 +8,16 @@ import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.Adapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.orange_infinity.rileywheelsimulator.R
+import com.orange_infinity.rileywheelsimulator.data_layer.UserPreferencesImpl
 import com.orange_infinity.rileywheelsimulator.data_layer.db.InventoryRepositoryImpl
 import com.orange_infinity.rileywheelsimulator.entities_layer.items.Item
-import com.orange_infinity.rileywheelsimulator.uses_case_layer.IconController
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.IconController
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.InventoryController
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.UserInfoController
 import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logInf
 
@@ -57,7 +58,7 @@ class ItemPickerFragment : DialogFragment(), View.OnClickListener {
         btnSell.setOnClickListener(this)
         btnOk.setOnClickListener(this)
 
-        imgItem.setImageDrawable(IconController.getInstance(context).getItemIconDrawable(item))
+        imgItem.setImageDrawable(IconController.getInstance(context?.applicationContext).getItemIconDrawable(item))
         tvCost.text = "${item.getCost()}$"
         tvItemName.text = item.getItemName()
         tvRarity.text = item.getRarity()
@@ -74,6 +75,11 @@ class ItemPickerFragment : DialogFragment(), View.OnClickListener {
             R.id.btnSell -> {
                 logInf(MAIN_LOGGER_TAG, "\"Sell\" button was clicked")
                 //TODO("Деньги с продажи должны переходить в опыт компендиума")
+                UserInfoController(
+                    activity,
+                    UserPreferencesImpl(),
+                    InventoryRepositoryImpl.getInstance(context?.applicationContext)
+                ).changeUserMoney(item.getCost().toFloat())
                 inventoryController.deleteItem(item)
                 itemCount--
                 if (itemCount == 0) {

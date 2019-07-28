@@ -1,5 +1,6 @@
 package com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.activities
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -13,11 +14,15 @@ import com.orange_infinity.rileywheelsimulator.data_layer.db.InnerItemsRepositor
 import com.orange_infinity.rileywheelsimulator.entities_layer.items.InnerItem
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.dialog_fragments.ItemPickerFragment
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.*
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.IconController
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.SOUND_SHORT_FIREWORK
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.SoundPlayer
 import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logInf
 import java.util.*
 
 private const val WAITING = 1500L
+private const val MAX_TREASURE_OPENING = 5
 private const val ITEM_PICKER = "itemPicker"
 
 const val TREASURE_OPENER = "treasureOpener"
@@ -25,13 +30,14 @@ const val TREASURE_COUNT = "treasureCount"
 
 class TreasureOpenerActivity : AppCompatActivity(), ViewSwitcher.ViewFactory {
 
-    private lateinit var treasureOpener: TreasureOpener
+    private lateinit var openerController: TreasureOpenerController
     private lateinit var iconController: IconController
     private lateinit var inventoryController: InventoryController
     private lateinit var treasureName: String
     private lateinit var imgFirstItem: ImageSwitcher
     private lateinit var imgSecondItem: ImageSwitcher
     private lateinit var linearInnerItems: LinearLayout
+    private lateinit var linearMainItems: LinearLayout
     private lateinit var soundPlayer: SoundPlayer
     private lateinit var firstItem: InnerItem
     private lateinit var secondItem: InnerItem
@@ -40,6 +46,7 @@ class TreasureOpenerActivity : AppCompatActivity(), ViewSwitcher.ViewFactory {
     private var timerTask = OpeningTimerTask()
     private var itemCount: Int = 1
     private var itemList = mutableListOf<InnerItem>()
+    private var deletedItems = mutableListOf<InnerItem>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,16 +58,24 @@ class TreasureOpenerActivity : AppCompatActivity(), ViewSwitcher.ViewFactory {
 
         linearInnerItems = findViewById(R.id.linearInnerItems)
         linearInnerItems.setOnClickListener {
-            startOpening()
-            linearInnerItems.isEnabled = false
+            //ViewPager
+            val intent = Intent(this, InnerItemViewPager::class.java)
+            intent.putExtra(TREASURE_NAME_INTENT_KEY, treasureName)
+            startActivity(intent)
         }
 
-        treasureOpener = TreasureOpener(InnerItemsRepositoryImpl.getInstance(applicationContext))
+        linearMainItems = findViewById(R.id.linearMainItems)
+        linearMainItems.setOnClickListener {
+            startOpening()
+            linearMainItems.isEnabled = false
+        }
+
+        openerController = TreasureOpenerController(InnerItemsRepositoryImpl.getInstance(applicationContext))
         iconController = IconController.getInstance(applicationContext)
         inventoryController = InventoryController(InventoryRepositoryImpl.getInstance(applicationContext))
         treasureName = intent.getSerializableExtra(TREASURE_OPENER) as String
         itemCount = intent.getSerializableExtra(TREASURE_COUNT) as Int
-        itemList = treasureOpener.getItemSet(treasureName).toMutableList()
+        itemList = openerController.createItemSet(treasureName).toMutableList()
         logInf(MAIN_LOGGER_TAG, "Open treasure: $treasureName(count = $itemCount), find ${itemList.size} items")
 
         soundPlayer = SoundPlayer.getInstance(applicationContext)
@@ -83,6 +98,7 @@ class TreasureOpenerActivity : AppCompatActivity(), ViewSwitcher.ViewFactory {
     private fun startOpening() {
         logInf(MAIN_LOGGER_TAG, "Start opening treasure")
         timer.schedule(timerTask, 0, WAITING * 2)
+        //openingTreasure.execute(WAITING * 2)
     }
 
     private fun createTopInnerItems() {
@@ -94,7 +110,11 @@ class TreasureOpenerActivity : AppCompatActivity(), ViewSwitcher.ViewFactory {
 
         for (item in itemList) {
             val img = ImageView(this)
-            img.setImageDrawable(iconController.getItemIconDrawable(item))
+            if (deletedItems.find { it.getName() == item.getName() } != null) {
+                img.setImageDrawable(null)
+            } else {
+                img.setImageDrawable(iconController.getItemIconDrawable(item))
+            }
             img.layoutParams = layoutParams
             linearInnerItems.addView(img)
         }
@@ -116,47 +136,73 @@ class TreasureOpenerActivity : AppCompatActivity(), ViewSwitcher.ViewFactory {
         imgSecondItem.inAnimation = inAnimation
         imgSecondItem.outAnimation = outAnimation
 
-        firstItem = treasureOpener.gerRandomItem(null)
-        secondItem = treasureOpener.gerRandomItem(firstItem)
+        createFrontImg()
+    }
+
+    private fun createFrontImg() {
+        firstItem = openerController.gerRandomItem(null)
+        secondItem = openerController.gerRandomItem(firstItem)
 
         imgFirstItem.setImageDrawable(iconController.getItemIconDrawable(firstItem))
         imgSecondItem.setImageDrawable(iconController.getItemIconDrawable(secondItem))
     }
 
+    private fun removeLooserItem() {
+        val looser = openerController.getLooserBetweenDoubleItems(firstItem, secondItem)
+        logInf(MAIN_LOGGER_TAG, "Item ${looser.getName()} is lose")
+
+        when (looser) {
+            firstItem -> {
+                val newItem = openerController.gerRandomItem(secondItem)
+                imgFirstItem.setImageDrawable(iconController.getItemIconDrawable(newItem))
+                firstItem = newItem
+            }
+            secondItem -> {
+                val newItem = openerController.gerRandomItem(firstItem)
+                imgSecondItem.setImageDrawable(iconController.getItemIconDrawable(newItem))
+                secondItem = newItem
+            }
+        }
+    }
+
+    private fun controlWinnerItem() {
+        logInf(MAIN_LOGGER_TAG, "Winner is ${openerController.getWinnerItem().getItemName()}")
+        val winnerItem = openerController.getWinnerItem()
+        deletedItems.add(winnerItem)
+
+        inventoryController.addItem(winnerItem)
+        soundPlayer.standardPlay(SOUND_SHORT_FIREWORK)
+        createTopInnerItems()
+        val dialog = ItemPickerFragment.newInstance(winnerItem, 1)
+        dialog.show(supportFragmentManager, ITEM_PICKER)
+    }
+
+    private fun prepareNextOpening() {
+        timer = Timer()
+        linearMainItems.isEnabled = true
+        timerTask = OpeningTimerTask()
+        val remainingItems = openerController.createItemSetWithoutExceptList(treasureName, deletedItems)
+
+        if (deletedItems.size == MAX_TREASURE_OPENING || remainingItems.size == 2) {
+            linearMainItems.isEnabled = false
+            logInf(MAIN_LOGGER_TAG, "Max treasures was opened")
+        }
+    }
+
     private inner class OpeningTimerTask : TimerTask() {
 
         override fun run() {
-            logInf(MAIN_LOGGER_TAG, "Timer tik")
-            if (treasureOpener.isWin()) {
+            if (openerController.isWin()) {
                 this.cancel()
             }
-
             runOnUiThread {
-                if (treasureOpener.isWin()) {
-                    logInf(MAIN_LOGGER_TAG, "Winner is ${treasureOpener.getWinnerItem().getItemName()}")
-                    val winnerItem = treasureOpener.getWinnerItem()
-
-                    inventoryController.addItem(winnerItem)
-                    soundPlayer.standardPlay(SHORT_FIREWORK)
-                    val dialog = ItemPickerFragment.newInstance(winnerItem, 1)
-                    dialog.show(supportFragmentManager, ITEM_PICKER)
+                if (openerController.isWin()) {
+                    controlWinnerItem()
+                    prepareNextOpening()
+                    createFrontImg()
                     return@runOnUiThread
                 }
-                val looser = treasureOpener.getLooserBetweenDoubleItems(firstItem, secondItem)
-                logInf(MAIN_LOGGER_TAG, "Item ${looser.getName()} is lose")
-                when (looser) {
-                    firstItem -> {
-                        val newItem = treasureOpener.gerRandomItem(secondItem)
-                        imgFirstItem.setImageDrawable(iconController.getItemIconDrawable(newItem))
-                        firstItem = newItem
-                    }
-                    secondItem -> {
-                        val newItem = treasureOpener.gerRandomItem(firstItem)
-                        imgSecondItem.setImageDrawable(iconController.getItemIconDrawable(newItem))
-                        secondItem = newItem
-                    }
-                }
-                createTopInnerItems()
+                removeLooserItem()
             }
         }
     }

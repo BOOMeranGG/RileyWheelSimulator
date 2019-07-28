@@ -1,4 +1,4 @@
-package com.orange_infinity.rileywheelsimulator.uses_case_layer
+package com.orange_infinity.rileywheelsimulator.uses_case_layer.resources
 
 import android.content.Context
 import android.content.res.AssetManager
@@ -20,13 +20,13 @@ class IconController private constructor(context: Context?) {
 
     private val assets: AssetManager = context!!.assets
 
-    //TODO("Грузит каждый раз заново. ИСПРАВИТЬ!")
     companion object {
         private var instance: IconController? = null
 
         fun getInstance(context: Context?): IconController {
             if (instance == null) {
                 return IconController(context)
+                    .also { instance = it }
             }
             return instance as IconController
         }
