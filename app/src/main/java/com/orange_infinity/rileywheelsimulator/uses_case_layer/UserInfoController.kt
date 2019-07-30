@@ -52,7 +52,7 @@ class UserInfoController(
 
     fun addBattlePassExp(exp: Int) {
         val currentExp = getBattlePassExp()
-        preferences.saveIntInPreferences(context, exp, PREFERENCES_EXPERIANCE_KEY)
+        preferences.saveIntInPreferences(context, currentExp + exp, PREFERENCES_EXPERIANCE_KEY)
     }
 
     fun getBattlePassExp(): Int {
