@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     android:orientation="vertical">
 
     <TextView
@@ -19,13 +20,14 @@
     <android.support.v7.widget.GridLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="8dp"
         android:layout_gravity="center">
 
         <ImageView
             android:id="@+id/imgTechiesGame"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:srcCompat="@drawable/dota2_logo"
+            app:srcCompat="@drawable/techies"
             app:layout_column="0"
             app:layout_row="0"
             app:layout_rowWeight="1"
@@ -35,7 +37,7 @@
             android:id="@+id/imgPuzzle"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:srcCompat="@drawable/dota2_logo"
+            app:srcCompat="@drawable/puzzle"
             app:layout_row="0"
             app:layout_column="1"
             app:layout_rowWeight="1"
@@ -45,7 +47,7 @@
             android:id="@+id/imgCoinFlip"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:srcCompat="@drawable/dota2_logo"
+            app:srcCompat="@drawable/coin_flip"
             app:layout_row="0"
             app:layout_column="2"
             app:layout_rowWeight="1"
@@ -55,7 +57,7 @@
             android:id="@+id/imgCrash"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:srcCompat="@drawable/dota2_logo"
+            app:srcCompat="@drawable/crash"
             app:layout_row="0"
             app:layout_column="3"
             app:layout_rowWeight="1"

@@ -38,8 +38,15 @@ class TreasureFragment : InventoryTreasureFragment() {
         if (adapter == null) {
             adapter = TreasureAdapter(items)
         } else {
-            adapter!!.notifyDataSetChanged()
+            adapter?.notifyDataSetChanged()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+//        getNeededItems()
+//        adapter?.items = items
+//        updateRecycler()
     }
 
     private inner class TreasureHolder(inflater: LayoutInflater, container: ViewGroup) :
@@ -75,7 +82,7 @@ class TreasureFragment : InventoryTreasureFragment() {
         }
     }
 
-    private inner class TreasureAdapter(private val items: List<ItemBox>) : RecyclerView.Adapter<TreasureHolder>() {
+    private inner class TreasureAdapter(var items: List<ItemBox>) : RecyclerView.Adapter<TreasureHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TreasureHolder {
             val inflater = LayoutInflater.from(activity)

@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/btnAddItem"
+
+    <com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.riley_wheel_view.RileyWheelView
+        android:id="@+id/wheelViewController"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Получить предмет"
-        android:layout_gravity="center"
-        android:layout_margin="8dp"
-        android:layout_weight="1"/>
-</LinearLayout>
+        android:layout_alignParentEnd="true"
+        android:layout_margin="40dp"/>
+
+
+</RelativeLayout>

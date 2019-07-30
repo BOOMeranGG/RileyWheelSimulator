@@ -12,6 +12,7 @@ import com.orange_infinity.rileywheelsimulator.R
 import com.orange_infinity.rileywheelsimulator.data_layer.db.InventoryRepositoryImpl
 import com.orange_infinity.rileywheelsimulator.data_layer.db.InnerItemsRepositoryImpl
 import com.orange_infinity.rileywheelsimulator.entities_layer.items.InnerItem
+import com.orange_infinity.rileywheelsimulator.entities_layer.items.Treasure
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.dialog_fragments.ItemPickerFragment
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.*
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.IconController
@@ -27,6 +28,7 @@ private const val ITEM_PICKER = "itemPicker"
 
 const val TREASURE_OPENER = "treasureOpener"
 const val TREASURE_COUNT = "treasureCount"
+const val TREASURE_OBJECT = "treasureObject"
 
 class TreasureOpenerActivity : AppCompatActivity(), ViewSwitcher.ViewFactory {
 
@@ -41,6 +43,7 @@ class TreasureOpenerActivity : AppCompatActivity(), ViewSwitcher.ViewFactory {
     private lateinit var soundPlayer: SoundPlayer
     private lateinit var firstItem: InnerItem
     private lateinit var secondItem: InnerItem
+    private lateinit var thisTreasure: Treasure
 
     private var timer = Timer()
     private var timerTask = OpeningTimerTask()
@@ -58,7 +61,6 @@ class TreasureOpenerActivity : AppCompatActivity(), ViewSwitcher.ViewFactory {
 
         linearInnerItems = findViewById(R.id.linearInnerItems)
         linearInnerItems.setOnClickListener {
-            //ViewPager
             val intent = Intent(this, InnerItemViewPager::class.java)
             intent.putExtra(TREASURE_NAME_INTENT_KEY, treasureName)
             startActivity(intent)
@@ -75,6 +77,8 @@ class TreasureOpenerActivity : AppCompatActivity(), ViewSwitcher.ViewFactory {
         inventoryController = InventoryController(InventoryRepositoryImpl.getInstance(applicationContext))
         treasureName = intent.getSerializableExtra(TREASURE_OPENER) as String
         itemCount = intent.getSerializableExtra(TREASURE_COUNT) as Int
+        thisTreasure = intent.getSerializableExtra(TREASURE_OBJECT) as Treasure
+
         itemList = openerController.createItemSet(treasureName).toMutableList()
         logInf(MAIN_LOGGER_TAG, "Open treasure: $treasureName(count = $itemCount), find ${itemList.size} items")
 
@@ -95,10 +99,24 @@ class TreasureOpenerActivity : AppCompatActivity(), ViewSwitcher.ViewFactory {
         return img
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        timer.cancel()
+    }
+
     private fun startOpening() {
         logInf(MAIN_LOGGER_TAG, "Start opening treasure")
+        if (!isTreasureInInventory(thisTreasure)) {
+            Toast.makeText(this, "Don't have enough Treasure", Toast.LENGTH_LONG).show()
+            return
+        }
+        inventoryController.deleteItem(thisTreasure)
         timer.schedule(timerTask, 0, WAITING * 2)
-        //openingTreasure.execute(WAITING * 2)
+    }
+
+    private fun isTreasureInInventory(treasure: Treasure): Boolean {
+        val treasures = inventoryController.getTreasuresFromInventory()
+        return treasures.find { it.item.getName() == treasure.getName() } != null
     }
 
     private fun createTopInnerItems() {

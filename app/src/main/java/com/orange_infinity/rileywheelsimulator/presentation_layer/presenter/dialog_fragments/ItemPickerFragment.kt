@@ -30,6 +30,7 @@ class ItemPickerFragment : DialogFragment(), View.OnClickListener {
     private lateinit var btnSell: Button
     private lateinit var btnOk: Button
     private lateinit var inventoryController: InventoryController
+    private lateinit var infoSaver: UserInfoController
 
     lateinit var item: Item
     var itemCount: Int = 1
@@ -63,6 +64,11 @@ class ItemPickerFragment : DialogFragment(), View.OnClickListener {
         tvItemName.text = item.getItemName()
         tvRarity.text = item.getRarity()
 
+        infoSaver = UserInfoController(activity,
+            UserPreferencesImpl(),
+            InventoryRepositoryImpl.getInstance(context?.applicationContext)
+        )
+
         return AlertDialog.Builder(activity)
             .setView(v)
             .setTitle(setTitleName(item))
@@ -74,12 +80,9 @@ class ItemPickerFragment : DialogFragment(), View.OnClickListener {
         when (v.id) {
             R.id.btnSell -> {
                 logInf(MAIN_LOGGER_TAG, "\"Sell\" button was clicked")
-                //TODO("Деньги с продажи должны переходить в опыт компендиума")
-                UserInfoController(
-                    activity,
-                    UserPreferencesImpl(),
-                    InventoryRepositoryImpl.getInstance(context?.applicationContext)
-                ).changeUserMoney(item.getCost().toFloat())
+                infoSaver.changeUserMoney(item.getCost())
+                infoSaver.addBattlePassExp(item.getCost().toInt() * 10)
+
                 inventoryController.deleteItem(item)
                 itemCount--
                 if (itemCount == 0) {

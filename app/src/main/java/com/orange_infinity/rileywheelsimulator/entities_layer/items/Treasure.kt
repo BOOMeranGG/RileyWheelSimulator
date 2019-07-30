@@ -2,12 +2,13 @@ package com.orange_infinity.rileywheelsimulator.entities_layer.items
 
 import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logInf
+import java.io.Serializable
 import java.util.*
 
 enum class Treasure(
     private val itemName: String,
     private val rarity: Rarity = Rarity.MYTHICAL
-) : Item {
+) : Item, Serializable {
     LocklessLuckbox("Lockless Luckbox"),
     LocklessLuckvase("Lockless Luckvase"),
     LocklessLuckvase2016("Lockless Luckvase 2016", Rarity.IMMORTAL),

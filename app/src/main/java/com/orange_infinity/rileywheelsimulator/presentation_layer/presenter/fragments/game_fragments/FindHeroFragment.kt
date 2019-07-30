@@ -13,7 +13,9 @@ import android.widget.Button
 import android.widget.ImageSwitcher
 import android.widget.ViewSwitcher
 import com.facebook.rebound.*
+import com.orange_infinity.rileywheelsimulator.data_layer.db.InventoryRepositoryImpl
 import com.orange_infinity.rileywheelsimulator.entities_layer.items.Item
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.InventoryController
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.IconController
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.SOUND_MINES_BOOM
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.SOUND_SHORT_FIREWORK
@@ -40,6 +42,7 @@ class PuzzleFragment : Fragment(), View.OnTouchListener, SpringListener, ViewSwi
     private lateinit var soundPlayer: SoundPlayer
     private lateinit var springSystem: SpringSystem
     private lateinit var spring: Spring
+    private lateinit var inventoryController: InventoryController
 
     private var currentImg: ImageSwitcher? = null
     private var currentScaleX: Float = 0f
@@ -75,6 +78,8 @@ class PuzzleFragment : Fragment(), View.OnTouchListener, SpringListener, ViewSwi
 
         findHeroEngine.newGame()
 
+        inventoryController = InventoryController(InventoryRepositoryImpl.getInstance(activity?.applicationContext))
+
         return v
     }
 
@@ -83,16 +88,15 @@ class PuzzleFragment : Fragment(), View.OnTouchListener, SpringListener, ViewSwi
         changeIcon(currentImg!!, item)
     }
 
-    override fun winGame() {
+    override fun winGame(winningItem: Item) {
         openAllCells(findHeroEngine.gameField)
         soundPlayer.standardPlay(SOUND_SHORT_FIREWORK)
-        //findHeroEngine.newGame()
+        inventoryController.addItem(winningItem)
     }
 
     override fun loseGame() {
         openAllCells(findHeroEngine.gameField)
         soundPlayer.standardPlay(SOUND_MINES_BOOM)
-        //findHeroEngine.newGame()
     }
 
     override fun onTouch(v: View?, event: MotionEvent?): Boolean {
