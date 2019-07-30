@@ -1,6 +1,7 @@
 package com.orange_infinity.rileywheelsimulator.uses_case_layer
 
 import android.content.Context
+import com.orange_infinity.rileywheelsimulator.data_layer.PREFERENCES_EXPERIANCE_KEY
 import com.orange_infinity.rileywheelsimulator.data_layer.PREFERENCES_PLAYER_MONEY
 import com.orange_infinity.rileywheelsimulator.data_layer.PREFERENCES_USERNAME_KEY
 import com.orange_infinity.rileywheelsimulator.entities_layer.User
@@ -49,7 +50,12 @@ class UserInfoController(
         return count
     }
 
+    fun addBattlePassExp(exp: Int) {
+        val currentExp = getBattlePassExp()
+        preferences.saveIntInPreferences(context, exp, PREFERENCES_EXPERIANCE_KEY)
+    }
+
     fun getBattlePassExp(): Int {
-        return 0
+        return preferences.getIntFromPreferences(context, PREFERENCES_EXPERIANCE_KEY) ?: 0
     }
 }

@@ -6,8 +6,6 @@ import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logInf
 
 private const val FILE_SETTINGS_NAME = "settingsFileName"
-const val PREFERENCES_ITEM_COST_KEY = "inventoryCost"
-const val PREFERENCES_COUNT_OF_ITEM_KEY = "countOfItem"
 const val PREFERENCES_USERNAME_KEY = "username"
 const val PREFERENCES_PLAYER_MONEY = "totalPlayerMoney"
 const val PREFERENCES_EXPERIANCE_KEY = "experiance"

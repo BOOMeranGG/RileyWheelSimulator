@@ -11,10 +11,15 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.orange_infinity.rileywheelsimulator.R
+import com.orange_infinity.rileywheelsimulator.data_layer.UserPreferencesImpl
+import com.orange_infinity.rileywheelsimulator.data_layer.db.InventoryRepositoryImpl
 import com.orange_infinity.rileywheelsimulator.entities_layer.items.Treasure
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.activities.TREASURE_COUNT
+import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.activities.TREASURE_OBJECT
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.activities.TREASURE_OPENER
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.activities.TreasureOpenerActivity
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.InventoryController
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.UserInfoController
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.IconController
 import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logInf
@@ -78,6 +83,7 @@ class TreasurePickerFragment : DialogFragment(), View.OnClickListener {
                 val intent = Intent(activity, TreasureOpenerActivity::class.java)
                 intent.putExtra(TREASURE_OPENER, treasure.name)
                 intent.putExtra(TREASURE_COUNT, itemCount)
+                intent.putExtra(TREASURE_OBJECT, treasure)
                 startActivity(intent)
             }
             R.id.btnOk -> {
