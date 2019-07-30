@@ -50,10 +50,12 @@ class CasinoFragment : Fragment(), View.OnClickListener {
         val itemCount = infoSaver.getCountOfItems()
         val userMoney = infoSaver.getUserMoney()
         val userExp = infoSaver.getBattlePassExp()
+        val grade = infoSaver.getCurrentGrade()
+        val lvl = infoSaver.getCurrentLevel()
 
         tvNickname = v.findViewById(R.id.tvNickname)
         tvNickname.text = "$nick, total item cost = $totalCost$, item count = $itemCount, user money = $userMoney$," +
-                " exp = $userExp"
+                "\nexp = $userExp, grade = $grade(${grade.countOfStars}★), level = $lvl)"
 
         imgTechiesGame = v.findViewById(R.id.imgTechiesGame)
         imgPuzzle = v.findViewById(R.id.imgPuzzle)
