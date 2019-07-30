@@ -7,10 +7,14 @@ import com.orange_infinity.rileywheelsimulator.entities_layer.items.Treasure
 
 class FindHeroEngine(private val game: FindHeroGame) {
 
+    private lateinit var firstItemPicked: Item
+    private lateinit var arcana: Arcana
+    private lateinit var courier: Courier
+    private lateinit var treasure: Treasure
+
     var gameField = arrayOf<Item?>(null, null, null, null, null, null, null, null, null)
     var fieldVisited = arrayOf(false, false, false, false, false, false, false, false, false)
     private var turn = 0
-    private lateinit var firstItemPicked: Item
 
     fun newGame() {
         createField()
@@ -36,15 +40,15 @@ class FindHeroEngine(private val game: FindHeroGame) {
         if (turn != 3) {
             game.winTurn(position)
         } else {
-            game.winGame()
+            game.winGame(firstItemPicked)
         }
         fieldVisited[position] = true
     }
 
     private fun createField() {
-        val arcana = Arcana.BladesOfVothDomosh.getRandomItem()
-        val courier = Courier.AlphidOfLecaciida.getRandomItem()
-        val treasure = Treasure.GenuineTreasureOfTheShatteredHourglass.getRandomItem()
+        arcana = Arcana.BladesOfVothDomosh.getRandomItem() as Arcana
+        courier = Courier.AlphidOfLecaciida.getRandomItem() as Courier
+        treasure = Treasure.GenuineTreasureOfTheShatteredHourglass.getRandomItem() as Treasure
 
         gameField = arrayOf(null, null, null, null, null, null, null, null, null)
         fieldVisited = arrayOf(false, false, false, false, false, false, false, false, false)
