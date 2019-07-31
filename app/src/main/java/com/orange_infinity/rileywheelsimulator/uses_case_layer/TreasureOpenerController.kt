@@ -7,7 +7,24 @@ import java.util.*
 class TreasureOpenerController(private val treasureItemsRepository: ItemsInTreasureRepository) {
 
     private var itemList = mutableListOf<InnerItem>()
-    private val random = Random()
+
+    companion object {
+
+        private val random = Random()
+
+        fun getFastWinner(itemList: List<InnerItem>, deletedItems: List<InnerItem>): InnerItem {
+            val items = itemList.toMutableList()
+            for (deletedItem in deletedItems) {
+                for (item in items) {
+                    if (item.getName() == deletedItem.getName()) {
+                        items.remove(item)
+                        break
+                    }
+                }
+            }
+            return items[random.nextInt(items.size)]
+        }
+    }
 
     fun createItemSet(treasureName: String): List<InnerItem> {
         itemList = treasureItemsRepository.getItemsFromTreasure(treasureName).toMutableList()

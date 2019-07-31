@@ -1,6 +1,7 @@
 package com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.fragments
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -20,8 +21,6 @@ private const val TREASURE_PICKER = "treasurePicker"
 
 class TreasureFragment : InventoryTreasureFragment() {
 
-    private var adapter: TreasureAdapter? = null
-
     companion object {
         fun newInstance(): TreasureFragment = TreasureFragment()
     }
@@ -35,18 +34,15 @@ class TreasureFragment : InventoryTreasureFragment() {
     }
 
     override fun updateRecycler() {
-        if (adapter == null) {
-            adapter = TreasureAdapter(items)
-        } else {
-            adapter?.notifyDataSetChanged()
-        }
+        val adapter = inventoryRecyclerView.adapter as TreasureAdapter
+        adapter.items = items
+        inventoryRecyclerView.adapter!!.notifyDataSetChanged()
     }
 
     override fun onResume() {
         super.onResume()
-//        getNeededItems()
-//        adapter?.items = items
-//        updateRecycler()
+        getNeededItems()
+        updateRecycler()
     }
 
     private inner class TreasureHolder(inflater: LayoutInflater, container: ViewGroup) :

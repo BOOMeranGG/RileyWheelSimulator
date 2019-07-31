@@ -30,7 +30,7 @@ const val TREASURE_OPENER = "treasureOpener"
 const val TREASURE_COUNT = "treasureCount"
 const val TREASURE_OBJECT = "treasureObject"
 
-class TreasureOpenerActivity : AppCompatActivity(), ViewSwitcher.ViewFactory {
+class TreasureOpenerActivity : AppCompatActivity(), ViewSwitcher.ViewFactory, View.OnClickListener {
 
     private lateinit var openerController: TreasureOpenerController
     private lateinit var iconController: IconController
@@ -44,6 +44,8 @@ class TreasureOpenerActivity : AppCompatActivity(), ViewSwitcher.ViewFactory {
     private lateinit var firstItem: InnerItem
     private lateinit var secondItem: InnerItem
     private lateinit var thisTreasure: Treasure
+    private lateinit var btnCancel: Button
+    private lateinit var btnOpen: Button
 
     private var timer = Timer()
     private var timerTask = OpeningTimerTask()
@@ -67,10 +69,13 @@ class TreasureOpenerActivity : AppCompatActivity(), ViewSwitcher.ViewFactory {
         }
 
         linearMainItems = findViewById(R.id.linearMainItems)
-        linearMainItems.setOnClickListener {
-            startOpening()
-            linearMainItems.isEnabled = false
-        }
+
+        btnCancel = findViewById(R.id.btnCancel)
+        btnCancel.setOnClickListener(this)
+        btnCancel.isEnabled = false
+
+        btnOpen = findViewById(R.id.btnOpen)
+        btnOpen.setOnClickListener(this)
 
         openerController = TreasureOpenerController(InnerItemsRepositoryImpl.getInstance(applicationContext))
         iconController = IconController.getInstance(applicationContext)
@@ -85,6 +90,23 @@ class TreasureOpenerActivity : AppCompatActivity(), ViewSwitcher.ViewFactory {
         soundPlayer = SoundPlayer.getInstance(applicationContext)
         setSwitcher()
         createTopInnerItems()
+    }
+
+    override fun onClick(v: View) {
+        if (v.id == R.id.btnCancel) {
+            if (btnOpen.isEnabled) {
+                return
+            }
+            timer.cancel()
+            val winnerItem = TreasureOpenerController.getFastWinner(itemList, deletedItems)
+            controlWinnerItem(winnerItem)
+            prepareNextOpening()
+            logInf(MAIN_LOGGER_TAG, "Cancel opener animation")
+        } else if (v.id == R.id.btnOpen) {
+            btnOpen.isEnabled = false
+            btnCancel.isEnabled = true
+            startOpening()
+        }
     }
 
     override fun makeView(): View {
@@ -108,6 +130,7 @@ class TreasureOpenerActivity : AppCompatActivity(), ViewSwitcher.ViewFactory {
         logInf(MAIN_LOGGER_TAG, "Start opening treasure")
         if (!isTreasureInInventory(thisTreasure)) {
             Toast.makeText(this, "Don't have enough Treasure", Toast.LENGTH_LONG).show()
+            btnCancel.isEnabled = false
             return
         }
         inventoryController.deleteItem(thisTreasure)
@@ -183,9 +206,10 @@ class TreasureOpenerActivity : AppCompatActivity(), ViewSwitcher.ViewFactory {
         }
     }
 
-    private fun controlWinnerItem() {
+    private fun controlWinnerItem(winnerItem: InnerItem) {
         logInf(MAIN_LOGGER_TAG, "Winner is ${openerController.getWinnerItem().getItemName()}")
-        val winnerItem = openerController.getWinnerItem()
+        btnCancel.isEnabled = false
+        btnOpen.isEnabled = true
         deletedItems.add(winnerItem)
 
         inventoryController.addItem(winnerItem)
@@ -197,12 +221,12 @@ class TreasureOpenerActivity : AppCompatActivity(), ViewSwitcher.ViewFactory {
 
     private fun prepareNextOpening() {
         timer = Timer()
-        linearMainItems.isEnabled = true
+        btnOpen.isEnabled = true
         timerTask = OpeningTimerTask()
         val remainingItems = openerController.createItemSetWithoutExceptList(treasureName, deletedItems)
 
         if (deletedItems.size == MAX_TREASURE_OPENING || remainingItems.size == 2) {
-            linearMainItems.isEnabled = false
+            btnOpen.isEnabled = false
             logInf(MAIN_LOGGER_TAG, "Max treasures was opened")
         }
     }
@@ -215,7 +239,7 @@ class TreasureOpenerActivity : AppCompatActivity(), ViewSwitcher.ViewFactory {
             }
             runOnUiThread {
                 if (openerController.isWin()) {
-                    controlWinnerItem()
+                    controlWinnerItem(openerController.getWinnerItem())
                     prepareNextOpening()
                     createFrontImg()
                     return@runOnUiThread
