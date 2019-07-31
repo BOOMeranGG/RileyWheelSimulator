@@ -17,16 +17,12 @@ class UserInfoController(
 ) {
 
     fun getCurrentGrade(): Grade {
-        if (User.grade == null) {
-            calculateGrade()
-        }
+        calculateGrade()
         return User.grade!!
     }
 
     fun getCurrentLevel(): Int {
-        if (User.level == null) {
-            getCurrentGrade()
-        }
+        getCurrentGrade()
         return User.level!!
     }
 

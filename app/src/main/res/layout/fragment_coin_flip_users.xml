@@ -1,9 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.percent.PercentRelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/linearUsers"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layoutUsers"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/rightLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_widthPercent="50%"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/bot1"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            layout="@layout/include_bot" />
+
+        <include
+            android:id="@+id/bot2"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            layout="@layout/include_bot" />
+
+        <include
+            android:id="@+id/bot3"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            layout="@layout/include_bot" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/leftLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/rightLayout"
+        app:layout_widthPercent="50%"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/bot4"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            layout="@layout/include_bot" />
+
+        <include
+            android:id="@+id/bot5"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            layout="@layout/include_bot" />
+
+        <include
+            android:id="@+id/bot6"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            layout="@layout/include_bot" />
+
+    </LinearLayout>
+
+</android.support.percent.PercentRelativeLayout>
