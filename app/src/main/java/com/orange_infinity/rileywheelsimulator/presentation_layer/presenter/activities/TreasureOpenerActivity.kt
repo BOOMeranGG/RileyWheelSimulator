@@ -85,7 +85,7 @@ class TreasureOpenerActivity : AppCompatActivity(), ViewSwitcher.ViewFactory, Vi
         thisTreasure = intent.getSerializableExtra(TREASURE_OBJECT) as Treasure
 
         itemList = openerController.createItemSet(treasureName).toMutableList()
-        logInf(MAIN_LOGGER_TAG, "Open treasure: $treasureName(count = $itemCount), find ${itemList.size} items")
+        logInf(MAIN_LOGGER_TAG, "Open treasure: $treasureName(count = $itemCount), find ${itemList.size} icons")
 
         soundPlayer = SoundPlayer.getInstance(applicationContext)
         setSwitcher()

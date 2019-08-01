@@ -32,10 +32,11 @@ class UserInfoController(
     }
 
     fun getNickname(): String {
-        if (User.nickname == null) {
-            User.nickname = preferences.getStringFromPreferences(context, PREFERENCES_USERNAME_KEY)
-        }
-        return "${User.nickname}"
+//        if (User.nickname == null) {
+//            User.nickname = preferences.getStringFromPreferences(context, PREFERENCES_USERNAME_KEY)
+//        }
+//        return "${User.nickname}"
+        return "You"
     }
 
     fun changeUserMoney(itemCost: Float) {

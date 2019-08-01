@@ -8,7 +8,6 @@
     android:layout_gravity="center"
     android:layout_weight="1">
 
-
     <android.support.percent.PercentRelativeLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
