@@ -12,9 +12,9 @@ class FindHeroEngine(private val game: FindHeroGame) {
     private lateinit var courier: Courier
     private lateinit var treasure: Treasure
 
+    private var turn = 0
     var gameField = arrayOf<Item?>(null, null, null, null, null, null, null, null, null)
     var fieldVisited = arrayOf(false, false, false, false, false, false, false, false, false)
-    private var turn = 0
 
     fun newGame() {
         createField()
@@ -26,7 +26,7 @@ class FindHeroEngine(private val game: FindHeroGame) {
             turn++
             firstItemPicked = gameField[position]!!
             fieldVisited[position] = true
-            game.winTurn(position)
+            game.gameStart(position)
             return
         }
         if (fieldVisited[position]) {

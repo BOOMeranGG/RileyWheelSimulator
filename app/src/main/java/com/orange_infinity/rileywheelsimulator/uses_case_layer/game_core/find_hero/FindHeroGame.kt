@@ -4,6 +4,8 @@ import com.orange_infinity.rileywheelsimulator.entities_layer.items.Item
 
 interface FindHeroGame {
 
+    fun gameStart(position: Int)
+
     fun winTurn(position: Int)
 
     fun winGame(winningItem: Item)

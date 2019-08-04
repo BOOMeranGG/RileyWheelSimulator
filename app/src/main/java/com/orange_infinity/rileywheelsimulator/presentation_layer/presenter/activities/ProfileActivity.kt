@@ -61,7 +61,7 @@ class ProfileActivity : AppCompatActivity() {
 
         tvNickname.text = nick
         tvLevel.text = "Compendium level: $lvl"
-        tvMoney.text = "Balance:  $userMoney$SYMBOL_MONEY"
+        tvMoney.text = "Balance:  ${(Math.round(userMoney * 100.0) / 100.0)}$SYMBOL_MONEY"
         imgGrade.setImageDrawable(iconController.getGradeDrawable(grade))
     }
 }
