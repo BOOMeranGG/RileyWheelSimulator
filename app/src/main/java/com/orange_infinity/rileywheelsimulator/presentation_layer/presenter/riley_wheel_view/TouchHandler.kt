@@ -13,7 +13,10 @@ class TouchHandler(val view: RileyWheelView) : GestureDetector.SimpleOnGestureLi
     fun onTouchEvent(event: MotionEvent): Boolean {
         gestureDetector.onTouchEvent(event)
         if (event.action == MotionEvent.ACTION_UP) {
-            listener?.onScrollEnded(view.positionY)
+            if (view.positionY > view.height / 4) {
+                listener?.onScrollEnded(view.positionY)
+            }
+            returnView()
             logInf(MAIN_LOGGER_TAG, "Down event triggered(RileyWheelView), positionY = ${view.positionY}")
         }
         return true
@@ -28,5 +31,9 @@ class TouchHandler(val view: RileyWheelView) : GestureDetector.SimpleOnGestureLi
             logInf(MAIN_LOGGER_TAG, "On Scroll event triggered(RileyWheelView), y = ${e2.y}, minY = $minY, maxY = $maxY")
         }
         return true
+    }
+
+    private fun returnView() {
+        view.moveSlider(1)
     }
 }
