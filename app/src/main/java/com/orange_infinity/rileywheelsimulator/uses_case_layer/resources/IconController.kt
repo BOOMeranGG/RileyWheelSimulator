@@ -6,7 +6,6 @@ import android.graphics.drawable.Drawable
 import com.orange_infinity.rileywheelsimulator.entities_layer.Grade
 import com.orange_infinity.rileywheelsimulator.entities_layer.items.*
 import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
-import com.orange_infinity.rileywheelsimulator.util.convertFromCamelCase
 import com.orange_infinity.rileywheelsimulator.util.logErr
 import java.io.IOException
 import java.io.InputStream
@@ -16,7 +15,8 @@ private const val ARCANA_FOLDER = "/arcana"
 private const val COURIER_FOLDER = "/courier"
 private const val COMMENTATOR_FOLDER = "/commentator"
 private const val TREASURE_FOLDER = "/treasure"
-private const val INNER_ITEMS = "/inner_items"
+private const val INNER_ITEMS_FOLDER = "/inner_items"
+private const val SET_ITEMS_FOLDER = "/set_items"
 private const val GRADE = "/grade"
 
 class IconController private constructor(context: Context?) {
@@ -41,7 +41,8 @@ class IconController private constructor(context: Context?) {
             is Courier -> COURIER_FOLDER
             is Commentator -> COMMENTATOR_FOLDER
             is Treasure -> TREASURE_FOLDER
-            is InnerItem -> "$INNER_ITEMS/${item.treasureName}"
+            is SetItem -> SET_ITEMS_FOLDER
+            is InnerItem -> "$INNER_ITEMS_FOLDER/${item.treasureName}"
             else -> return null
         }
         return getDrawableFromAsset(prefix, item.getName())
