@@ -1,7 +1,6 @@
 package com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.fragments
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -65,9 +64,7 @@ class TreasureFragment : InventoryTreasureFragment() {
             itemLayout.setOnClickListener(this)
 
             imgItem.setImageDrawable(
-                IconController.getInstance(context?.applicationContext).getItemIconDrawable(
-                    treasure
-                )
+                IconController.getInstance(context?.applicationContext).getItemIconWithFrameDrawable(treasure)
             )
         }
 

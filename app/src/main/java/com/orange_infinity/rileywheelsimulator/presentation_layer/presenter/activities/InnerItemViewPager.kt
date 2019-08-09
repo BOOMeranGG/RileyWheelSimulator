@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v4.view.ViewPager
 import android.view.WindowManager
-import android.widget.ImageView
 import com.orange_infinity.rileywheelsimulator.R
 import com.orange_infinity.rileywheelsimulator.data_layer.db.InnerItemsRepositoryImpl
 import com.orange_infinity.rileywheelsimulator.entities_layer.items.InnerItem
@@ -39,7 +38,7 @@ class InnerItemViewPager : AppCompatActivity() {
 
             override fun getItem(position: Int): Fragment {
                 val item = itemList[position]
-                return SingleItemFragment.newInstance(iconController.getItemIconDrawable(item)!!)
+                return SingleItemFragment.newInstance(iconController.getItemIconWithFrameDrawable(item)!!)
             }
 
             override fun getCount(): Int {

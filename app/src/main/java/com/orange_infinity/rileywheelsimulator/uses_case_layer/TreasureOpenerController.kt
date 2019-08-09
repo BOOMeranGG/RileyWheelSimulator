@@ -26,6 +26,18 @@ class TreasureOpenerController(private val treasureItemsRepository: ItemsInTreas
         }
     }
 
+    fun gerRandomItem(secondItem: InnerItem?): InnerItem {
+        if (itemList.size == 1) {
+            return secondItem as InnerItem
+        }
+        while (true) {
+            val randItem = itemList[random.nextInt(itemList.size)]
+            if (randItem != secondItem) {
+                return randItem
+            }
+        }
+    }
+
     fun createItemSet(treasureName: String): List<InnerItem> {
         itemList = treasureItemsRepository.getItemsFromTreasure(treasureName).toMutableList()
         itemList.sort()
@@ -45,18 +57,6 @@ class TreasureOpenerController(private val treasureItemsRepository: ItemsInTreas
         }
         itemList.sort()
         return itemList
-    }
-
-    fun gerRandomItem(secondItem: InnerItem?): InnerItem {
-        if (itemList.size == 1) {
-            return secondItem as InnerItem
-        }
-        while (true) {
-            val randItem = itemList[random.nextInt(itemList.size)]
-            if (randItem != secondItem) {
-                return randItem
-            }
-        }
     }
 
     fun getLooserBetweenDoubleItems(first: InnerItem, second: InnerItem): InnerItem {
