@@ -2,6 +2,10 @@ package com.orange_infinity.rileywheelsimulator.uses_case_layer
 
 import com.orange_infinity.rileywheelsimulator.entities_layer.items.InnerItem
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.boundaries.output_db.ItemsInTreasureRepository
+import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
+import com.orange_infinity.rileywheelsimulator.util.logErr
+import com.orange_infinity.rileywheelsimulator.util.logInf
+import java.lang.RuntimeException
 import java.util.*
 
 class TreasureOpenerController(private val treasureItemsRepository: ItemsInTreasureRepository) {
@@ -22,11 +26,36 @@ class TreasureOpenerController(private val treasureItemsRepository: ItemsInTreas
                     }
                 }
             }
-            return items[random.nextInt(items.size)]
+
+            for (i in 0 until items.size - 1) {
+                val looser = chooseLooser(items[0], items[1])
+                items.remove(looser)
+            }
+            return items.first()
+        }
+
+        private fun chooseLooser(first: InnerItem, second: InnerItem): InnerItem {
+            val firstChance = first.priority
+            val secondChance = second.priority
+
+            val randNum = random.nextInt(firstChance + secondChance) + 1
+
+            return if (randNum <= firstChance) {
+                first
+            } else {
+                second
+            }
         }
     }
 
-    fun gerRandomItem(secondItem: InnerItem?): InnerItem {
+    fun getLooserBetweenTwoItems(first: InnerItem, second: InnerItem): InnerItem {
+        val looser = chooseLooser(first, second)
+
+        itemList.remove(looser)
+        return looser
+    }
+
+    fun getRandomItem(secondItem: InnerItem?): InnerItem {
         if (itemList.size == 1) {
             return secondItem as InnerItem
         }
@@ -57,17 +86,6 @@ class TreasureOpenerController(private val treasureItemsRepository: ItemsInTreas
         }
         itemList.sort()
         return itemList
-    }
-
-    fun getLooserBetweenDoubleItems(first: InnerItem, second: InnerItem): InnerItem {
-        val randNum = (Math.random() * 2).toInt()
-        val looser = if (randNum == 0) {
-            first
-        } else {
-            second
-        }
-        itemList.remove(looser)
-        return looser
     }
 
     fun isThisItemAlive(item: InnerItem): Boolean = (itemList.find { it.getName() == item.getName() } != null)

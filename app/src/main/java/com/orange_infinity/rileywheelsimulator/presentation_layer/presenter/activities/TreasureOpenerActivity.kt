@@ -181,25 +181,25 @@ class TreasureOpenerActivity : AppCompatActivity(), ViewSwitcher.ViewFactory, Vi
     }
 
     private fun createFrontImg() {
-        firstItem = openerController.gerRandomItem(null)
-        secondItem = openerController.gerRandomItem(firstItem)
+        firstItem = openerController.getRandomItem(null)
+        secondItem = openerController.getRandomItem(firstItem)
 
         imgFirstItem.setImageDrawable(iconController.getItemIconDrawable(firstItem))
         imgSecondItem.setImageDrawable(iconController.getItemIconDrawable(secondItem))
     }
 
     private fun removeLooserItem() {
-        val looser = openerController.getLooserBetweenDoubleItems(firstItem, secondItem)
+        val looser = openerController.getLooserBetweenTwoItems(firstItem, secondItem)
         logInf(MAIN_LOGGER_TAG, "Item ${looser.getName()} is lose")
 
         when (looser) {
             firstItem -> {
-                val newItem = openerController.gerRandomItem(secondItem)
+                val newItem = openerController.getRandomItem(secondItem)
                 imgFirstItem.setImageDrawable(iconController.getItemIconDrawable(newItem))
                 firstItem = newItem
             }
             secondItem -> {
-                val newItem = openerController.gerRandomItem(firstItem)
+                val newItem = openerController.getRandomItem(firstItem)
                 imgSecondItem.setImageDrawable(iconController.getItemIconDrawable(newItem))
                 secondItem = newItem
             }
