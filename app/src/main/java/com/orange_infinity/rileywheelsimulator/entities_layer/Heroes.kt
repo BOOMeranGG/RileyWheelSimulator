@@ -6,7 +6,7 @@ enum class Heroes {
     EarthSpirit, Earthshaker, ElderTitan, Huskar, Io, Kunkka, LegionCommander,
     Lifestealer, Lycan, Magnus, Mars, NightStalker, Omniknight, Phoenix,
     Pudge, SandKing, Slardar, SpiritBreaker, Sven, Tidehunter, Timbersaw,
-    Tiny, TreantProttector, Tusk, Underlord, Undying, WraithKing, AntiMage,
+    Tiny, TreantProtector, Tusk, Underlord, Undying, WraithKing, AntiMage,
     ArcWarden, Bloodseeker, BountyHunter, Broodmother, Clinkz, DrowRanger,
     EmberSpirit, FacelessVoid, Gyrocopter, Juggernaut, LoneDruid, Luna, Medusa,
     Meepo, Mirana, MonkeyKing, Morphling, NagaSiren, NyxAssasin, Pangolier,

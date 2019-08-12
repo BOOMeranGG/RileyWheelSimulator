@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorGray"
+    android:orientation="horizontal">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="16dp">
+
+
+        <android.support.percent.PercentRelativeLayout
+            android:id="@+id/mainInfoLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+
+            <ImageView
+                android:id="@+id/imgAvatar"
+                app:layout_widthPercent="20%"
+                app:layout_heightPercent="35%"
+                android:src="@drawable/dota2_logo"/>
+
+            <TextView
+                android:id="@+id/tvNickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/imgAvatar"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="8dp"
+                android:textColor="@color/colorBlack"
+                android:textStyle="bold"
+                android:textSize="22sp"
+                android:text="You"/>
+
+        </android.support.percent.PercentRelativeLayout>
+
+        <android.support.percent.PercentRelativeLayout
+            android:id="@+id/compendiumInfoLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+
+            <ImageView
+                android:id="@+id/imgGrade"
+                app:layout_widthPercent="20%"
+                app:layout_heightPercent="60%"
+                android:src="@drawable/navi"/>
+
+            <TextView
+                android:id="@+id/tvLevel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/imgGrade"
+                android:layout_marginStart="8dp"
+                android:textColor="@color/colorBlack"
+                android:textSize="18sp"
+                android:text="level"/>
+
+            <TextView
+                android:id="@+id/tvMoney"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/imgGrade"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="8dp"
+                android:textColor="@color/colorBlack"
+                android:textSize="18sp"
+                android:text="money"/>
+
+
+        </android.support.percent.PercentRelativeLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_margin="8dp"
+            android:gravity="center"
+            android:textColor="@color/colorBlack"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:text="This page is under construction. Compendium and rewards coming soon"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

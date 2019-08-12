@@ -17,6 +17,10 @@ class BotCreator(context: Context) {
         )
     }
 
+    fun randomTeam(): String {
+        return teamList[0]
+    }
+
     fun createNickname(): String {
         return nicknameCreator.createSingleNickname()
     }

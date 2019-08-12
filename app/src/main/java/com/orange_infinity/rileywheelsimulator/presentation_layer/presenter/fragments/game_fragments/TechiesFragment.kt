@@ -80,6 +80,7 @@ class TechiesFragment : Fragment(), TechiesGame, View.OnClickListener {
         btnClear.setOnClickListener {
             initGameField()
             updateRecycler()
+            isAddMoneyBtnEnabled(true)
             if (techiesEngine.gameStage != 0) {
                 userInfoController.changeUserMoney(techiesEngine.getPrize())
                 Toast.makeText(context, "You are WINNER! +${techiesEngine.getPrize()}$", Toast.LENGTH_LONG).show()
@@ -117,7 +118,6 @@ class TechiesFragment : Fragment(), TechiesGame, View.OnClickListener {
 
     //TODO("Довольно костыльная реализация. Исправить(открытие после проигрыша)")
     override fun loseGame(position: Int) {
-        isAddMoneyBtnEnabled(false)
         openCells(true)
         deleteMoneyIfItIsFirstTurn()
         soundPlayer.standardPlay(SOUND_MINES_BOOM)

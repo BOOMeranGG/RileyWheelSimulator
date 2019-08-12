@@ -25,6 +25,12 @@ fun logErr(tag: String, info: String, e: Exception) {
     }
 }
 
+fun logErr(tag: String, info: String) {
+    if (BuildConfig.DEBUG) {
+        Log.e(tag, info)
+    }
+}
+
 fun logWar(tag: String, info: String) {
     if (BuildConfig.DEBUG) {
         Log.w(tag, info)

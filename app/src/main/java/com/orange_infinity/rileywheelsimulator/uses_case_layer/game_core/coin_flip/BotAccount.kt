@@ -1,8 +1,9 @@
 package com.orange_infinity.rileywheelsimulator.uses_case_layer.game_core.coin_flip
 
 import android.content.Context
+import java.io.Serializable
 
-class BotAccount(playerMoney: Float = 0.0f, playerTeamName: String?, context: Context) {
+class BotAccount(playerMoney: Float = 0.0f, playerTeamName: String?, context: Context) : Serializable {
 
     private val botCreator = BotCreator(context)
     var chance = 50.0f

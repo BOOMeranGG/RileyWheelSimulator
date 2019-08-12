@@ -5,29 +5,38 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import com.orange_infinity.rileywheelsimulator.R
 import android.view.MotionEvent
 import android.view.animation.AlphaAnimation
-import android.widget.Button
-import android.widget.ImageSwitcher
-import android.widget.ViewSwitcher
+import android.widget.*
 import com.facebook.rebound.*
+import com.orange_infinity.rileywheelsimulator.data_layer.UserPreferencesImpl
 import com.orange_infinity.rileywheelsimulator.data_layer.db.InventoryRepositoryImpl
 import com.orange_infinity.rileywheelsimulator.entities_layer.items.Item
+import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.dialog_fragments.FindPickerRuleFragment
+import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.dialog_fragments.ItemPickerFragment
+import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.fragments.SYMBOL_MONEY
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.InventoryController
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.UserInfoController
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.IconController
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.SOUND_MINES_BOOM
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.SOUND_SHORT_FIREWORK
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.SoundPlayer
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.game_core.find_hero.FindHeroEngine
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.game_core.find_hero.FindHeroGame
+import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
+import com.orange_infinity.rileywheelsimulator.util.logInf
 import java.lang.RuntimeException
 
 private const val TENSION = 100.0
 private const val FRICTION = 30.0
+private const val TURN_TWO_PRIZE = 7.0f
+private const val RATE = 1.0f
+private const val ITEM_WINNER = "itemWinner"
+private const val INFO_RULES = "infoRules"
 
-class PuzzleFragment : Fragment(), View.OnTouchListener, SpringListener, ViewSwitcher.ViewFactory, FindHeroGame {
+class PuzzleFragment : Fragment(), View.OnTouchListener, SpringListener, ViewSwitcher.ViewFactory, FindHeroGame,
+    View.OnClickListener {
 
     private lateinit var img1: ImageSwitcher
     private lateinit var img2: ImageSwitcher
@@ -39,14 +48,18 @@ class PuzzleFragment : Fragment(), View.OnTouchListener, SpringListener, ViewSwi
     private lateinit var img8: ImageSwitcher
     private lateinit var img9: ImageSwitcher
     private lateinit var btnClear: Button
+    private lateinit var btnPickUp: Button
+    private lateinit var btnRules: Button
     private lateinit var soundPlayer: SoundPlayer
     private lateinit var springSystem: SpringSystem
     private lateinit var spring: Spring
     private lateinit var inventoryController: InventoryController
+    private lateinit var userInfoController: UserInfoController
 
     private var currentImg: ImageSwitcher? = null
     private var currentScaleX: Float = 0f
     private var currentScaleY: Float = 0f
+    private var isGameInStageTwo = false
 
     private var findHeroEngine: FindHeroEngine = FindHeroEngine(this)
 
@@ -62,9 +75,13 @@ class PuzzleFragment : Fragment(), View.OnTouchListener, SpringListener, ViewSwi
         val v = inflater.inflate(R.layout.fragment_find_hero, container, false)
         btnClear = v.findViewById(R.id.btnClear)
         btnClear.setOnClickListener {
-            resetImages()
-            findHeroEngine.newGame()
+            prepareNewGame()
         }
+
+        btnPickUp = v.findViewById(R.id.btnPickUp)
+        btnPickUp.setOnClickListener(this)
+        btnRules = v.findViewById(R.id.btnRules)
+        btnRules.setOnClickListener(this)
 
         setImg(v)
         soundPlayer = SoundPlayer.getInstance(context?.applicationContext)
@@ -77,26 +94,40 @@ class PuzzleFragment : Fragment(), View.OnTouchListener, SpringListener, ViewSwi
         spring.springConfig = SpringConfig(TENSION, FRICTION)
 
         findHeroEngine.newGame()
-
         inventoryController = InventoryController(InventoryRepositoryImpl.getInstance(activity?.applicationContext))
+        userInfoController = UserInfoController(
+            activity, UserPreferencesImpl(), InventoryRepositoryImpl.getInstance(activity?.applicationContext)
+        )
 
         return v
+    }
+
+    override fun gameStart(position: Int) {
+        userInfoController.changeUserMoney(RATE * -1)
+        val item = findHeroEngine.gameField[position] ?: return
+        changeIcon(currentImg!!, item)
+        logInf(MAIN_LOGGER_TAG, "User rate is $RATE")
     }
 
     override fun winTurn(position: Int) {
         val item = findHeroEngine.gameField[position] ?: return
         changeIcon(currentImg!!, item)
+        isGameInStageTwo = !isGameInStageTwo
     }
 
     override fun winGame(winningItem: Item) {
         openAllCells(findHeroEngine.gameField)
         soundPlayer.standardPlay(SOUND_SHORT_FIREWORK)
         inventoryController.addItem(winningItem)
+
+        val dialog = ItemPickerFragment.newInstance(winningItem, 1)
+        dialog.show(activity?.supportFragmentManager, ITEM_WINNER)
     }
 
     override fun loseGame() {
         openAllCells(findHeroEngine.gameField)
         soundPlayer.standardPlay(SOUND_MINES_BOOM)
+        isGameInStageTwo = false
     }
 
     override fun onTouch(v: View?, event: MotionEvent?): Boolean {
@@ -139,6 +170,27 @@ class PuzzleFragment : Fragment(), View.OnTouchListener, SpringListener, ViewSwi
         val img = ImageView(context)
         img.scaleType = ImageView.ScaleType.CENTER_CROP
         return img
+    }
+
+    override fun onClick(v: View) {
+        if (v.id == R.id.btnPickUp) {
+            if (!isGameInStageTwo) {
+                return
+            }
+            userInfoController.changeUserMoney(TURN_TWO_PRIZE)
+            prepareNewGame()
+            Toast.makeText(context, "You pick up prize $TURN_TWO_PRIZE$SYMBOL_MONEY", Toast.LENGTH_LONG).show()
+        } else if (v.id == R.id.btnRules) {
+            val dialog = FindPickerRuleFragment.newInstance()
+            dialog.show(activity?.supportFragmentManager, INFO_RULES)
+            logInf(MAIN_LOGGER_TAG, "Show game rules")
+        }
+    }
+
+    private fun prepareNewGame() {
+        isGameInStageTwo = false
+        findHeroEngine.newGame()
+        resetImages()
     }
 
     private fun resetImages() {

@@ -11,15 +11,11 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.orange_infinity.rileywheelsimulator.R
-import com.orange_infinity.rileywheelsimulator.data_layer.UserPreferencesImpl
-import com.orange_infinity.rileywheelsimulator.data_layer.db.InventoryRepositoryImpl
 import com.orange_infinity.rileywheelsimulator.entities_layer.items.Treasure
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.activities.TREASURE_COUNT
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.activities.TREASURE_OBJECT
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.activities.TREASURE_OPENER
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.activities.TreasureOpenerActivity
-import com.orange_infinity.rileywheelsimulator.uses_case_layer.InventoryController
-import com.orange_infinity.rileywheelsimulator.uses_case_layer.UserInfoController
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.IconController
 import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logInf
@@ -59,7 +55,10 @@ class TreasurePickerFragment : DialogFragment(), View.OnClickListener {
         btnSell.text = "Open"
         btnOk.setOnClickListener(this)
 
-        imgItem.setImageDrawable(IconController.getInstance(context?.applicationContext).getItemIconDrawable(treasure))
+        imgItem.setImageDrawable(
+            IconController.getInstance(context?.applicationContext)
+                .getItemIconWithFrameDrawable(treasure)
+        )
         tvCost.text = "${treasure.getCost()}$"
         tvItemName.text = treasure.getItemName()
         tvRarity.text = treasure.getRarity()

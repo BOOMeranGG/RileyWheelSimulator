@@ -8,23 +8,21 @@
     android:layout_gravity="center"
     android:layout_weight="1">
 
-
     <android.support.percent.PercentRelativeLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/imgNickname"
-            app:layout_widthPercent="50%"
+            android:id="@+id/imgTeam"
+            app:layout_widthPercent="35%"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:src="@drawable/ninjas_in_pyjams"/>
 
         <TextView
             android:id="@+id/tvName"
-            android:layout_marginStart="8dp"
-            android:layout_below="@id/imgNickname"
+            android:layout_below="@id/imgTeam"
             app:layout_widthPercent="50%"
             android:gravity="center"
             android:layout_height="wrap_content"
@@ -35,9 +33,23 @@
             android:text="You"/>
 
         <TextView
+            android:id="@+id/tvBotName"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@id/imgTeam"
+            android:layout_above="@id/tvCountOfItems"
+            android:layout_marginBottom="8dp"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
+            android:textStyle="normal"
+            android:textSize="16sp"
+            android:text="BotName"/>
+
+        <TextView
             android:id="@+id/tvCountOfItems"
             android:layout_marginStart="8dp"
-            android:layout_toEndOf="@id/imgNickname"
+            android:layout_toEndOf="@id/imgTeam"
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

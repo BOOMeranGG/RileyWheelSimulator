@@ -17,10 +17,14 @@ import com.orange_infinity.rileywheelsimulator.uses_case_layer.game_core.coin_fl
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.SOUND_MINES_BOOM
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.SOUND_SHORT_FIREWORK
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.SoundPlayer
+import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
+import com.orange_infinity.rileywheelsimulator.util.logInf
 import kotlin.collections.ArrayList
 
 const val TEAM_NAME_KEY = "teamName"
 const val IMAGE_ID_KEY = "imageId"
+const val IS_BOT_CREATED_KEY = "isBotCreated"
+const val BOT_OBJECT_KEY = "botObject"
 
 class CoinFlipRoomActivity : AppCompatActivity(), View.OnClickListener, AsyncFlip.GameResultListener {
 
@@ -58,8 +62,14 @@ class CoinFlipRoomActivity : AppCompatActivity(), View.OnClickListener, AsyncFli
 
         imgFirstPlayer.setImageResource(imgId)
 
-        roomCreator = CoinFlipRoomCreator(this, teamName, totalCost)
-        createBot()
+        if (intent.getBooleanExtra(IS_BOT_CREATED_KEY, false)) {
+            logInf(MAIN_LOGGER_TAG, "Join bot in the room")
+            botAccount = intent.getSerializableExtra(BOT_OBJECT_KEY) as BotAccount
+        } else {
+            logInf(MAIN_LOGGER_TAG, "Creating and join bot in the room")
+            roomCreator = CoinFlipRoomCreator(this, teamName, totalCost)
+            createBot()
+        }
         asyncFlip = AsyncFlip(this)
     }
 
