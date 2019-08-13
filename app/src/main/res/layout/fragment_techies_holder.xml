@@ -27,7 +27,11 @@
                 android:id="@+id/btnClear"
                 android:text="Clear"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:textColor="@color/colorWhite"
+                android:textScaleX="1.25"
+                android:background="@drawable/button_background"/>
 
             <TextView
                 android:id="@+id/tvMoneyBet"
@@ -43,8 +47,12 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_below="@id/tvMoneyBet"
+                android:layout_marginStart="2dp"
                 android:textStyle="normal"
                 android:textSize="12sp"
+                android:textColor="@color/colorWhite"
+                android:textScaleX="1.25"
+                android:background="@drawable/button_background"
                 android:text="+10$"/>
 
             <Button
@@ -53,8 +61,12 @@
                 android:layout_height="50dp"
                 android:layout_below="@id/tvMoneyBet"
                 android:layout_toEndOf="@id/btnAddTen"
+                android:layout_marginStart="8dp"
                 android:textStyle="normal"
                 android:textSize="12sp"
+                android:textColor="@color/colorWhite"
+                android:textScaleX="1.25"
+                android:background="@drawable/button_background"
                 android:text="+50$"/>
 
             <Button
@@ -62,8 +74,13 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_below="@id/btnAddFifty"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="2dp"
                 android:textStyle="normal"
                 android:textSize="12sp"
+                android:textColor="@color/colorWhite"
+                android:textScaleX="1.25"
+                android:background="@drawable/button_background"
                 android:text="+100$"/>
 
         </RelativeLayout>

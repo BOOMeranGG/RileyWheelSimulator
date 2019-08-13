@@ -11,6 +11,9 @@
         app:layout_widthPercent="60%"
         app:layout_heightPercent="30%"
         android:layout_margin="8dp"
+        android:textColor="@color/colorWhite"
+        android:textScaleX="1.25"
+        android:background="@drawable/button_background"
         android:text="Place bet"/>
 
     <Button
@@ -20,6 +23,9 @@
         android:layout_margin="16dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
+        android:textColor="@color/colorWhite"
+        android:textScaleX="1.25"
+        android:background="@drawable/button_background"
         android:text="Casino"/>
 
     <Button
@@ -30,6 +36,9 @@
         android:layout_below="@id/btnController"
         android:textStyle="normal"
         android:textSize="12sp"
+        android:textColor="@color/colorWhite"
+        android:textScaleX="1.25"
+        android:background="@drawable/button_background"
         android:text="+10$"/>
 
     <Button
@@ -38,8 +47,12 @@
         android:layout_height="60dp"
         android:layout_below="@id/btnController"
         android:layout_toEndOf="@id/btnAddTen"
+        android:layout_marginStart="8dp"
         android:textStyle="normal"
         android:textSize="12sp"
+        android:textColor="@color/colorWhite"
+        android:textScaleX="1.25"
+        android:background="@drawable/button_background"
         android:text="+50$"/>
 
     <Button
@@ -48,8 +61,12 @@
         android:layout_height="60dp"
         android:layout_marginStart="8dp"
         android:layout_below="@id/btnAddFifty"
+        android:layout_marginTop="8dp"
         android:textStyle="normal"
         android:textSize="12sp"
+        android:textColor="@color/colorWhite"
+        android:textScaleX="1.25"
+        android:background="@drawable/button_background"
         android:text="+100$"/>
 
 
