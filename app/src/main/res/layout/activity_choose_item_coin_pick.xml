@@ -36,18 +36,26 @@
         <Button
             android:id="@+id/btnCancel"
             android:layout_height="wrap_content"
-            app:layout_widthPercent="40%"
-            android:layout_alignParentBottom="true"
+            app:layout_widthPercent="44%"
             app:layout_marginLeftPercent="5%"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="8dp"
+            android:textColor="@color/colorWhite"
+            android:textScaleX="1.25"
+            android:background="@drawable/button_background"
             android:text="CANCEL"/>
 
         <Button
             android:id="@+id/btnReady"
-            app:layout_widthPercent="40%"
+            app:layout_widthPercent="44%"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             app:layout_marginRightPercent="5%"
+            android:layout_marginBottom="8dp"
+            android:textColor="@color/colorWhite"
+            android:textScaleX="1.25"
+            android:background="@drawable/button_background"
             android:text="READY"/>
 
     </android.support.percent.PercentRelativeLayout>

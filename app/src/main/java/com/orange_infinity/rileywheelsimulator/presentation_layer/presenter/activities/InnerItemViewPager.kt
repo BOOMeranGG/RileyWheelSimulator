@@ -38,7 +38,7 @@ class InnerItemViewPager : AppCompatActivity() {
 
             override fun getItem(position: Int): Fragment {
                 val item = itemList[position]
-                return SingleItemFragment.newInstance(iconController.getItemIconWithFrameDrawable(item)!!)
+                return SingleItemFragment.newInstance(iconController.getItemIconDrawableWithBox(item)!!)
             }
 
             override fun getCount(): Int {

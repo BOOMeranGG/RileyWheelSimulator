@@ -61,7 +61,7 @@ class ItemPickerFragment : DialogFragment(), View.OnClickListener {
 
         imgItem.setImageDrawable(
             IconController.getInstance(context?.applicationContext)
-                .getItemIconWithFrameDrawable(item)
+                .getItemIconDrawableWithBox(item)
         )
         tvCost.text = "${item.getCost()}$"
         tvItemName.text = item.getItemName()

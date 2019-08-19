@@ -64,7 +64,7 @@ class TreasureFragment : InventoryTreasureFragment() {
             itemLayout.setOnClickListener(this)
 
             imgItem.setImageDrawable(
-                IconController.getInstance(context?.applicationContext).getItemIconWithFrameDrawable(treasure)
+                IconController.getInstance(context?.applicationContext).getItemIconDrawableWithBox(treasure)
             )
         }
 
