@@ -5,7 +5,7 @@ import android.view.MotionEvent
 import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logInf
 
-class TouchHandler(val view: RileyWheelView) : GestureDetector.SimpleOnGestureListener() {
+class WheelTouchHandler(val view: RileyWheelView) : GestureDetector.SimpleOnGestureListener() {
 
     private val gestureDetector = GestureDetector(view.context, this)
     var listener: RileyWheelView.Listener? = null

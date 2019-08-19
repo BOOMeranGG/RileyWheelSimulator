@@ -57,7 +57,7 @@ class TreasurePickerFragment : DialogFragment(), View.OnClickListener {
 
         imgItem.setImageDrawable(
             IconController.getInstance(context?.applicationContext)
-                .getItemIconWithFrameDrawable(treasure)
+                .getItemIconDrawableWithBox(treasure)
         )
         tvCost.text = "${treasure.getCost()}$"
         tvItemName.text = treasure.getItemName()

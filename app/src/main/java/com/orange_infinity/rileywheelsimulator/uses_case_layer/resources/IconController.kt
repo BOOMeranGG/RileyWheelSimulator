@@ -23,7 +23,7 @@ private const val TREASURE_FOLDER = "/treasure"
 private const val INNER_ITEMS_FOLDER = "/inner_items"
 private const val SET_ITEMS_FOLDER = "/set_items"
 private const val GRADE = "/grade"
-private const val FRAME_SIZE = 1.1
+private const val FRAME_SIZE_MULTIPLIER = 1.1
 
 class IconController private constructor(context: Context?) {
 
@@ -47,10 +47,10 @@ class IconController private constructor(context: Context?) {
         return getDrawableFromAsset(prefix, item.getName())
     }
 
-    fun getItemIconWithFrameDrawable(item: Item): Drawable? {
+    fun getItemIconDrawableWithBox(item: Item): Drawable? {
         val prefix = createPrefix(item)
         val iconDrawable = getDrawableFromAsset(prefix, item.getName()) ?: return null
-        return setFrameToDrawable(iconDrawable, item)
+        return setBoxToDrawable(iconDrawable, item)
     }
 
     fun getGradeDrawable(grade: Grade): Drawable? {
@@ -85,10 +85,10 @@ class IconController private constructor(context: Context?) {
         return null
     }
 
-    private fun setFrameToDrawable(iconDrawable: Drawable, item: Item): Drawable {
+    private fun setBoxToDrawable(iconDrawable: Drawable, item: Item): Drawable {
         val iconBitmap = (iconDrawable as BitmapDrawable).bitmap
-        val newWidth = (iconBitmap.width * FRAME_SIZE).toInt()
-        val newHeight = (iconBitmap.height * FRAME_SIZE).toInt()
+        val newWidth = (iconBitmap.width * FRAME_SIZE_MULTIPLIER).toInt()
+        val newHeight = (iconBitmap.height * FRAME_SIZE_MULTIPLIER).toInt()
 
         val color = getColorFromPrefix(item)
         val backgroundBitmap = Bitmap.createBitmap(newWidth, newHeight, Bitmap.Config.ARGB_8888)
@@ -96,8 +96,8 @@ class IconController private constructor(context: Context?) {
 
 
         val canvas = Canvas(backgroundBitmap)
-        val widthIndent = (iconBitmap.width * ((FRAME_SIZE - 1) / 2)).toInt()
-        val heightIndent = (iconBitmap.height * ((FRAME_SIZE - 1) / 2)).toInt()
+        val widthIndent = (iconBitmap.width * ((FRAME_SIZE_MULTIPLIER - 1) / 2)).toInt()
+        val heightIndent = (iconBitmap.height * ((FRAME_SIZE_MULTIPLIER - 1) / 2)).toInt()
         iconDrawable.bounds = Rect(
             widthIndent, heightIndent,
             iconBitmap.width + widthIndent, iconBitmap.height + heightIndent

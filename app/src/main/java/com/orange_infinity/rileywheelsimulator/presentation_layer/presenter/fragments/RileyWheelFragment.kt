@@ -6,8 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.orange_infinity.rileywheelsimulator.R
 import com.orange_infinity.rileywheelsimulator.data_layer.db.InventoryRepositoryImpl
-import com.orange_infinity.rileywheelsimulator.entities_layer.items.Item
+import com.orange_infinity.rileywheelsimulator.entities_layer.items.*
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.riley_wheel_view.RileyWheelView
+import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.rouletteView.RouletteView
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.SOUND_RILEY_PLAY
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.RileyItemController
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.SoundPlayer
@@ -18,8 +19,21 @@ import android.view.LayoutInflater as LayoutInflater1
 class RileyWheelFragment : Fragment() {
 
     private lateinit var rileyWheelViewController: RileyWheelView
+    private lateinit var rouletteViewController: RouletteView
     private lateinit var rileyItemController: RileyItemController
     private lateinit var soundPlayer: SoundPlayer
+    private val itemList = listOf<Item>(
+        Arcana.BladesOfVothDomosh,
+        Courier.BlottoAndStick,
+        Arcana.TempestHelmOfTheThundergod,
+        Treasure.ImmortalTreasureI2016,
+        SetItem.BindingsOfFrost,
+        Arcana.FrostAvalanche,
+        Courier.Itsy,
+        Courier.Mok,
+        SetItem.Bladesrunner,
+        SetItem.ChainedMistress
+    )
 
     companion object {
         fun newInstance(): RileyWheelFragment = RileyWheelFragment()
@@ -34,6 +48,7 @@ class RileyWheelFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater1, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val v = inflater.inflate(R.layout.fragment_riley_wheel, container, false)
         rileyWheelViewController = v.findViewById(R.id.wheelViewController)
+        rouletteViewController = v.findViewById(R.id.rouletteViewController)
 
         var newItem: Item?
         rileyWheelViewController.setListener(object : RileyWheelView.Listener() {
@@ -41,9 +56,16 @@ class RileyWheelFragment : Fragment() {
                 newItem = rileyItemController.addRandomItem()
                 logInf(MAIN_LOGGER_TAG, "Add new item: " + newItem.toString())
                 soundPlayer.standardPlay(SOUND_RILEY_PLAY)
+
+                rouletteViewController.startMoveWithWinnerThirdFromEnd(itemList)
             }
         })
 
         return v
+    }
+
+    override fun onPause() {
+        super.onPause()
+        rouletteViewController.stopMove()
     }
 }

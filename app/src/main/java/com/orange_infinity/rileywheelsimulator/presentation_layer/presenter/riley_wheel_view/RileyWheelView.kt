@@ -4,18 +4,17 @@ import android.content.Context
 import android.graphics.Canvas
 import android.util.AttributeSet
 import android.view.MotionEvent
-import android.view.View
+import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.baseView.BaseView
 import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
-import com.orange_infinity.rileywheelsimulator.util.convertToPx
 import com.orange_infinity.rileywheelsimulator.util.logInf
 
 private const val DP_DEFAULT_WIDTH = 72
 private const val DP_DEFAULT_HEIGHT = 350
 
-class RileyWheelView(context: Context, attrs: AttributeSet) : View(context, attrs) {
+class RileyWheelView(context: Context, attrs: AttributeSet) : BaseView(context, attrs) {
 
-    private val drawer = Drawer(this)
-    private val touchHandler = TouchHandler(this)
+    private val drawer = WheelDrawer(this)
+    private val touchHandler = WheelTouchHandler(this)
     var positionY = 0
 
     override fun onDraw(canvas: Canvas) {
@@ -46,18 +45,6 @@ class RileyWheelView(context: Context, attrs: AttributeSet) : View(context, attr
 
     fun setListener(listener: Listener) {
         touchHandler.listener = listener
-    }
-
-    private fun resolveMeasureSpec(measureSpec: Int, dpDefault: Int): Int {
-        val mode = MeasureSpec.getMode(measureSpec)
-        if (mode == MeasureSpec.EXACTLY) {
-            return measureSpec
-        }
-        var defaultSize = convertToPx(dpDefault, resources)
-        if (mode == MeasureSpec.AT_MOST) {
-            defaultSize = Math.min(defaultSize, MeasureSpec.getSize(measureSpec))
-        }
-        return MeasureSpec.makeMeasureSpec(defaultSize, MeasureSpec.EXACTLY)
     }
 
     open class Listener {
