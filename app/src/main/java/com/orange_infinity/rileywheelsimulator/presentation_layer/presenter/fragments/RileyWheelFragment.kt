@@ -32,7 +32,13 @@ class RileyWheelFragment : Fragment() {
         Courier.Itsy,
         Courier.Mok,
         SetItem.Bladesrunner,
-        SetItem.ChainedMistress
+        SetItem.ChainedMistress,
+        Arcana.BladesOfVothDomosh,
+        Courier.BlottoAndStick,
+        Arcana.TempestHelmOfTheThundergod,
+        Treasure.ImmortalTreasureI2016, // WINNER!
+        Arcana.FrostAvalanche,
+        Courier.Itsy                    // NUMBER 16
     )
 
     companion object {
@@ -57,7 +63,11 @@ class RileyWheelFragment : Fragment() {
                 logInf(MAIN_LOGGER_TAG, "Add new item: " + newItem.toString())
                 soundPlayer.standardPlay(SOUND_RILEY_PLAY)
 
-                rouletteViewController.startMoveWithWinnerThirdFromEnd(itemList)
+                if (rouletteViewController.isStarted) {
+                    rouletteViewController.clearView()
+                } else {
+                    rouletteViewController.startMoveWithWinnerThirdFromEnd(itemList, 1f)
+                }
             }
         })
 

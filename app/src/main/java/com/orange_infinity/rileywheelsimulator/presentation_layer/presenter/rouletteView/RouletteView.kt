@@ -17,13 +17,14 @@ class RouletteView(context: Context, attrs: AttributeSet) : BaseView(context, at
     private var iconController = IconController.getInstance(context)
     private var drawer = RouletteDrawer(this, iconController)
     private lateinit var itemList: List<Item>
-    var scrollSpeed = 0
+    var isStarted = false
+    var scrollSpeed = 0f
 
     override fun onDraw(canvas: Canvas) {
-        if (scrollSpeed == 0) {
+        if (scrollSpeed == 0f) {
             drawer.drawStatic(canvas, context)
         } else {
-            drawer.startMove(itemList, canvas)
+            drawer.startMove(canvas, itemList)
         }
     }
 
@@ -34,14 +35,17 @@ class RouletteView(context: Context, attrs: AttributeSet) : BaseView(context, at
         super.onMeasure(resolvedWidthSpec, resolvedHeightSpec)
     }
 
-    override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
-        super.onLayout(changed, left, top, right, bottom)
+    fun clearView() {
+        scrollSpeed = 0f
+        isStarted = false
+        stopMove()
+        invalidate()
     }
 
-
-    fun startMoveWithWinnerThirdFromEnd(itemList: List<Item>) {
+    fun startMoveWithWinnerThirdFromEnd(itemList: List<Item>, scrollSpeed: Float) {
         this.itemList = itemList
-        scrollSpeed = 1
+        isStarted = true
+        this.scrollSpeed = scrollSpeed
         invalidate()
         logInf(MAIN_LOGGER_TAG, "Start moving RouletteView")
     }
