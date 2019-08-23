@@ -6,7 +6,7 @@ import android.util.AttributeSet
 import com.orange_infinity.rileywheelsimulator.entities_layer.items.Item
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.baseView.BaseView
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.IconController
-import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
+import com.orange_infinity.rileywheelsimulator.util.ANIMATION_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logInf
 
 private const val DP_DEFAULT_WIDTH = 500
@@ -14,9 +14,10 @@ private const val DP_DEFAULT_HEIGHT = 145
 
 class RouletteView(context: Context, attrs: AttributeSet) : BaseView(context, attrs) {
 
+    private lateinit var itemList: List<Item>
+    private lateinit var rouletteHandler: RouletteHandler
     private var iconController = IconController.getInstance(context)
     private var drawer = RouletteDrawer(this, iconController)
-    private lateinit var itemList: List<Item>
     var isStarted = false
     var scrollSpeed = 0f
 
@@ -42,16 +43,27 @@ class RouletteView(context: Context, attrs: AttributeSet) : BaseView(context, at
         invalidate()
     }
 
-    fun startMoveWithWinnerThirdFromEnd(itemList: List<Item>, scrollSpeed: Float) {
+    fun startMoveWithWinnerThirdFromEnd(rouletteHandler: RouletteHandler, itemList: List<Item>, scrollSpeed: Float) {
+        this.rouletteHandler = rouletteHandler
         this.itemList = itemList
         isStarted = true
         this.scrollSpeed = scrollSpeed
         invalidate()
-        logInf(MAIN_LOGGER_TAG, "Start moving RouletteView")
+        logInf(ANIMATION_LOGGER_TAG, "Start moving RouletteView")
     }
 
     fun stopMove() {
         drawer.stopMove()
         drawer = RouletteDrawer(this, iconController)
+    }
+
+    fun endMove() {
+        rouletteHandler.onRouletteMoveEnd()
+        logInf(ANIMATION_LOGGER_TAG, "Roulette move completed")
+    }
+
+    interface RouletteHandler {
+
+        fun onRouletteMoveEnd()
     }
 }

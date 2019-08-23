@@ -78,7 +78,7 @@ class InventoryFragment : InventoryTreasureFragment() {
         override fun onClick(v: View?) {
             logInf(MAIN_LOGGER_TAG, "Item \"${item.getItemName()}\" was clicked")
             val dialog = ItemPickerFragment.newInstance(item, itemCount)
-            dialog.setTargetFragment(thisFragment, TEST_REQUEST_CODE) // ??
+            dialog.setTargetFragment(thisFragment, TEST_REQUEST_CODE)
             dialog.show(fragmentManager, ITEM_PICKER)
         }
     }

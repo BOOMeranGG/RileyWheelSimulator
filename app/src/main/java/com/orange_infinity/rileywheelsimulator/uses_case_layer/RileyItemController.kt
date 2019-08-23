@@ -13,9 +13,9 @@ class RileyItemController(private val inventoryRepository: InventoryRepository) 
     private val commentatorChance = 98
     private val arcanaChance = 100
 
-    fun addRandomItem(): Item {
+    fun getRandomItem(): Item {
         val rand = Math.random() * 100
-        val item = when {
+        return when {
             rand < setChance -> SetItem.AcidHydra.getRandomItem()
             rand < treasureChance -> Treasure.GenuineTreasureOfTheShatteredHourglass.getRandomItem()
             rand < courierChance -> Courier.AlphidOfLecaciida.getRandomItem()
@@ -26,10 +26,12 @@ class RileyItemController(private val inventoryRepository: InventoryRepository) 
                 Treasure.BlessedLuckvessel.getRandomItem()
             }
         }
+    }
+
+    fun saveRileyItem(item: Item) {
         inventoryRepository.saveRileyItem(item)
         if (item is Treasure) {
             inventoryRepository.saveRileyItem(item)
         }
-        return item
     }
 }

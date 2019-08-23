@@ -10,11 +10,10 @@ import com.orange_infinity.rileywheelsimulator.R
 import com.orange_infinity.rileywheelsimulator.entities_layer.items.Item
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.baseView.BaseDrawer
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.IconController
-import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
+import com.orange_infinity.rileywheelsimulator.util.ANIMATION_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.convertToPx
 import com.orange_infinity.rileywheelsimulator.util.logInf
 import java.util.*
-import java.util.concurrent.TimeUnit
 
 private const val COUNT_OF_VISIBLE_ITEMS = 4
 private const val DRAWABLE_CLOSE_ITEM = R.drawable.dota2_logo
@@ -140,13 +139,14 @@ class RouletteDrawer(
             }
             if (indentPx >= indentLength) {
                 refreshTimer()
+                view.endMove()
             }
         }
 
         private fun updateUi(indentPx: Int) {
             view.invalidate()
             logInf(
-                MAIN_LOGGER_TAG,
+                ANIMATION_LOGGER_TAG,
                 "indent = $indent, indentPx = $indentPx frameStandardMovingSize = $frameStandardMovingSize, " +
                         "indentLength = $indentLength, acceleration = $acceleration"
             )

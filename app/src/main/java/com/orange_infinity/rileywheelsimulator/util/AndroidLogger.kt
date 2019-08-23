@@ -6,6 +6,7 @@ import com.orange_infinity.rileywheelsimulator.BuildConfig
 const val MAIN_LOGGER_TAG : String = "MainLoggerTag"
 const val DB_LOGGER_TAG : String = "DataBaseLoggerTag"
 const val CASINO_LOGGER_TAG : String = "CasinoLoggerTag"
+const val ANIMATION_LOGGER_TAG : String = "CasinoLoggerTag"
 
 fun logInf(tag: String, info: String) {
     if (BuildConfig.DEBUG) {
