@@ -41,7 +41,6 @@ enum class SetItem(private val itemName: String, private val cost: Float, val he
     FrozenEmperor("Frozen Emperor", 5f, Lich, Rarity.RARE),
     FrozenFeather("Frozen Feather", 5f, CrystalMaiden, Rarity.RARE),
     FungalLord("Fungal Lord", 5f, NaturesProphet, MYTHICAL),
-    //GhastlyMatriarch("Ghastly Matriarch", 5f, DeathProphet, Rarity.RARE),
     HiddenFlower("Hidden Flower", 5f, TemplarAssassin, Rarity.RARE),
     HumbleDrifter("Humble Drifter", 5f, PhantomLancer, Rarity.RARE),
     HunterOfKings("Hunter of Kings", 5f, Lycan, MYTHICAL),

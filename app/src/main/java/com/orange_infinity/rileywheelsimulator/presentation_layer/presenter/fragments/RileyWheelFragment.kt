@@ -1,5 +1,6 @@
 package com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.View
@@ -21,6 +22,7 @@ import android.view.LayoutInflater as LayoutInflater1
 
 private const val COUNT_OF_ITEMS = 16
 private const val WINNER_POSITION = 13
+private const val TEST_REQUEST_CODE = 1
 private const val TREASURE_PICKER = "treasurePicker"
 private const val ITEM_PICKER = "itemPicker"
 
@@ -55,11 +57,7 @@ class RileyWheelFragment : Fragment(), RouletteView.RouletteHandler {
                 rileyItemController.saveRileyItem(winnerItem)
                 logInf(MAIN_LOGGER_TAG, "Add new item: $winnerItem")
 
-                if (rouletteViewController.isStarted) {
-                    rouletteViewController.clearView()
-                } else {
-                    rouletteViewController.startMoveWithWinnerThirdFromEnd(this@RileyWheelFragment, itemList, 1f)
-                }
+                rouletteViewController.startMoveWithWinnerThirdFromEnd(this@RileyWheelFragment, itemList, 1f)
             }
         })
 
@@ -69,16 +67,24 @@ class RileyWheelFragment : Fragment(), RouletteView.RouletteHandler {
     override fun onPause() {
         super.onPause()
         rouletteViewController.stopMove()
-        soundPlayer.standardPlay(SOUND_SHORT_FIREWORK)
     }
 
     override fun onRouletteMoveEnd() {
         if (winnerItem is Treasure) {
             val dialog = TreasurePickerFragment.newInstance(winnerItem as Treasure, 1)
+            dialog.setTargetFragment(this, TEST_REQUEST_CODE)
             dialog.show(fragmentManager, TREASURE_PICKER)
         } else {
             val dialog = ItemPickerFragment.newInstance(winnerItem, 1)
+            dialog.setTargetFragment(this, TEST_REQUEST_CODE)
             dialog.show(fragmentManager, ITEM_PICKER)
+        }
+        soundPlayer.standardPlay(SOUND_SHORT_FIREWORK)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == TEST_REQUEST_CODE) {
+            rouletteViewController.clearView()
         }
     }
 

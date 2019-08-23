@@ -1,5 +1,6 @@
 package com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.dialog_fragments
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
@@ -90,5 +91,14 @@ class TreasurePickerFragment : DialogFragment(), View.OnClickListener {
                 dismiss()
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        sendResult()
+    }
+
+    private fun sendResult() {
+        targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_OK, Intent())
     }
 }
