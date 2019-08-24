@@ -5,7 +5,7 @@ import android.graphics.Canvas
 import android.util.AttributeSet
 import android.view.MotionEvent
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.baseView.BaseView
-import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
+import com.orange_infinity.rileywheelsimulator.util.ANIMATION_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logInf
 
 private const val DP_DEFAULT_WIDTH = 72
@@ -31,7 +31,7 @@ class RileyWheelView(context: Context, attrs: AttributeSet) : BaseView(context, 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         super.onLayout(changed, left, top, right, bottom)
         positionY = 1
-        logInf(MAIN_LOGGER_TAG, "positionY = $positionY")
+        logInf(ANIMATION_LOGGER_TAG, "positionY = $positionY")
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {

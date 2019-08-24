@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".presentation_layer.presenter.activities.CoinFlipActivity"
-    android:layout_margin="8dp"
+    android:padding="8dp"
+    android:background="@color/colorGray"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -51,7 +52,6 @@
         android:layout_width="match_parent"
         app:layout_heightPercent="73%"
         android:layout_below="@id/relativeTop"
-        android:background="@color/colorPrimary"
         android:orientation="horizontal" />
 
 

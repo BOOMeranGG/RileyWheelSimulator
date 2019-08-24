@@ -1,5 +1,6 @@
 package com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.View
@@ -7,33 +8,31 @@ import android.view.ViewGroup
 import com.orange_infinity.rileywheelsimulator.R
 import com.orange_infinity.rileywheelsimulator.data_layer.db.InventoryRepositoryImpl
 import com.orange_infinity.rileywheelsimulator.entities_layer.items.*
+import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.dialog_fragments.ItemPickerFragment
+import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.dialog_fragments.TreasurePickerFragment
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.riley_wheel_view.RileyWheelView
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.rouletteView.RouletteView
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.SOUND_RILEY_PLAY
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.RileyItemController
+import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.SOUND_SHORT_FIREWORK
 import com.orange_infinity.rileywheelsimulator.uses_case_layer.resources.SoundPlayer
 import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logInf
 import android.view.LayoutInflater as LayoutInflater1
 
-class RileyWheelFragment : Fragment() {
+private const val COUNT_OF_ITEMS = 16
+private const val WINNER_POSITION = 13
+private const val TEST_REQUEST_CODE = 1
+private const val TREASURE_PICKER = "treasurePicker"
+private const val ITEM_PICKER = "itemPicker"
+
+class RileyWheelFragment : Fragment(), RouletteView.RouletteHandler {
 
     private lateinit var rileyWheelViewController: RileyWheelView
     private lateinit var rouletteViewController: RouletteView
     private lateinit var rileyItemController: RileyItemController
     private lateinit var soundPlayer: SoundPlayer
-    private val itemList = listOf<Item>(
-        Arcana.BladesOfVothDomosh,
-        Courier.BlottoAndStick,
-        Arcana.TempestHelmOfTheThundergod,
-        Treasure.ImmortalTreasureI2016,
-        SetItem.BindingsOfFrost,
-        Arcana.FrostAvalanche,
-        Courier.Itsy,
-        Courier.Mok,
-        SetItem.Bladesrunner,
-        SetItem.ChainedMistress
-    )
+    private lateinit var winnerItem: Item
 
     companion object {
         fun newInstance(): RileyWheelFragment = RileyWheelFragment()
@@ -50,14 +49,15 @@ class RileyWheelFragment : Fragment() {
         rileyWheelViewController = v.findViewById(R.id.wheelViewController)
         rouletteViewController = v.findViewById(R.id.rouletteViewController)
 
-        var newItem: Item?
         rileyWheelViewController.setListener(object : RileyWheelView.Listener() {
             override fun onScrollEnded(positionY: Int) {
-                newItem = rileyItemController.addRandomItem()
-                logInf(MAIN_LOGGER_TAG, "Add new item: " + newItem.toString())
+                val itemList = createRandomItemList()
+                winnerItem = itemList[WINNER_POSITION]
                 soundPlayer.standardPlay(SOUND_RILEY_PLAY)
+                rileyItemController.saveRileyItem(winnerItem)
+                logInf(MAIN_LOGGER_TAG, "Add new item: $winnerItem")
 
-                rouletteViewController.startMoveWithWinnerThirdFromEnd(itemList)
+                rouletteViewController.startMoveWithWinnerThirdFromEnd(this@RileyWheelFragment, itemList, 1f)
             }
         })
 
@@ -67,5 +67,32 @@ class RileyWheelFragment : Fragment() {
     override fun onPause() {
         super.onPause()
         rouletteViewController.stopMove()
+    }
+
+    override fun onRouletteMoveEnd() {
+        if (winnerItem is Treasure) {
+            val dialog = TreasurePickerFragment.newInstance(winnerItem as Treasure, 1)
+            dialog.setTargetFragment(this, TEST_REQUEST_CODE)
+            dialog.show(fragmentManager, TREASURE_PICKER)
+        } else {
+            val dialog = ItemPickerFragment.newInstance(winnerItem, 1)
+            dialog.setTargetFragment(this, TEST_REQUEST_CODE)
+            dialog.show(fragmentManager, ITEM_PICKER)
+        }
+        soundPlayer.standardPlay(SOUND_SHORT_FIREWORK)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == TEST_REQUEST_CODE) {
+            rouletteViewController.clearView()
+        }
+    }
+
+    private fun createRandomItemList(): List<Item> {
+        val itemList = mutableListOf<Item>()
+        for (i in 0 until COUNT_OF_ITEMS) {
+            itemList.add(rileyItemController.getRandomItem())
+        }
+        return itemList
     }
 }

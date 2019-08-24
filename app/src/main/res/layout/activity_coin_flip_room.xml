@@ -99,7 +99,7 @@
         <android.support.percent.PercentRelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorAccent"
+            android:background="@color/color_darker_gray"
             android:layout_weight="1">
 
             <ImageView

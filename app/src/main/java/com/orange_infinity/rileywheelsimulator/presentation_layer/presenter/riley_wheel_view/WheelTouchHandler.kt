@@ -2,7 +2,7 @@ package com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.ril
 
 import android.view.GestureDetector
 import android.view.MotionEvent
-import com.orange_infinity.rileywheelsimulator.util.MAIN_LOGGER_TAG
+import com.orange_infinity.rileywheelsimulator.util.ANIMATION_LOGGER_TAG
 import com.orange_infinity.rileywheelsimulator.util.logInf
 
 class WheelTouchHandler(val view: RileyWheelView) : GestureDetector.SimpleOnGestureListener() {
@@ -17,7 +17,7 @@ class WheelTouchHandler(val view: RileyWheelView) : GestureDetector.SimpleOnGest
                 listener?.onScrollEnded(view.positionY)
             }
             returnView()
-            logInf(MAIN_LOGGER_TAG, "Down event triggered(RileyWheelView), positionY = ${view.positionY}")
+            logInf(ANIMATION_LOGGER_TAG, "Down event triggered(RileyWheelView), positionY = ${view.positionY}")
         }
         return true
     }
@@ -28,7 +28,7 @@ class WheelTouchHandler(val view: RileyWheelView) : GestureDetector.SimpleOnGest
         if (e2.y <= maxY && e2.y >= minY) {
             view.moveSlider(e2.y.toInt())
             listener?.onScrollSateChanged(view.positionY)
-            logInf(MAIN_LOGGER_TAG, "On Scroll event triggered(RileyWheelView), y = ${e2.y}, minY = $minY, maxY = $maxY")
+            logInf(ANIMATION_LOGGER_TAG, "On Scroll event triggered(RileyWheelView), y = ${e2.y}, minY = $minY, maxY = $maxY")
         }
         return true
     }

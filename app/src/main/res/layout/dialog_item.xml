@@ -1,98 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.percent.PercentRelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/color_darker_gray"
     android:layout_marginTop="16dp">
 
     <ImageView
         android:id="@+id/imgItem"
-        android:layout_width="175dp"
-        android:layout_height="175dp"
-        android:layout_marginStart="16dp"
+        app:layout_widthPercent="80%"
+        app:layout_heightPercent="80%"
+        android:layout_centerHorizontal="true"
         android:src="@drawable/dota2_logo"/>
-
-    <RelativeLayout
-        android:id="@+id/staticRelative"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/imgItem">
-
-        <TextView
-            android:id="@+id/tvRar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:textSize="18sp"
-            android:textColor="@color/colorBlack"
-            android:text="Rarity: "/>
-
-        <TextView
-            android:id="@+id/tvCos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_below="@id/tvRar"
-            android:textSize="18sp"
-            android:textColor="@color/colorBlack"
-            android:text="Cost: "/>
-
-        <TextView
-            android:id="@+id/tvIt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_below="@id/tvCos"
-            android:textSize="18sp"
-            android:textColor="@color/colorBlack"
-            android:text="Item name: "/>
-
-    </RelativeLayout>
-
-
-    <TextView
-        android:id="@+id/tvRarity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_toEndOf="@id/staticRelative"
-        android:layout_marginTop="16dp"
-        android:textSize="16sp"
-        android:layout_marginStart="8dp"
-        android:hint="rarity"/>
-
-    <TextView
-        android:id="@+id/tvCost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_toEndOf="@id/staticRelative"
-        android:layout_below="@id/tvRarity"
-        android:layout_marginTop="16dp"
-        android:textSize="16sp"
-        android:layout_marginStart="8dp"
-        android:hint="cost"/>
-
-    <TextView
-        android:id="@+id/tvItemName"
-        android:textSize="16sp"
-        android:layout_marginTop="16dp"
-        android:layout_toEndOf="@id/staticRelative"
-        android:layout_below="@id/tvCost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:hint="Item name"/>
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/imgItem"
+        app:layout_marginTopPercent="2%"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp">
 
@@ -120,4 +46,4 @@
             android:layout_weight="1"/>
 
     </LinearLayout>
-</RelativeLayout>
+</android.support.percent.PercentRelativeLayout>
