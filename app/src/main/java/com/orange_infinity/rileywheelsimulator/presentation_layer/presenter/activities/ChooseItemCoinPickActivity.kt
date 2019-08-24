@@ -10,10 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import com.orange_infinity.rileywheelsimulator.R
 import com.orange_infinity.rileywheelsimulator.data_layer.db.InventoryRepositoryImpl
 import com.orange_infinity.rileywheelsimulator.entities_layer.ItemBox
@@ -158,7 +155,7 @@ class ChooseItemCoinPickActivity : AppCompatActivity(), View.OnClickListener {
         private val tvItemName: TextView = itemView.findViewById(R.id.tvItemName)
         private val tvCount: TextView = itemView.findViewById(R.id.tvCount)
         private val imgItem: ImageView = itemView.findViewById(R.id.imgItem)
-        private val itemLayout: LinearLayout = itemView.findViewById(R.id.itemLayout)
+        private val itemLayout: RelativeLayout = itemView.findViewById(R.id.itemLayout)
         private lateinit var item: Item
         var itemCount: Int = 1
 

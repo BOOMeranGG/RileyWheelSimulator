@@ -12,7 +12,8 @@
         android:id="@+id/inventoryRecycler"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:background="@color/colorGray">
 
 
     </android.support.v7.widget.RecyclerView>
@@ -20,8 +21,8 @@
     <android.support.percent.PercentRelativeLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimary"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:background="@color/color_darker_gray">
 
         <android.support.v7.widget.GridLayout
             android:id="@+id/pickItemList"

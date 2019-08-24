@@ -12,6 +12,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.orange_infinity.rileywheelsimulator.R
+import com.orange_infinity.rileywheelsimulator.entities_layer.items.Item
 import com.orange_infinity.rileywheelsimulator.entities_layer.items.Treasure
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.activities.TREASURE_COUNT
 import com.orange_infinity.rileywheelsimulator.presentation_layer.presenter.activities.TREASURE_OBJECT
@@ -24,9 +25,6 @@ import com.orange_infinity.rileywheelsimulator.util.logInf
 class TreasurePickerFragment : DialogFragment(), View.OnClickListener {
 
     private lateinit var imgItem: ImageView
-    private lateinit var tvCost: TextView
-    private lateinit var tvItemName: TextView
-    private lateinit var tvRarity: TextView
     private lateinit var btnSell: Button
     private lateinit var btnOk: Button
 
@@ -46,9 +44,6 @@ class TreasurePickerFragment : DialogFragment(), View.OnClickListener {
         logInf(MAIN_LOGGER_TAG, "TreasurePickerFragment for ${treasure.getItemName()} was created")
 
         imgItem = v.findViewById(R.id.imgItem)
-        tvCost = v.findViewById(R.id.tvCost)
-        tvItemName = v.findViewById(R.id.tvItemName)
-        tvRarity = v.findViewById(R.id.tvRarity)
         btnSell = v.findViewById(R.id.btnSell)
         btnOk = v.findViewById(R.id.btnOk)
 
@@ -60,13 +55,10 @@ class TreasurePickerFragment : DialogFragment(), View.OnClickListener {
             IconController.getInstance(context?.applicationContext)
                 .getItemIconDrawableWithBox(treasure)
         )
-        tvCost.text = "${treasure.getCost()}$"
-        tvItemName.text = treasure.getItemName()
-        tvRarity.text = treasure.getRarity()
 
         return AlertDialog.Builder(activity)
             .setView(v)
-            .setTitle("Item info")
+            .setTitle(setTitleName(treasure))
             .setCancelable(true)
             .create()
     }
@@ -98,7 +90,16 @@ class TreasurePickerFragment : DialogFragment(), View.OnClickListener {
         sendResult()
     }
 
+    override fun onStart() {
+        super.onStart()
+        dialog?.window?.setBackgroundDrawableResource(android.R.color.darker_gray)
+    }
+
     private fun sendResult() {
         targetFragment?.onActivityResult(targetRequestCode, Activity.RESULT_OK, Intent())
+    }
+
+    private fun setTitleName(item: Item): String {
+        return "${item.getItemName()}: ${item.getRarity()}"
     }
 }

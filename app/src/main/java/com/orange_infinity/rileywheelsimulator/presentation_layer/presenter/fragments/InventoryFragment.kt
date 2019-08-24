@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import android.widget.TextView
 import com.orange_infinity.rileywheelsimulator.R
 import com.orange_infinity.rileywheelsimulator.entities_layer.ItemBox
@@ -55,7 +56,7 @@ class InventoryFragment : InventoryTreasureFragment() {
         private val tvItemName: TextView = itemView.findViewById(R.id.tvItemName)
         private val tvCount: TextView = itemView.findViewById(R.id.tvCount)
         private val imgItem: ImageView = itemView.findViewById(R.id.imgItem)
-        private val itemLayout: LinearLayout = itemView.findViewById(R.id.itemLayout)
+        private val itemLayout: RelativeLayout = itemView.findViewById(R.id.itemLayout)
         private lateinit var item: Item
         var itemCount: Int = 1
 
