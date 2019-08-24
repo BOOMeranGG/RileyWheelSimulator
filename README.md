@@ -2,7 +2,7 @@
 
 Симулятор открытия сундуков и колеса Рилай для игры DotA2. Возможности игры:
 
-  1.) *Прокрутка колеса Рилай(рулетка):* ![!](https://github.com/BOOMeranGG/RileyWheelSimulator/blob/master/screenshots/1.jpg) ![](https://github.com/BOOMeranGG/RileyWheelSimulator/blob/master/screenshots/2.jpg)
+  1.) **Прокрутка колеса Рилай(рулетка):** ![!](https://github.com/BOOMeranGG/RileyWheelSimulator/blob/master/screenshots/1.jpg) ![](https://github.com/BOOMeranGG/RileyWheelSimulator/blob/master/screenshots/2.jpg)
   2.) **Открытие сундуков:** ![](https://github.com/BOOMeranGG/RileyWheelSimulator/blob/master/screenshots/3.jpg) ![](https://github.com/BOOMeranGG/RileyWheelSimulator/blob/master/screenshots/4.jpg) ![](https://github.com/BOOMeranGG/RileyWheelSimulator/blob/master/screenshots/5.jpg)
   3.) **Просмотр инвентаря:** ![](https://github.com/BOOMeranGG/RileyWheelSimulator/blob/master/screenshots/6.jpg) ![](https://github.com/BOOMeranGG/RileyWheelSimulator/blob/master/screenshots/7.jpg)
   4.) **Предметы можно продать, получив виртуальную валюту и начать играть в "казино":**
